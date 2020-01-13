@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>What is the truth?</title>
+	<script type="text/javascript">
+		
+	window.addEventListener("load", function(){
+
+
+		var x;
+		x = false; //F
+		x = true; //T
+		x = 1; //T
+		x = 0; //F
+		x = ""; //F
+		x = ["apples", "oranges", "bananas"]; //T
+		x = []; //T
+		x = {firstName: "Jeb", lastName: "Smith"}; //T
+		x = {}; //T
+		x = null; //F
+		x; //F
+		x = document.getElementById("main-header"); // what happens if we don't wait for the window load event //T
+		x = document.getElementById("man-header"); //F
+
+
+		if(x){
+			alert("TRUE!");
+		}else{
+			alert("FALSE!");
+		}
+		
+		/*
+		// This causes me a lot of distress, but the results will be different if you 
+		// change the boolean expression to look like this:
+		if(x == true){
+			alert("TRUE!");
+		}else{
+			alert("FALSE!");
+		}
+		*/
+
+
+
+		/*
+		// We could try it like this too.....
+		if(someFunction()){
+			alert("TRUE!");
+		}else{
+			alert("FALSE!");
+		}
+
+		function someFunction(){
+	
+			var x;
+			//x = false;
+			//x = true;
+			//x = 1;
+			//x = 0;
+			//x = "";
+			//x = ["apples", "oranges", "bananas"];
+			//x = [];
+			//x = {firstName: "Jeb", lastName: "Smith"};
+			//x = {};
+			//x = null;
+			//x;
+			//x = document.getElementById("main-header"); // what happens if we don't wait for the window load event
+			//x = document.getElementById("man-header");
+
+			return x
+		}
+		*/
+	});
+
+	</script>
+</head>
+<body>
+	<h1 id="main-header">What is the truth?</h1>
+</body>
+</html>

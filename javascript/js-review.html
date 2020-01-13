@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <script>
+
+  // remember what this is for?
+  window.addEventListener('load', function(){
+
+    // here's our data
+    var data = [
+      {id:1, firstName:"Bob", lastName:"Smith", departments:["Sales", "IT"]},
+      {id:2, firstName:"Jenny", lastName:"Johnson", departments:["Marketing", "Service"]},
+      {id:3, firstName:"Tom", lastName:"Anderson", departments:["Finance","Service"]},
+      {id:4, firstName:"Julie", lastName:"Smith", departments:["Sales","Marketing"]}
+    ];
+
+    // we'll put our code here...
+    var list = document.createElement("ol");
+    document.getElementById("emp-list").appendChild(list);
+    
+
+    for(var x = 0; x < data.length; x++){
+      var emp = data[x];
+      var li = document.createElement("li");
+      var div = document.createElement("div");
+      var h3 = document.createElement("h3");
+      h3.innerHTML = emp.lastName + "," + " " + emp.firstName;
+      
+      li.appendChild(h3);
+      list.appendChild(li);
+    }
+  });
+  </script>
+</head>
+<body>
+  <h1>Employees</h1>
+  <div id="emp-list"></div>
+  <p>
+    When did you last write any JavaScript code?
+    Let's knock the rust off by starting a little data-driven program that displays a list of employees.
+  </p>
+  <p>
+    You have to understand the data before you can do anything useful with it, so let's get started by looking at the script tag at the top of this page.
+  </p>
+</body>
+</html>
