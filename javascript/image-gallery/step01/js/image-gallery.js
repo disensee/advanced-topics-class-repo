@@ -7,15 +7,30 @@ window.addEventListener('load', function(){
     "../images/Tulips.jpg"
   ];
 
+  var animalImages = [
+    "../images/Jellyfish.jpg",
+    "../images/Koala.jpg",
+    "../images/Penguins.jpg"
+  ];
+
   // The 'target' (the tag in the page that will display our images)
-  var mainImg = document.getElementById("mainImg");
+  if(document.title == "Landscapes"){
+    var mainImg = document.getElementById("mainImg");
+  }else if(this.document.title == "Animals"){
+    var mainImg = this.document.getElementById("mainAnimalImg");
+  }
   
   // set up a 'counter' variable to display the 'current' image
   var currentImg = 0;
   
   // display the first image
-  mainImg.src = images[currentImg];
-
+  if(document.title == "Landscapes"){
+    mainImg.src = images[currentImg];
+  }else if(this.document.title == "Animals"){
+    mainImg.src = animalImages[currentImg];
+  }
+  
+  
   // get handles on the buttons
   var btnPrev = document.getElementById("btnPrev");
   var btnNext = document.getElementById("btnNext");
@@ -26,7 +41,11 @@ window.addEventListener('load', function(){
     if(currentImg == images.length){
        currentImg = 0;     
     }
-    mainImg.src = images[currentImg];
+    if(document.title == "Landscapes"){
+      mainImg.src = images[currentImg];
+    }else if(document.title == "Animals"){
+      mainImg.src = animalImages[currentImg];
+    }
   });
 
   btnPrev.addEventListener('click', function(){
@@ -34,7 +53,11 @@ window.addEventListener('load', function(){
     if(currentImg == -1){
         currentImg = images.length -1;    
     }
-    mainImg.src = images[currentImg];
+    if(document.title == "Landscapes"){
+      mainImg.src = images[currentImg];
+    }else if(document.title == "Animals"){
+      mainImg.src = animalImages[currentImg];
+    }
   });
 
 
