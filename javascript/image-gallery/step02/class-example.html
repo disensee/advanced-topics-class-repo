@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Image Gallery Module</title>
+  <meta name="description" content="Pictures of Landscapes">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" type="text/css" href="styles/image-gallery.css">
+  <script type="text/javascript" src="js/ImageGallery.js"></script>
+  <script type="text/javascript">
+    window.addEventListener('load', function(){
+      
+      // When the page finishes loading, we initialize the modules that are used on the page
+
+      let images = [ "../images/Desert.jpg", "../images/Lighthouse.jpg", "../images/Tulips.jpg" ];
+      let container = document.getElementById("image-gallery-container");
+      let ig = new ImageGallery(container, images);
+
+    });
+  </script>
+</head>
+<body>  
+
+
+  <!--this div will be the 'target' of our image gallery-->
+  <div id="image-gallery-container"></div>
+  <p>
+	I decided to tryout the JavaScript class syntax to create this module.
+	<br>
+	Check out the code in ImageGallery.js.
+	<br>
+	You should google 'let' to see how it differs from using 'var'!
+  </p>
+  
+
+  
+</body>
+</html>
+
+
