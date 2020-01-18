@@ -125,20 +125,24 @@
       The ImageGallery() function takes two parameters. 
       Explain why these parameters help to make our modules flexible?
       <pre>
-Put your answer here.
+The two parameters that are passed into the ImageGallery() function make our modules flexible by allowing the image gallery to be placed in any HTML element on the page, as well as allowing us to pass 
+in any array of images we want. This is a better way to build the gallery as we do not have to duplicate any code to set up image galleries on multiple pages. Rather we can just call the function to 
+build the gallery. 
       </pre>
     </li>
     <li>
       What would happen if we passed in an invalid argument (parameter) into the ImageGallery?
       For example what if the images parameter was not an array, or what if the container was not a valid HTML element?
       <pre>
-Put your answer here.
+If the images parameter is not an array, the image gallery displays a broken image icon. The image gallery code is not set up to handle anything that is not an array of images. If the container is not a 
+valid HTML element, the image gallery does not display on the page.
       </pre>
     </li>
     <li>
       Why did we update the HTML markup and CSS to use classes instead of IDs?
       <pre>
-Put your answer here.
+Class selectors are being used instead of IDs because the image gallery is now set up to be used anywhere. It could be used more than once on a page, or on several different pages. IDs should be unique identifiers,
+and the CSS/HTML could be pointing to multiple image galleries. 
       </pre>
     </li>
   </ul>

@@ -6,6 +6,18 @@
   <title>Animals</title>
   <meta name="description" content="Pictures of Animals">
   <meta name="viewport" content="width=device-width">
+  <script type="text/javascript" src="js/image-gallery.js"></script>
+  <script type="text/javascript">
+  window.addEventListener('load', function(){
+    var imgContainer = document.getElementById("animal-pics");
+    var animalImages = ["../images/Koala.jpg", "../images/Jellyfish.jpg", "../images/Penguins.jpg"];
+
+    //TEST -- delete when done
+   
+
+    ImageGallery(animalPics, animalImages);
+  });
+  </script>
 </head>
 <body>  
 	<h1>Animal Pictures</h1>
