@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Image Gallery Module</title>
+  <meta name="description" content="Pictures of Landscapes">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" type="text/css" href="styles/image-gallery.css">
+  <script type="text/javascript" src="js/image-gallery.js"></script>
+  <script type="text/javascript">
+    window.addEventListener('load', function(){
+      
+      // When the page finishes loading, we initialize the modules that are used on the page
+
+      var images = [ "../images/Desert.jpg", "../images/Lighthouse.jpg", "../images/Tulips.jpg" ];
+      var container = document.getElementById("image-gallery-container");
+      ImageGallery(container, images);
+
+    });
+  </script>
+</head>
+<body>  
+	<h1>Writing Modular Code</h1>
+
+  <!--this div will be the 'target' of our image gallery-->
+  <div id="image-gallery-container"></div>
+
+  <h3>What is Modular Code?</h3>
+  <p>
+    We are going to turn our image gallery code into a <b>module</b>.
+    Note that 'module' is a loaded term. Like many other terms in programming, it can mean different things
+    in different languages. If you asked a few programmers what a module is, you'd probably get different answers.
+	To make things even more confusing, JavaScript added a keyword/construct named 'module' just a few versions ago.
+  </p>
+  <p>
+    Here is the definition of 'modular programming' according to Wikipedia:
+  </p>
+  <p>
+    <i>
+    Modular programming is a software design technique that emphasizes separating the functionality of a programme into independent, interchangeable modules, such that each contains everything necessary to execute only one aspect of the desired functionality. 
+    </i>
+  </p>
+  <p>
+    This sounds like a mouthfull, but hopefully by the time you complete this assignment, it will make more sense.
+    Here's another definition of a module (according to webopedia.com):
+  </p>
+  <p>
+    <i>
+      A module is a part of a program. Programs are composed of one or more independently developed modules that are not combined until the program is linked.
+    </i>
+  </p>
+  <p>
+    As this course progresses, we will create many modules and eventually link them together to create working applications.
+    Note that one of greatest things about modular code is that it can be re-used in different places without the need to duplicate code.
+    Remember that you should avoid duplicating code! Duplicate code leads to maintenance nightmares and opens the door for buggy programs (we can discuss this in class if you are unclear about the problems that duplicate code presents). 
+  </p>
+  <p>
+    Different programming languages have different approaches for creating modules.
+    For example, in Java and C# you can organize your code into classes. Classes can be thought of as modules because they are used to organize your code into logical parts.
+	Actually, you could argue that a function is a module because it organizes multiple lines of code that can be executed together.
+    In the past, JavaScript did not support classes, but the latest version of JavaScript (ES6) now supports classes.  
+	So until very recently, JavaScript developers found ways to simulate classes by using functions (we'll explore some of these techniques throughout this course).
+  </p>
+  <p>
+    Note that if you search the web for info on modules and JavaScript you may get various explanations (because modern JavaScript has a construct called a 'module' which is not exactly the same as a class = CONFUSING!).
+  </p>
+
+  <h3>Code Review</h3>
+  <ul>
+    <li>
+      <p>
+      First look at the <b>image-gallery.js</b> file (in the step02 folder) and note that we've created a function called ImageGallery.
+      It takes two parameters, the first is the element from the HTML document that will contain the image gallery.
+      The second param has the data that we wish to display (an array of images).
+      These two params allow our module to have a lot of flexibility.
+      Remember that in our original code (in step 1), the values in images array was hard-coded into our .js file, which made it difficult to reuse that .js file in different pages.
+      We can now display any images, and we can also 'target' any tag on a page to be the container for our image gallery.
+	  The point is that passing parameters into functions is a great way to write flexible code!
+      </p>
+    </li>
+    <li>
+      <p>
+      Note that the window.addEventListener() method call has been removed from the .js file and moved into this page.
+      Let's take a look at whats inside that bit of code on this page (look at the script tag at the top of this page).
+      This page will wait until it finishes loading, and then initialize the image gallery by invoking the ImageGallery function.
+      </p>
+    </li>
+    <li>
+      <p>
+      Note that the css code has changed.
+      The .css file has been renamed since it specifically contains styles related to the image gallery module. 
+      Instead of using ID selectors, we are now using class selectors.
+      We did this so that you could potentially put two image galleries on the same page
+      (remember that IDs should be unique).
+      </p>
+    </li>
+    <li>
+      Note that this module is a bit limited because we really have no way to interact with the image gallery after it has been initialized and injected into the page.
+      For example, if wanted to add new images to the gallery after it has already been created, we don't have a good way to do it.
+      Right now our module is sort of like 'set it and forget it'.
+      But we'll soon create modules that we can interact with.
+    </li>
+  </ul>
+
+  <h3>Assignment - Part 1</h3>
+  <p>
+    Use the ImageGallery module to add an image gallery to the <b>animals.html</b> page in this folder (it should display the Koala, Jellyfish, Penguins pictures).
+    You don't need to make any changes to the image-gallery.js. Instead, you can give it all the information it needs by passing parameters into the ImageGallery() function.
+    So on the animals.html page, you will have to add a SCRIPT tag that does the following:
+  </p>
+  <ol>
+    <li>Waits for the page to complete loading before initializing the image gallery</li>
+    <li>Creates a variable that 'gets a handle' on the tag/element in the page that will contain the image gallery (use the div on the page that has an ID set to 'animal-pics'</li>
+    <li>Creates a variable that stores an array of images (actually, the array will contain strings, where each string is a path to one of the images)</li>
+    <li>Invoke the ImageGallery() function and passes the two variables in as parameters</li>
+  </ol>
+
+  <h3>Assignment - Part 2</h3>
+  <p>
+    Answer the following questions.
+  </p>
+  <ul>
+    <li>
+      The ImageGallery() function takes two parameters. 
+      Explain why these parameters help to make our modules flexible?
+      <pre>
+The two parameters that are passed into the ImageGallery() function make our modules flexible by allowing the image gallery to be placed in any HTML element on the page, as well as allowing us to pass 
+in any array of images we want. This is a better way to build the gallery as we do not have to duplicate any code to set up image galleries on multiple pages. Rather we can just call the function to 
+build the gallery. 
+      </pre>
+    </li>
+    <li>
+      What would happen if we passed in an invalid argument (parameter) into the ImageGallery?
+      For example what if the images parameter was not an array, or what if the container was not a valid HTML element?
+      <pre>
+If the images parameter is not an array, the image gallery displays a broken image icon. The image gallery code is not set up to handle anything that is not an array of images. If the container is not a 
+valid HTML element, the image gallery does not display on the page.
+      </pre>
+    </li>
+    <li>
+      Why did we update the HTML markup and CSS to use classes instead of IDs?
+      <pre>
+Class selectors are being used instead of IDs because the image gallery is now set up to be used anywhere. It could be used more than once on a page, or on several different pages. IDs should be unique identifiers,
+and the CSS/HTML could be pointing to multiple image galleries. 
+      </pre>
+    </li>
+  </ul>
+  <h3>Assignment - Part 3</h3>
+  <p>
+	I tried out the new JavaScript class syntax and create a class called ImageGallery.js (in the js folder).
+	I instantiated the class in class-example.html.
+	Check it out and let me know if you have questions (I'm just getting started with the class syntax in JavaScript, so we can all learn about it together).
+  </p>
+
+  
+</body>
+</html>
+
+
