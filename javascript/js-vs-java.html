@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Java vs JavaScript</title>
+	<style type="text/css">
+		
+		body{
+			font-family: verdana;
+			padding: 20px;
+		}
+
+		pre{
+			background-color: #333;
+			padding: 20px;
+			margin-bottom: 6px;
+			color:yellow;
+			border-radius: 12px;
+		}
+
+		p{line-height: 1.4rem;}
+	</style>
+</head>
+<body>
+
+<h1>Fundamental Differences Between JavaScript and Java</h1>
+<p>
+	If you've had a little bit of experience with both Java and JavaScript, then this article may help to clear up some of the differences the two languages.
+	A word of caution: one thing about programming that can be very confusing for beginners is that some of the terms are used loosely.
+	And a term may mean something different depending on which language you are speaking about.
+	This 'term confusion' is apparent in many of the topics discussed in in this article.
+	I would actually bet that even many experienced programmers are confused about some of the terms mentioned below, such as: <b>static, strongly typed, dynamic, loosely typed</b>.
+</p>
+<h2>Java is Compiled (and Interpreted), JavaScript is Interpreted</h2>
+<p>
+	In Java, source code is compiled into bytecode. Then, any computer that has the Java Runtine Environment (aka the JVM) can run/execute the bytecode.
+	The JVM interprets the byte code into machine code.
+</p>
+<p>
+	JavaScript code is not compiled. Instead the source code is typically sent from a web server to a browser.
+	The browser then interprets the source code into machine code, and then executes the machine code.
+	Remember that all code (whether it's source code, byte code, or some other type of code) must eventually be translated into machine code before a computer can execute it.
+</p>
+<p>
+	What is the difference between 'compiled' and 'interpreted'? 
+	A compiler will check your code for correctness before converting it from source code to some type of binary code, it does not execute the program.
+	An interpreter is a program (such as a browser, or the JVM) that will convert some type of code into machine code and then execute the machine code.
+	An interpreter is also known as a 'runtime environment'.
+	So the JVM is the runtime environment for Java byte code, and a browser is the run time envirnment for code used in web pages (HTML, CSS, and JavaScript).
+</p>
+<h2>Loosely Typed vs Strong Typing</h2>
+	
+<p>In JavaScript you don't have to specify the data types for variables (variables are <b>loosely typed</b>).</p>
+
+<pre>
+// JavaScript
+
+var x = 7;
+</pre>
+
+<p>In Java you must specify the type of data that a variable will store when it is declared (variables are <b>strongly typed</b>).</p>
+
+<pre>
+// Java
+
+int x = 7; 
+</pre>
+	
+<p>In JavaScript you can assign any type of data to a variable (some call this <b>dynamic typing</b>):</p>
+
+<pre>
+// JavaScript
+
+var x = 7;      // x is storing a number
+x = "hello";    // now x is storing a string			
+</pre>
+
+<p>
+	In Java, the compiler will not allow you to change the data type that a variable is storing (some call this <b>static typing</b>).
+</p>
+
+<pre>
+// Java
+
+int x = 7;
+x = "hello";  // Will not compile! You are trying to shove a string into x, which was declared to store ints.
+</pre>
+	
+<p>In JavaScript you can pass any data type as an argument.</p>
+
+<pre>
+// JavaScript
+
+function add(x,y){
+   alert(x + y);
+}
+
+add(2,3);
+add("hello", "world");
+add(1, "hello");
+</pre>
+<p>In Java you must pass in the proper data type.</p>
+<pre>
+// Java
+
+public void add(int x, int y){
+   System.out.println(x + y);
+}
+
+add("hello", "world"); // Will not compile! (the add() method requires both params to be ints)
+</pre>
+<p>
+	Note how using strong typing (and compiling) can prevent runtime errors. 
+	In Java, if you misuse a method by passing in the wrong type you'll get a compile error.
+	But in JavaScript, you can actually run the program, if the parameters are not the right data type, then the function may not work as intended.
+</p>
+		
+
+<h2>Dynamic Objects vs Predefined Classes</h2> 
+
+<p>In JavaScript, objects can be created and defined at run time (objects are dynamic).</p>
+
+<pre>
+// JavaScript
+
+var obj = {}; 				// just created an object (no class needed!)
+var obj.firstName = "Bob"; 	// just added a property to the object
+
+var propName = prompt("What property would you like to add to the object?");
+var propValue = prompt("What value would you like to assign to the property");
+
+obj[propName] = propValue;
+</pre>
+	
+<p>Java objects must be created from predefined classes. The compiler ensures that every object is created from a class (some people call this 'static typing' - I'm actually still a bit confused about what static typing really means!).</p>
+
+<h2>JavaScript is Functional (Higher Order Functions)</h2>
+<p>
+	JavaScript is considered a 'functional' language, which means that you can do things with functions that other languages don't allow.
+	Functions in JavaScript are known as 'higher order'. Some people say that in JavaScript, functions are treated as 'first class citizens' because you can do some of the same things with them that you can do with variables.
+	Note that over the years, there has been a developing trend toward functional programming.
+	As Java has evolved, it has begun to incorporate some of the features of functional programming.
+</p>
+<p>There are 3 basic features of higher order functions:</p>
+<ol>
+	<li>Functions can be assigned to variables.</li>
+	<li>Functions can be used as paramters.</li>
+	<li>Functions can be returned.</li>
+</ol>
+
+<h3>Functions can be assigned to variables (and to properties of objects).</h3>
+<pre>
+// JavaScript
+
+var fn = function(){
+   alert("foo!");
+};
+
+// to invoke the function...
+fn();
+</pre>
+	
+<h3>Functions can be passed in as params.</h3>
+<p>If you've gone beyond just scratching the surface of JavaScript, then this code will look familiar to you:</p>
+<pre>
+window.addEventListener("load", function(){ /*code goes here*/ });
+</pre>
+<p>
+	This code sample invokes the addEventListener() method of the window object.
+	Notice that addEventListener() takes to parameters, this first is a string, and the second is an function.
+	The function will be invoked by the browser when the window triggers the 'load' event.
+</p>
+	
+	
+<h3>Functions can be used as return values.</h3>
+<pre>
+var passFn = function(){
+   alert("You passed!");
+};
+
+var failFn = function(){
+   alert("You failed!");
+};
+
+function getResult(grade){
+   if(grade > 70){
+      return passFn;
+   }else{
+      return failFn;
+   }
+}
+
+var resultFn = getResult(75);
+resultFn();
+</pre>
+<h3>Functions can be nested inside of other functions</h3>
+<p>
+	In Java, you cannot declare/define a method inside another method.
+	But in JavaScript it's very common to 'nest' functions.
+</p>
+<pre>
+window.addEventListener("click", function(){
+   
+   function sayHello(){
+      alert("Hello!");
+   }
+
+   sayHello();
+
+});
+</pre>
+
+<h2>An Important Similarity between Java and JavaScript</h2>
+<p>
+	JavaScript and Java behave the same when it comes to variables that store primitives and variables that refer to objects.
+</p>
+<pre>
+var x = 7;		// The variable x is storing the value 7
+var obj = {};		// The variable obj is storing a memory address of an object.
+</pre>
+<p>Note that object variables are said to be 'references' because that store a memory address that refers to an object.</p>
+<p>
+	Remember from Intro to Java that when you pass a primitive variable as a parameter to a method, a copy of the variable's value is created so as to leave the original value unchanged.
+	Here is a JavaScript code sample that demonstrates the same behavior.
+</p>
+<pre>
+var x = 7;
+
+function someFn(param){
+   param += 3;
+}
+
+someFn(x);	// A copy of the value of x is created 
+alert(x);  	// x is still 7 
+</pre>
+<p>
+	But parameters that refer to objects are different, what's really getting passed is a copy of a memory address (the address of the object).
+	So, in the code sample below both <b>obj</b> and <b>param</b> are refering to the same memory address.
+</p>
+<pre>
+var obj = {name: "Bob"};
+
+function someFn(param){
+   param.name = "Robert";
+}
+
+someFn(obj);		// A copy of the memory address pointing to the object is created
+alert(obj.name); 	// Shows 'Robert'
+</pre>
+<p>
+	I'll finish this article off with a bit more 'term confusion'.
+	Most languages behave the same as both Java and JavaScript when dealing with parameters that store primitives and parameters that store objects.
+	This is commonly known as 'primitives are passed by <b>by value</b> and objects are passed <b>by reference</b>'.
+	But if you dig around the web you'll find that, in Java, parameters are always passed by value!
+	How confusing is that!? But remember that the value of a variable that refers to an object is a memory address.
+	So when you pass an object into a method, a copy of the memory address is created. Both copies of the memory address refer to the same object.
+</p>
+</body>
+</html>
