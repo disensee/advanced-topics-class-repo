@@ -1,3 +1,4 @@
+var isenseeimages = isenseeimages || {};
 /**
 * Creates a gallery of images on a page.
 * @module ImageGallery
@@ -5,7 +6,7 @@
 * @param {HTMLElement} container      The HTML tag on the page that will contain the image gallery
 * @param {array} images               An array of strings where each string is a path to an image.
 */
-function ImageGallery(container, images){
+isenseeimages.ImageGallery = function(container, images){
 
   // TODO: what if the contanier param is not a valid html tag???
   // TODO: what if the images param is not a valid???
@@ -36,11 +37,11 @@ function ImageGallery(container, images){
   // display the first image
   mainImg.src = images[currentImg];
 
- // set up event handlers
+// set up event handlers
   btnNext.addEventListener('click', function(){
     currentImg++;
     if(currentImg == images.length){
-       currentImg = 0;     
+      currentImg = 0;     
     }
     mainImg.src = images[currentImg];
   });
@@ -54,4 +55,3 @@ function ImageGallery(container, images){
   });
   
 }
-
