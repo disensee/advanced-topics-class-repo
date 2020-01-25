@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Organizing Code into namespaces</title>
+  <meta name="description" content="Organizing code into namespaces">
+  <meta name="viewport" content="width=device-width">
+  <style>
+    body{ margin: 25px; }
+    pre{
+      background-color: #333;
+      padding: 20px;
+      margin-bottom: 6px;
+      color:yellow;
+      border-radius: 12px;
+    }
+  </style>
+  <link rel="stylesheet" type="text/css" href="styles/image-gallery.css">
+  <script type="text/javascript" src="js/image-gallery.js"></script>
+  <script type="text/javascript">
+    window.addEventListener('load', function(){
+      
+      // When the page finishes loading, we initialize the modules that are used on the page
+
+      var images = [ "../images/Desert.jpg", "../images/Lighthouse.jpg", "../images/Tulips.jpg" ];
+      var container = document.getElementById("image-gallery-container");
+      ImageGallery(container, images);
+
+    });
+  </script>
+  
+</head>
+<body>  
+	<h1>Organizing Code Into Namespaces</h1>
+  <div id="image-gallery-container"></div>
+
+  <h3>Pre-reqs</h3>
+  <ul>
+    <li>
+      Understanding of <b>variable scope</b> in JavaScript (review what we learned in Web Programming).
+      <b>Global variables</b> are visible by any JS code, including any code in other .js files that are used by the page.
+    </li>
+    <li>Understanding of objects (properties and methods), and nested objects</li>
+    <li>We may want to review js-and-functions.html (maybe after would be better).</li>
+  </ul>
+
+  <h3>Don't Pollute the Global Namespace!</h3>
+  <p>
+    One of the golden rules of JavaScript is <b>don't pollute the global namespace!</b>
+    Nowadays it's common for a single web page to include many, many modules.
+    What happens if two modules include the exact same function name?
+    We could experiment with this in class, but what it boils down to is that our web page becomes unstable/unpredictable
+    (if there are two ImageGallery() functions, how do we know which one will be invoked when we call it?).
+  </p>
+  <p>
+    The solution to this problem is to avoid using global variables in JavaScript.
+    But how do we do this?
+    We can nest our code inside of an object.
+    We could potentially put all of our code, for all of our modules inside a single object.
+    It might look something like this:
+  </p>
+  <pre>
+var someObj = {
+
+  ImageGallery: function(container, images){
+    // code for our image gallery module goes here
+  }
+
+};
+  </pre>
+  <p>
+    Now, in order to invoke the ImageGallery function, we'd have to do it through the object, like this:
+  </p>
+  <pre>
+someObj.ImageGallery();  // Note that I have omitted the arguments/params.
+  </pre>
+  <p>
+    We could then add all of our modules to this object, for example like this (you could call this a 'library' of modules):
+  </p>
+  <pre>
+var someObj = {
+
+  ImageGallery: function(container, images){
+    // code for our image gallery module goes here
+  }
+
+  SomeOtherModule: function(){
+    // code for some other module goes here
+  }
+
+};    
+  </pre>
+  <p>
+    Note that 'someObj' is not a very good name for the container of all of our modules, 
+    becuase it's entirely possible that that variable name could be used by a novice programmer who might happen to include our library in his/her web page.
+    So you want to choose a name that's likely to be unique (many developers use their domain name).
+  </p>  
+  <p>
+    We call these container objects <b>namespaces</b> because they provide a named object which can contian our library.
+    You could even organize your modules into categories by further nesting objects.
+  </p>
+  <pre>
+var someObj = {
+
+    galleries: {
+      ImageGallery: function(){ /*code goes here*/ }
+    },
+
+    utils: {
+      DateUtils: function(){ /*code goes here*/ },
+      BusinessUtils: function(){ /*code goes here*/ }
+    }
+
+}
+  </pre>
+  <p>
+    Unlike the above example, it's a good idea to keep each individual module in it's own .js file.
+    But this can cause another problem, which we'll fix in a moment.
+    Consider these two .js files:
+  </p>
+  <pre>
+// image-gallery.js
+var someObj = {
+    
+    ImageGallery: function(){
+      // code goes here
+    }
+
+}
+
+
+// some-other-module.js
+var someObj = {
+  
+    SomeOtherModule: function(){
+      // code goes here
+    }
+
+}
+  </pre>
+  <p>
+    If we were to include both of these .js files in our web page, then one version of someObj would conflict with another.
+    So how do we get around this problem?
+    We'll here's a tricky bit of code to do just that:
+  </p>
+  <pre>
+// image-gallery.js
+var someObj = someObj || {};
+
+someObj.ImageGallery = function(){
+  // code for ImageGallery goes here
+};
+
+
+// some-other-module.js
+var someObj = someObj || {};
+
+someObj.SomeOtherModule = function(){
+  // code goes here
+};
+
+  </pre>
+  <p>
+    Do you see what's happening here? Lets just focus on this line of code (which appears in both .js files):
+  </p>
+  <pre>
+var someObj = someObj || {};
+  </pre>
+  <p>
+    There is actually a boolean expression being evaluated to the right of the equal sign.
+    It's saying 'if someObj exists, then assign that to the left side of the equal sign'.
+    Remember our discusion about truthy/falsey values? 
+    So if someObj evaluates to true, then that will be the result of the boolean expression.
+    But if it evaluates to false, then an empty object <b>{}</b> will be the result of the boolean expression. 
+  </p>
+  <p>
+    You'll see code like this in many JavaScript libraries.
+  </p>
+  
+  <h3>Coding Assignment</h3>
+  <p>
+    Refactor your image gallery module so that it is safely nested inside of a 'namespace' object.
+    The variable name for your object should be something that is very likely to be unique (if you care about branding your namespace, you'll use a catchy name as well).
+  </p>
+  <p>
+    Note that after you put the ImageGallery function into an object, you'll also have to make a change to the way you are referring to ImageGallery() on this page.
+    To invoke the ImageGallery() function on this page, you'll have to first refer to the namespace object and then use the dot operator before the call to ImageGallery(). 
+  </p>
+
+  <h3>
+    Questions
+  </h3>
+  <ol>
+    <li>
+      What does it mean to 'pollute the global namespace' in JavaScript?
+      <pre>
+Put your answer here
+      </pre>
+    </li>
+    <li>
+      What is a name collision?
+      <pre>
+Put your answer here
+      </pre>
+    </li>
+    <li>
+      What are two reasons why you would use namespace objects in your JavaScript code.
+      <pre>
+Put your answer here
+      </pre>
+    </li>
+    <li>
+      What mechanism does Java use to organize code into namespaces? 
+      <pre>
+Put your answer here
+      </pre>
+    </li>
+  </ol>
+</body>
+</html>
+
+

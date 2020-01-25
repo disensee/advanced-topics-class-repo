@@ -1,0 +1,17 @@
+.img-gallery input[type=button]{
+  border:2px solid gray;
+  background-color: #333333;
+  border-radius: 4px;
+  padding:10px;
+  color:gray;
+  font-weight: bold;
+}
+
+.img-gallery .img-wrapper{
+  width:400px;
+}
+
+.img-gallery .mainImg{
+  width:100%;
+  border: 2px solid #333333;
+}
