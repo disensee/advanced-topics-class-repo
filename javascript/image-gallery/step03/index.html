@@ -25,7 +25,7 @@
 
       var images = [ "../images/Desert.jpg", "../images/Lighthouse.jpg", "../images/Tulips.jpg" ];
       var container = document.getElementById("image-gallery-container");
-      isenseeimages.ImageGallery(container, images);
+      isenseeImages.ImageGallery(container, images);
 
     });
   </script>
@@ -195,25 +195,26 @@ var someObj = someObj || {};
     <li>
       What does it mean to 'pollute the global namespace' in JavaScript?
       <pre>
-Put your answer here
+Polluting the global namespace occurs when two modules include a function or gobal variable that share the same name.  
       </pre>
     </li>
     <li>
       What is a name collision?
       <pre>
-Put your answer here
+A name collision occurs when the global namespace is polluted and an attempt is made to call a function/refer to a global variable. For example, if two functions that share the same name are defined,
+and an attempt is made to call one of those functions, how do we know which one will be called? 
       </pre>
     </li>
     <li>
       What are two reasons why you would use namespace objects in your JavaScript code.
       <pre>
-Put your answer here
+Namespace objects are used in JavaScript code to prevent name collisions. They are also useful for organizing modules into easily manageable groups that can be uniquely identified. 
       </pre>
     </li>
     <li>
       What mechanism does Java use to organize code into namespaces? 
       <pre>
-Put your answer here
+Packages.
       </pre>
     </li>
   </ol>

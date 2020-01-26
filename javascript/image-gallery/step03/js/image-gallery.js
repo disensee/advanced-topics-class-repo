@@ -1,4 +1,4 @@
-var isenseeimages = isenseeimages || {};
+var isenseeImages = isenseeImages || {};
 /**
 * Creates a gallery of images on a page.
 * @module ImageGallery
@@ -6,7 +6,7 @@ var isenseeimages = isenseeimages || {};
 * @param {HTMLElement} container      The HTML tag on the page that will contain the image gallery
 * @param {array} images               An array of strings where each string is a path to an image.
 */
-isenseeimages.ImageGallery = function(container, images){
+isenseeImages.ImageGallery = function(container, images){
 
   // TODO: what if the contanier param is not a valid html tag???
   // TODO: what if the images param is not a valid???
