@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Writing Abstract Code</title>
+	<meta charset="utf-8">
+	<style>
+		body{ margin: 25px; }
+		pre{
+			background-color: #333;
+			padding: 20px;
+			margin-bottom: 6px;
+			color:yellow;
+			border-radius: 12px;
+		}
+	</style>
+	<script src="date-utils.js"></script>
+	<script>
+
+	window.addEventListener('load', function(){
+
+		document.getElementById("btnToday").addEventListener('click', function(){
+			dateUtils.format();
+		});
+
+	});
+	
+	</script>
+</head>
+<body>
+	<h1>Coding Principles</h1>
+	<h2>Decomposition, SRR, and Abstraction</h2>
+	<p>Click the button to see today's date in a special format!</p>
+	<input type="button" id="btnToday" value="Today's Date" />
+	<h3>Part 1 - Code Review</h3>
+	<p>
+		Inspect the JavaScript code in this file and in the <b>date-utils.js</b> file.
+		Make sure you understand it, maybe even inspect it in the debugger. 
+		<br>
+		The code uses the built-in Date object, here is an <a href="https://www.w3schools.com/jsref/jsref_obj_date.asp" target="_blank">API reference</a> that will help you answer the following questions.
+		<br>
+		Here's another resource for the <a href="https://css-tricks.com/everything-you-need-to-know-about-date-in-javascript/" target="_">Date object</a>.
+	</p>
+	<h3>Questions</h3>
+	<ol>
+		<li>
+			Explain the return value of the getMonth() method of the Date API in JavaScript. 
+			Be sure to mention the data type that the method returns.
+			<pre>
+Put your answer here.
+			</pre>
+		</li>
+		<li>
+			Explain the return value of the getDay() method of the Date API in JavaScript?
+			<pre>
+Put your answer here.
+			</pre>
+		</li>
+		<li>
+			Explain how the monthName variable is initialized.
+			<pre>
+Put your answer here.
+			</pre>
+		</li>
+		<li>
+			What is the purpose of the dayNames array?
+			<pre>
+Put your answer here.
+			</pre>
+		</li>
+		<li>
+			What are at least two changes you could make to the code for the format() function to make it more flexible?
+			<pre>
+Put your answer here.
+			</pre>
+		</li>
+		<li>
+			What is <b>decomposition</b> in programming?
+			<pre>
+Put your answer here.
+			</pre>
+		</li>
+		<li>
+			What is the <b>single responsibility rule (SRR)</b>?
+			<pre>
+Put your answer here.
+			</pre>
+		</li>
+		<li>
+			As a programmer, do you need to understand all the code in the .js file in order to us it to display formatted dates in a web page (such as this one)?
+			<pre>
+Put your answer here.
+			</pre>
+		</li>
+		<li>
+			Explain the <b>abstraction principle</b>.
+			<pre>
+Put your answer here.
+			</pre>
+		</li>
+	</ol>
+
+	<h3>Part 2 - Coding Exercises</h3>
+	<ol>
+		<li>
+			<p>
+				If you look inside the date-utils.js file, you'll see that there is a function called <b>isOldEnoughToVote()</b>.
+				Right now it's just a <b>stub</b>, meaning that it's an empty function. 
+				Your job is to <b>implement</b> the code for this function.
+				The comments above the function stub should give you enough information to write the implementation code.
+			</p>
+			<p>
+				As you are working on the function, use the script tag at the bottom of this page to test your code.
+			</p>
+		</li>
+		<li>
+			<p>Decompose the format() method according to the single responsibility rule (in order to do this, you'll have to add a few methods to the dateUtils object).</p>
+		</li>
+	</ol>
+			
+</body>
+</html>
+<script>
+	// test the isOldEnoughToVote() function here....
+</script>
