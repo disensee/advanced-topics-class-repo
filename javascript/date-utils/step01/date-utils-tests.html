@@ -46,25 +46,26 @@
 			Explain the return value of the getMonth() method of the Date API in JavaScript. 
 			Be sure to mention the data type that the method returns.
 			<pre>
-Put your answer here.
+getMonth() returns an integer (0-11) that represents the month of a specified date object. January is 0 and December is 11. 
 			</pre>
 		</li>
 		<li>
 			Explain the return value of the getDay() method of the Date API in JavaScript?
 			<pre>
-Put your answer here.
+getDay() returns an integer (0-6) that represents the day of the week for a specified date object. Sunday is 0 and Saturday is 6.  
 			</pre>
 		</li>
 		<li>
 			Explain how the monthName variable is initialized.
 			<pre>
-Put your answer here.
+The monthName variable is initialized by creating an array of strings (named monthNames) that represents the names of the months. The array works in place of an object because months are zero indexed. From here, monthName is declared and 
+initialized to the month name in the monthNames array by using getMonth() to get the month's index in the array. 
 			</pre>
 		</li>
 		<li>
 			What is the purpose of the dayNames array?
 			<pre>
-Put your answer here.
+The dayNames array serves the same purpose as the monthNames array. It allows us to use getDay() to retreive an index and use that index to get the name of the day.  
 			</pre>
 		</li>
 		<li>
@@ -76,25 +77,26 @@ Put your answer here.
 		<li>
 			What is <b>decomposition</b> in programming?
 			<pre>
-Put your answer here.
+Decomposition in programming is the process of taking a complex problem and breaking it down into parts that are easier to undersatnd, program, and maintain. 
 			</pre>
 		</li>
 		<li>
 			What is the <b>single responsibility rule (SRR)</b>?
 			<pre>
-Put your answer here.
+The single responsibility rule states that every class or module in a program should be responsible for a single part of the program's functionality. 
 			</pre>
 		</li>
 		<li>
 			As a programmer, do you need to understand all the code in the .js file in order to us it to display formatted dates in a web page (such as this one)?
 			<pre>
-Put your answer here.
+No
 			</pre>
 		</li>
 		<li>
 			Explain the <b>abstraction principle</b>.
 			<pre>
-Put your answer here.
+The abtraction principle's main goal is to hide complexity by hiding unncessary details from a user. This enables a user to implement more complex logic on top of 
+the provided abstraction without having to understand or think about the hidden complexity. 
 			</pre>
 		</li>
 	</ol>
@@ -120,5 +122,8 @@ Put your answer here.
 </body>
 </html>
 <script>
-	// test the isOldEnoughToVote() function here....
+	window.addEventListener('load', function(){
+		var birthday = new Date(2002, 0, 28);
+		alert(dateUtils.isOldEnoughToVote(birthday));
+	});
 </script>
