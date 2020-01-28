@@ -32,10 +32,11 @@ dateUtils.format = function(){
 * @return {boolean}				True if the date is more than 18 years ago. False if not.
 */
 dateUtils.isOldEnoughToVote = function(birthDate){ 
-    var todayInMs = new Date().getTime();
-    var birthDayInMs = birthDate.getTime();
-    var test = todayInMs - birthDayInMs;
-    if(todayInMs - birthDayInMs >= 568025136000){
+    var today = new Date();
+    var votingAgeBirthdate = new Date();
+    votingAgeBirthdate = votingAgeBirthdate.setYear((today.getFullYear()) - 18);
+
+    if(birthDate <= votingAgeBirthdate){
         return true;
     }else{
         return false;
