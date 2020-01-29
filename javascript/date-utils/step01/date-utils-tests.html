@@ -58,8 +58,8 @@ getDay() returns an integer (0-6) that represents the day of the week for a spec
 		<li>
 			Explain how the monthName variable is initialized.
 			<pre>
-The monthName variable is initialized by creating an array of strings (named monthNames) that represents the names of the months. The array works in place of an object because months are zero indexed. From here, monthName is declared and 
-initialized to the month name in the monthNames array by using getMonth() to get the month's index in the array. 
+The monthName variable is initialized by creating an array of strings (named monthNames) that represents the names of the months. The array works in place of an object because months 
+are zero indexed. From here, monthName is declared and initialized to the month name in the monthNames array by using getMonth() to get the month's index in the array. 
 			</pre>
 		</li>
 		<li>
@@ -71,7 +71,8 @@ The dayNames array serves the same purpose as the monthNames array. It allows us
 		<li>
 			What are at least two changes you could make to the code for the format() function to make it more flexible?
 			<pre>
-Put your answer here.
+Parameters could be passed in so that any date object could be formatted. Decomposing the method also makes it more flexible because you can return various formats
+instead of being stuck with the one return format. 
 			</pre>
 		</li>
 		<li>
@@ -123,7 +124,7 @@ the provided abstraction without having to understand or think about the hidden 
 </html>
 <script>
 	window.addEventListener('load', function(){
-		var birthday = new Date(2002, 0, 29);
+		var birthday = new Date(2002, 0, 28);
 		alert(dateUtils.isOldEnoughToVote(birthday));
 	});
 </script>
