@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Coding Principles and Test Driven Development</title>
+	<meta charset="utf-8">
+	<style>
+		body{ margin: 25px; }
+		pre{
+			background-color: #333;
+			padding: 20px;
+			margin-bottom: 6px;
+			color:yellow;
+			border-radius: 12px;
+		}
+		</style>
+	<script src="date-utils.js"></script>
+</head>
+<body>
+
+	<h1>Unit Testing and Test Driven Development</h1>
+	<h3>Part 1 - Unit Testing</h3>
+	<p>
+		Paste a copy of your date-utils.js file into this folder.
+		Then open this page in the browser and look in the console log.
+		You should see a listing of test results for the isOldEnoughToVote() method that you implemented in the previous step.
+		The test code is in the script tag at the bottom of this page.
+		Your job is to make sure that all the tests pass.
+		If any tests fail, then you need to fix the code in your isOldEnoughToVote() method.
+	</p>
+	<h3>Part 2 - Questions</h3>
+	<ol>
+		<li>
+			What is <b>unit testing</b>?
+			<pre>
+Put your answer here.
+			</pre>
+		</li>
+		<li>
+			Explain why decomposing functions according to the SRR principle helps to facilitate unit testing?
+			<pre>
+Put your answer here.
+			</pre>
+		</li>
+		<li>
+			What is <b>test-driven development</b>?
+			<pre>
+Put your answer here.
+			</pre>
+		</li>
+		<li>
+			In the final unit test below, we made sure that the isOldEnough() method does not alter the argument/parameter that's passed into it. Why is this important?</b>?
+			<pre>
+Put your answer here.
+			</pre>
+		</li>
+	</ol>
+</body>
+</html>
+<script>
+// This will be an array (of strings) that store the results of each test
+var testResults = []; 
+
+// run the function that has all the unit tests in it
+testIsOldEnoughToVote();
+
+// print the test results to the console log
+console.log(testResults.join("\n"));
+
+
+// USE THE DEBUGGER TO HELP YOU FIND/FIX BUGS
+// NOTE: If any of your code in isOldEnoughToVote() throws an error, then it can mess up your tests!
+// 		 But, in one of the last tests, you'll see in some cases we want/expect it to throw an error
+function testIsOldEnoughToVote(){
+	
+	testResults.push("TESTING isOldEnoughToVote()...");
+
+	var today = new Date();
+	var currentYear = today.getFullYear();
+
+	// TEST 1
+	// we expect it to return true when we pass in nineteenYearsAgo
+	var nineteenYearsAgo = new Date();
+	nineteenYearsAgo.setFullYear(currentYear - 19);
+
+	if(dateUtils.isOldEnoughToVote(nineteenYearsAgo)){
+		testResults.push("PASS - returns true for nineteenYearsAgo");
+	}else{
+		testResults.push("FAIL - returns false for nineteenYearsAgo");
+	}
+	
+
+	// TEST 2
+	// we expect it to return false when we pass in seventeenYearsAgo
+	var seventeenYearsAgo = new Date();
+	seventeenYearsAgo.setFullYear(currentYear - 17);
+	
+	if(dateUtils.isOldEnoughToVote(seventeenYearsAgo)){
+		testResults.push("FAIL - returns true for seventeenYearsAgo");
+	}else{
+		testResults.push("PASS - returns false for seventeenYearsAgo");
+	}
+	
+
+	// TEST 3
+	// we expect it to return true when we pass in eighteenYearsAgo
+	var eighteenYearsAgo = new Date();
+	eighteenYearsAgo.setFullYear(currentYear - 18);
+
+	if(dateUtils.isOldEnoughToVote(eighteenYearsAgo)){
+		testResults.push("PASS - returns true for eighteenYearsAgo");
+	}else{
+		testResults.push("FAIL - returns false for eighteenYearsAgo");
+	}
+
+	// TEST 4
+	// we expect it to return true when we pass in eighteenYearsAgoEndOfDay
+	// If it's your birthday, you can still vote, even if you were born at the very end of the day
+	var eighteenYearsAgoEndOfDay = new Date();
+	eighteenYearsAgoEndOfDay.setFullYear(currentYear - 18);
+	eighteenYearsAgoEndOfDay.setHours(23,59,59,999);
+
+	if(dateUtils.isOldEnoughToVote(eighteenYearsAgoEndOfDay)){
+		testResults.push("PASS - returns true for eighteenYearsAgoEndOfDay");
+	}else{
+		testResults.push("FAIL - returns false for eighteenYearsAgoEndOfDay");
+	}
+
+	// TEST 5
+	// Question: How should isOldEnoughToVote() behave if the argument passed in is not a Date object?
+	// Answer: It should throw an error that says "Invalid argument, Date object expected"
+	// NOTE: See what happens when you invoke it like this: dateUtils.isOldEnoughToVote(false);
+	var expectedErrorMessage = "Invalid argument, Date object expected";
+	var actualErrorMessage = null;
+	
+	try{
+		dateUtils.isOldEnoughToVote(false);
+	}catch(e){
+		actualErrorMessage = e.message;
+	}
+
+	if(expectedErrorMessage == actualErrorMessage){
+		testResults.push("PASS - throws the proper error for invalid param");
+	}else{
+		testResults.push("FAIL - does not throw the proper error for invalid param");
+	}
+
+	// TEST 6
+	// The argument(parameter) passed into isOldEnoughToVote() should not be altered
+	var copyOfToday = new Date(today.getTime());
+	dateUtils.isOldEnoughToVote(today);
+	if(today.getTime() == copyOfToday.getTime()){
+		testResults.push("PASS - the Date passed in was NOT altered by isOldEnoughToVote()");
+	}else{
+		testResults.push("FAIL - the Date passed in WAS altered by isOldEnoughToVote()");
+	}
+
+}
+
+
+
+</script>
