@@ -46,7 +46,14 @@ dateUtils.isOldEnoughToVote = function(birthDate){
 * @return {string}
 */
 dateUtils.getDayName = function(date){
-   
+    if(!(date instanceof Date)){
+        throw new Error("Invalid argument, Date object expected");
+    }else{
+        var dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        var dayNumber = date.getDay();
+
+        return dayNames[dayNumber];
+    }
 }
 
 /**
@@ -56,7 +63,14 @@ dateUtils.getDayName = function(date){
 * @return {string}
 */
 dateUtils.getMonthName = function(date){
-   
+    if(!(date instanceof Date)){
+        throw new Error("Invalid argument, Date object expected");
+    }else{
+        var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November","December"]
+        var monthNumber = date.getMonth();
+
+        return monthNames[monthNumber];
+    }
 }
 
 
@@ -69,7 +83,11 @@ dateUtils.getMonthName = function(date){
 * @return {number}
 */
 dateUtils.convertMillisecondsToDays = function(ms){
-    
+    if(isNaN(ms) || ms == false){
+        throw new Error("Invalid argument, Number expected");
+    }else{
+        return ms/86400000;
+    }
 }
 
 
