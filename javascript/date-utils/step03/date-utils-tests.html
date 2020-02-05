@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Coding Principles and Test Driven Development</title>
+	<meta charset="utf-8">
+	<style>
+		body{ margin: 25px; }
+		pre{
+			background-color: #333;
+			padding: 20px;
+			margin-bottom: 6px;
+			color:yellow;
+			border-radius: 12px;
+		}
+		</style>
+	<script src="date-utils.js"></script>
+</head>
+<body>
+
+	<h1>Test Driven Development</h1>
+	
+
+	<h3>Part 1 - Coding Exercise (Test Driven Development)</h3>
+	
+	<p>
+		We are going to refactor much of this library, and add some new methods using <b>test driven development</b>.
+		If you open the console log, you'll see the results of a series of unit tests.
+		Most of them are failing right now.
+		Your job is make each one pass. Start at the first failing test and add code to the proper method in the date-utils.js file to get the test to pass.
+		Then move on to the next failed test and get it to pass (by adding code to date-utils.js).
+		<b>Make sure you look at the doc comments in date-utils.js so that you understand how each method should work </b>
+	</p>
+
+	<h3>Part 2 - Questions</h3>
+	<ol>
+		<li>
+			What is <b>test-driven development</b>?
+			<pre>
+Put your answer here.
+			</pre>
+		</li>
+		<li>
+			Explain why decomposing functions according to the SRR principle helps to facilitate unit testing?
+			<pre>
+Put your answer here.
+			</pre>
+		</li>
+		<li>
+			Many of the methods in the dateUtils library are designed to throw specific errors.
+			If you are going to use a method that could potentially throw an error/exception, then what should you do to prevent your program from crashing? 
+			<pre>
+Put your answer here.
+			</pre>
+		</li>
+		<li>
+			Unlike the methods in our dataUtils libroary, many JavaScript libraries will NOT throw errors. In fact, they will try to prevent any errors from being thrown.
+			Why do you think many JS libraries try to prevent errors from being thrown, even if the methods are not being used correctl (for example, if an invalid argrument is pass, instead of throwing an error, the method will often just fail silently).
+			<pre>
+Put your answer here.
+			</pre>
+		</li>
+	</ol>
+
+	
+</body>
+</html>
+<script>
+
+var testResults = [];
+
+try{
+	testIsOldEnoughToVote();
+	testGetDayName();
+	testGetMonthName();
+	testConvertMillisecondsToDays();
+	testMax();
+	testDiff();
+	testFormat();
+}catch(e){
+	console.log("AN ERROR OCCURED, TESTS ABORTED - IT IS MOST LIKELY BECAUSE OF AN ERROR IN date-utils.js");
+	console.log("If you are using CHROME, you should see an error message and a stack trace below to help you find the error.")
+	console.log(e.message);
+	try{
+		console.log(e.stack); // Not all browsers support e.stack, which is why I put it in it's own try/catch
+	}catch(e2){
+		console.log("Unable to print stack trace");
+	}
+}
+
+console.log(testResults.join("\n"));
+
+// USE THE DEBUGGER TO HELP YOU FIND/FIX BUGS
+// NOTE: If any of your code in isOldEnoughToVote() throws an error, then it can mess up your tests!
+// 		 But, in one of the last tests, you'll see in some cases we want/expect it to throw an error
+function testIsOldEnoughToVote(){
+	
+	testResults.push("TESTING isOldEnoughToVote()...");
+
+	var today = new Date();
+	var currentYear = today.getFullYear();
+
+	// TEST 1
+	// we expect it to return true when we pass in nineteenYearsAgo
+	var nineteenYearsAgo = new Date();
+	nineteenYearsAgo.setFullYear(currentYear - 19);
+
+	if(dateUtils.isOldEnoughToVote(nineteenYearsAgo)){
+		testResults.push("- PASS - returns true for nineteenYearsAgo");
+	}else{
+		testResults.push("- FAIL - returns false for nineteenYearsAgo");
+	}
+	
+
+	// TEST 2
+	// we expect it to return false when we pass in seventeenYearsAgo
+	var seventeenYearsAgo = new Date();
+	seventeenYearsAgo.setFullYear(currentYear - 17);
+	
+	if(dateUtils.isOldEnoughToVote(seventeenYearsAgo)){
+		testResults.push("- FAIL - returns true for seventeenYearsAgo");
+	}else{
+		testResults.push("- PASS - returns false for seventeenYearsAgo");
+	}
+	
+
+	// TEST 3
+	// we expect it to return true when we pass in eighteenYearsAgo
+	var eighteenYearsAgo = new Date();
+	eighteenYearsAgo.setFullYear(currentYear - 18);
+
+	if(dateUtils.isOldEnoughToVote(eighteenYearsAgo)){
+		testResults.push("- PASS - returns true for eighteenYearsAgo");
+	}else{
+		testResults.push("- FAIL - returns false for eighteenYearsAgo");
+	}
+
+	// TEST 4
+	// we expect it to return true when we pass in eighteenYearsAgoEndOfDay
+	// If it's your birthday, you can still vote, even if you were born at the very end of the day
+	var eighteenYearsAgoEndOfDay = new Date();
+	eighteenYearsAgoEndOfDay.setFullYear(currentYear - 18);
+	eighteenYearsAgoEndOfDay.setHours(23,59,59,999);
+
+	if(dateUtils.isOldEnoughToVote(eighteenYearsAgoEndOfDay)){
+		testResults.push("- PASS - returns true for eighteenYearsAgoEndOfDay");
+	}else{
+		testResults.push("- FAIL - returns false for eighteenYearsAgoEndOfDay");
+	}
+
+	// TEST 5
+	// Question: How should isOldEnoughToVote() behave if the argument passed in is not a Date object?
+	// Answer: It should throw an error that says "Invalid argument, Date object expected"
+	// NOTE: See what happens when you invoke it like this: dateUtils.isOldEnoughToVote(false);
+	var expectedErrorMessage = "Invalid argument, Date object expected";
+	var actualErrorMessage = null;
+	
+	try{
+		dateUtils.isOldEnoughToVote(false);
+	}catch(e){
+		actualErrorMessage = e.message;
+	}
+
+	if(expectedErrorMessage == actualErrorMessage){
+		testResults.push("- PASS - throws the proper error for invalid param");
+	}else{
+		testResults.push("- FAIL - does not throw the proper error for invalid param");
+	}
+
+	// TEST 6
+	// The argument(parameter) passed into isOldEnoughToVote() should not be altered
+	var copyOfToday = new Date(today.getTime());
+	dateUtils.isOldEnoughToVote(today);
+	if(today.getTime() == copyOfToday.getTime()){
+		testResults.push("- PASS - the Date passed in was NOT altered by isOldEnoughToVote()");
+	}else{
+		testResults.push("- FAIL - the Date passed in WAS altered by isOldEnoughToVote()");
+	}
+
+}
+
+function testGetDayName(){
+	testResults.push("TESTING getDayName()...");
+
+	// TEST 1 
+	// Make sure it returns Friday for the following Date
+	var testDate1 = new Date(2018, 6, 20);
+	if(dateUtils.getDayName(testDate1) == "Friday"){
+		testResults.push("- PASS - returned the expected value for a given date");
+	}else{
+		testResults.push("- FAIL - DID NOT return the expected value for a given date");
+	}
+
+	// TEST 2
+	// Question: How should the method behave if the argument passed in is not a Date object?
+	// Answer: It should throw an error that says "Invalid argument, Date object expected"
+	var expectedErrorMessage = "Invalid argument, Date object expected";
+	var actualErrorMessage = null;
+	
+	try{
+		dateUtils.getDayName(false);
+	}catch(e){
+		actualErrorMessage = e.message;
+	}
+
+	if(expectedErrorMessage == actualErrorMessage){
+		testResults.push("- PASS - throws the proper error for invalid param");
+	}else{
+		testResults.push("- FAIL - does not throw the proper error for invalid param");
+	}
+	
+}
+
+function testGetMonthName(){
+	
+	testResults.push("TESTING getMonthName()...");
+
+	// TEST 1
+	// Make sure it returns July for the folling Date
+	var testDate1 = new Date(2018, 6, 20);
+	if(dateUtils.getMonthName(testDate1) == "July"){
+		testResults.push("- PASS - returned the expected month name");
+	}else{
+		testResults.push("- FAIL - DID NOT return the expected month name");
+	}
+
+	// TEST 2
+	// What happens if an invalid arg/param is passed?
+	// Should it throw an error when this situation occurs????
+	var expectedErrorMessage = "Invalid argument, Date object expected";
+	var actualErrorMessage = null;
+	var invalidArg = "foo";
+	try{
+		dateUtils.getMonthName(invalidArg);
+	}catch(e){
+		actualErrorMessage = e.message;
+	}
+
+	if(actualErrorMessage == expectedErrorMessage){
+		testResults.push("- PASS - threw the expected error message");
+	}else{
+		testResults.push("- FAIL - DID NOT throw the expected error message");
+	}
+}
+
+function testConvertMillisecondsToDays(){
+	testResults.push("TESTING convertMillisecondsToDays()...");
+
+	var MS_PER_DAY = 86400000; // The number of milliseconds in 1 day
+
+	//TEST 1
+	// Make sure it works
+	if(dateUtils.convertMillisecondsToDays(MS_PER_DAY) == 1){
+		testResults.push("- PASS - properly converted ms to one day))")
+	}else{
+		testResults.push("- FAIL - did not properly convert ms to one day)");
+	}
+
+	// TEST 2
+	// Question: How should the method behave if the argument passed in is not a number?
+	// Answer: It should throw an error that says "Invalid argument, Number expected"
+	var expectedErrorMessage = "Invalid argument, Number expected";
+	var actualErrorMessage = null;
+	
+	try{
+		dateUtils.convertMillisecondsToDays(false);
+	}catch(e){
+		actualErrorMessage = e.message;
+	}
+
+	if(expectedErrorMessage == actualErrorMessage){
+		testResults.push("- PASS - throws the proper error for invalid param (false)");
+	}else{
+		testResults.push("- FAIL - does not throw the proper error for invalid param (the param used was false)");
+	}
+
+	// TEST 3
+	// Repeat the previous test, but use a different type of invalid param
+	var actualErrorMessage = null;
+	
+	try{
+		dateUtils.convertMillisecondsToDays("blah");
+	}catch(e){
+		actualErrorMessage = e.message;
+	}
+
+	if(expectedErrorMessage == actualErrorMessage){
+		testResults.push("- PASS - throws the proper error for invalid param (string)");
+	}else{
+		testResults.push("- FAIL - does not throw the proper error for invalid param (string was used)");
+	}
+
+}
+
+function testMax(){
+	testResults.push("TESTING max()...");
+
+	// TEST 1 - Does it return the expected value for a given input
+	// Create some dummy data to use for testing
+	var currentYear = new Date().getFullYear();
+	// create a test date
+	var xmas = new Date(currentYear, 11, 25);
+	// create a second test date, which is exactly one day apart from the first test date
+	var xmasEve = new Date(currentYear, 11, 24);
+
+	if(dateUtils.max(xmas, xmasEve) == xmas){
+		testResults.push("- PASS - properly returned latter date");
+	}else{
+		testResults.push("- FAIL - DID NOT properly return latter date)");
+	}
+
+	// TEST 2
+	// Question: How should the method behave if the FIRST argument passed in is not a Date object?
+	// Answer: It should throw an error that says "Invalid argument, Date object expected"
+	var expectedErrorMessage = "Invalid argument, Date object expected";
+	var actualErrorMessage = null;
+	
+	try{
+		dateUtils.max(false, new Date());
+	}catch(e){
+		actualErrorMessage = e.message;
+	}
+
+	if(expectedErrorMessage == actualErrorMessage){
+		testResults.push("- PASS - throws the proper error if the first param is not invalid");
+	}else{
+		testResults.push("- FAIL - does not throw the proper error if the first param in not invalid");
+	}
+
+	// TEST 3
+	// Question: How should the method behave if the SECOND argument passed in is not a Date object?
+	// Answer: It should throw an error that says "Invalid argument, Date object expected"
+	//var expectedErrorMessage = "Invalid argument, Date object expected";
+	var actualErrorMessage = null;
+	
+	try{
+		dateUtils.max(new Date(),false);
+	}catch(e){
+		actualErrorMessage = e.message;
+	}
+
+	if(expectedErrorMessage == actualErrorMessage){
+		testResults.push("- PASS - throws the proper error if the second param is not invalid");
+	}else{
+		testResults.push("- FAIL - does not throw the proper error if the second param in not invalid");
+	}
+}
+//////////////////////////////////////////////////LEFT OFF HERE//////////////////////////////////
+///////////////////////////////////////////////////////////////////
+
+function testDiff(){
+	testResults.push("TESTING diff()...");
+
+	// Create some dummy data to use for testing
+	var currentYear = new Date().getFullYear();
+	// create a test date
+	var xmas = new Date(currentYear, 11, 25);
+	// create a second test date, which is exactly one day apart from the first test date
+	var xmasEve = new Date(currentYear, 11, 24);
+	var longAgo = new Date(1990,0,1);
+	// create a test that is very far in the future
+	var wayInTheFuture = new Date(2050,0,1);
+	var wayInTheFuturePlusAFewHours = new Date(2050,0,1,6,6,6);
+	var DAYS_BETWEEN = 21915;
+
+	// TEST 1
+	// compare xmas to xmasEve and expect the return value to be 1 (day)
+	if(dateUtils.diff(xmas, xmasEve) == 1){
+		testResults.push("- PASS (properly calculated the diff between two dates)");
+	}else{
+		testResults.push("- FAIL (did not properly calculate the diff between two dates (expected 1))");
+	}
+
+	// TEST 2
+	// let's run another test that switches the parameters passed into diff
+	if(dateUtils.diff(xmasEve, xmas) == 1){
+		testResults.push("- PASS (properly calculated the diff between two dates (params flipped))");
+	}else{
+		testResults.push("- FAIL (did not properly calculate the diff between two dates (exected 1 with params flipped))");
+	}
+
+	// TEST 3
+	// test again, with dates that are farther apart
+	if(dateUtils.diff(longAgo, wayInTheFuture) == DAYS_BETWEEN){
+		testResults.push("- PASS (properly calculated the diff between longAgo and wayInTheFuture)");
+	}else{
+		testResults.push("- FAIL (did not properly calculated the diff between longAgo and wayInTheFuture)");
+	}
+
+	// TEST 4
+	// the number of days returned should be a whole number (the days should be rounded DOWN, 
+	// to the nearest whole number, no decimal places)
+	if(dateUtils.diff(longAgo, wayInTheFuturePlusAFewHours) == DAYS_BETWEEN){
+		testResults.push("- PASS (properly calculated a whole number diff between longAgo and wayInTheFuture)");
+	}else{
+		testResults.push("- FAIL (did not return a whole number diff between longAgo and wayInTheFuture - it should round DOWN)");
+	}
+
+	// TEST 5
+	// Question: How should the method behave if the FIRST argument passed in is not a Date object?
+	// Answer: It should throw an error that says "Invalid argument, Date object expected"
+	var expectedErrorMessage = "Invalid argument, Date object expected";
+	var actualErrorMessage = null;
+	
+	try{
+		dateUtils.diff(false, new Date());
+	}catch(e){
+		actualErrorMessage = e.message;
+	}
+
+	if(expectedErrorMessage == actualErrorMessage){
+		testResults.push("- PASS - throws the proper error if the first param is not invalid");
+	}else{
+		testResults.push("- FAIL - does not throw the proper error if the first param in not invalid");
+	} 
+
+	// TEST 6
+	// Question: How should the method behave if the SECOND argument passed in is not a Date object?
+	// Answer: It should throw an error that says "Invalid argument, Date object expected"
+	var expectedErrorMessage = "Invalid argument, Date object expected";
+	var actualErrorMessage = null;
+	
+	try{
+		dateUtils.diff(new Date(), false);
+	}catch(e){
+		actualErrorMessage = e.message;
+	}
+
+	if(expectedErrorMessage == actualErrorMessage){
+		testResults.push("- PASS - throws the proper error if the second param is not invalid");
+	}else{
+		testResults.push("- FAIL - does not throw the proper error if the second param in not invalid");
+	} 
+}
+
+function testFormat(){
+	testResults.push("TESTING format()...");
+
+	// TEST 1 
+	// Make sure it returns the expected value for a given input
+	var testDate1 = new Date(2018, 6, 20);
+	if(dateUtils.format(testDate1) == "Friday July 20, 2018" ){
+		testResults.push("- PASS - returned the expected string");
+	}else{
+		testResults.push("- FAIL - DID NOT return the expected string");
+	}
+
+	// TEST 2
+	// What happens if an invalid arg/param is passed?
+	// Should it throw an error when this situation occurs????
+	var expectedErrorMessage = "Invalid argument, Date object expected";
+	var actualErrorMessage = null;
+	var invalidArg = "foo";
+	
+	try{
+		dateUtils.format(invalidArg);
+	}catch(e){
+		actualErrorMessage = e.message;
+	}
+
+	if(actualErrorMessage == expectedErrorMessage){
+		testResults.push("- PASS - threw the expected error message");
+	}else{
+		testResults.push("- FAIL - DID NOT throw the expected error message");
+	}
+}
+
+//////////////////////////////////////////////////////////
+//testModule1();
+function testModule1(){
+
+	// create a test date
+	var testDate1 = new Date(2018, 6, 20);
+
+	// test getDayName()
+	
+
+	// test getMonthName();
+	
+
+	// what happens if the param is not correct? - an error is thrown
+	
+	//alert(dateUtils.getMonthName("foo"));
+
+	// what SHOULD happen in this situation???
+	
+	// if the function SHOULD throw an error when this situation occurs,
+	// then we can write a test for that;
+	
+
+	// test format();
+	
+}
+
+//testModule2();
+
+function testModule2(){
+	
+	// Create some dummy data to use for testing
+	var currentYear = new Date().getFullYear();
+	// create a test date
+	var xmas = new Date(currentYear, 11, 25);
+	// create a second test date, which is exactly one day apart from the first test date
+	var xmasEve = new Date(currentYear, 11, 24);
+	// create a test date that is over 18 years ago
+	var longAgo = new Date(1990,0,1);
+	// create a test that is very far in the future
+	var wayInTheFuture = new Date(2050,0,1);
+	var wayInTheFuturePlusAFewHours = new Date(2050,0,1,6,6,6);
+	// the number of milliseconds in a day
+	var MS_PER_DAY = 86400000;
+	// The number of days between longAgo and wayInTheFuture
+	var DAYS_BETWEEN = 21915;
+
+	// we'll store the result of each test as an array of strings
+	var results = [];
+
+
+	// Note - if you have problems with your code you may want to comment out
+	// the try/catch block that surrounds this code and then reload the page
+	try{
+		
+		//We'll push all test messages into an array (of strings), and then dump them out when all tests have completed
+		results.push("Testing convertMillisecondsToDays()");
+
+		if(dateUtils.convertMillisecondsToDays(MS_PER_DAY) == 1){
+			results.push("- PASS (properly converted ms to one day))")
+		}else{
+			results.push("- FAILED (did not properly converted ms to one day)");
+		}
+
+		
+		
+
+		results.push("Testing max()");
+
+		if(dateUtils.max(xmas, xmasEve) == xmas){
+			results.push("- PASS (properly returned latter date)");
+		}else{
+			results.push("- FAILED (did not properly return latter date)");
+		}
+
+		results.push("Testing isOldEnoughToVote()");
+		
+		if(dateUtils.isOldEnoughToVote(longAgo)){
+			results.push("- PASS (properly checked date: " + longAgo.toDateString() + ")");
+		}else{
+			results.push("- FAILED (did not properly check date: " + longAgo.toDateString() + ")");
+		}
+
+		if(dateUtils.isOldEnoughToVote(xmas) == false){
+			results.push("- PASS (properly checked date: " + xmas.toDateString() + ")");
+		}else{
+			results.push("- FAILED (did not properly check date: " + xmas.toDateString() + ")");
+		}
+
+		// run another test to make sure 18 years in the future doesn't return true
+		if(dateUtils.isOldEnoughToVote(wayInTheFuture) == false){
+			results.push("- PASS (properly checked date: " + wayInTheFuture.toDateString() + ")");
+		}else{
+			results.push("- FAILED (did not properly check date: " + wayInTheFuture.toDateString() + ")");
+		}
+
+
+
+		results.push("Testing diff()");
+		
+		if(dateUtils.diff(xmas, xmasEve) == 1){
+			results.push("- PASS (properly calculated the diff between two dates)");
+		}else{
+			results.push("- FAILED (did not properly calculate the diff between two dates)");
+		}
+
+		// let's run another test that switches the parameters passed into diff
+		if(dateUtils.diff(xmasEve, xmas) == 1){
+			results.push("- PASS (properly calculated the diff between two dates (params flipped))");
+		}else{
+			results.push("- FAILED (did not properly calculate the diff between two dates (params flipped))");
+		}
+
+		// test again, with dates that are farther apart
+		if(dateUtils.diff(longAgo, wayInTheFuture) == DAYS_BETWEEN){
+			results.push("- PASS (properly calculated the diff between longAgo and wayInTheFuture)");
+		}else{
+			results.push("- FAILED (did not properly calculated the diff between longAgo and wayInTheFuture)");
+		}
+
+		// the number of days returned should be a whole number (the days should be rounded DOWN, 
+		// to the nearest whole number, no decimal places)
+		if(dateUtils.diff(longAgo, wayInTheFuturePlusAFewHours) == DAYS_BETWEEN){
+			results.push("- PASS (properly calculated a whole number diff between longAgo and wayInTheFuture)");
+		}else{
+			results.push("- FAILED (did not return a whole number diff between longAgo and wayInTheFuture - it should round DOWN)");
+		}
+
+		// if one of the parameters is not a valid Date object, the method should NOT throw an error
+		try{
+			dateUtils.diff("foo", longAgo);
+			results.push("- PASS (did not throw an error if invalid Date object is passed as a parameter)");
+		}catch(e){
+			alert("Note that if you are seeing this alert, it's be the first 'foo' test threw an error and you need to get this test to pass");
+			results.push("- FAILED (should not have thrown an error if invalid Date object is passed as a parameter)");
+		}
+
+		// diff() should return false if the first param is not a valid Date object
+		// Does this make you wonder what it's currently returning in this scenario???
+		if(dateUtils.diff("foo", longAgo) === false){
+			results.push("- PASS (returned false if invalid Date object is passed as the first parameter)");
+		}else{
+			results.push("- FAILED (did not return false if invalid Date object is passed as the first parameter)");
+		}
+
+		// diff() should return false if the second param is not a valid Date object
+		if(dateUtils.diff(longAgo, "foo") === false){
+			results.push("- PASS (returned false if invalid Date object is passed as the second parameter)");
+		}else{
+			results.push("- FAILED (did not return false if invalid Date object is passed as the second parameter)");
+		} 
+
+
+		// join the results array into a single string and alert it
+		alert(results.join("\n"));
+
+	}catch(e){
+		alert("Something went wrong and the tests could not complete:\n" + e.toString());
+	}
+}
+
+</script>
