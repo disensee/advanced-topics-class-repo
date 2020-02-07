@@ -102,7 +102,19 @@ dateUtils.convertMillisecondsToDays = function(ms){
 * @return {Date}        Returns the latter of the two date params.
 */
 dateUtils.max = function(date1, date2){
-    
+    if(!(date1 instanceof Date)){
+        throw new Error("Invalid argument, Date object expected");
+    }else{
+        if(!(date2 instanceof Date)){
+            throw new Error("Invalid argument, Date object expected");
+        }else{
+            if(date1 > date2){
+                return date1;
+            }else{
+                return date2;
+            }
+        }
+    }
 }
 
 /**
@@ -115,7 +127,17 @@ dateUtils.max = function(date1, date2){
 * @return {number}          The number of days between the two dates.
 */
 dateUtils.diff = function(date1, date2){
-        
+    if(!(date1 instanceof Date)){
+        throw new Error("Invalid argument, Date object expected");
+    }else if(!(date2 instanceof Date)){
+        throw new Error("Invalid argument, Date object expected");
+    }else{
+        if(date1 > date2){
+            return Math.round((date1 - date2)/86400000);
+        }else if(date2 > date1){
+            return Math.round((date2 - date1)/86400000);
+        }
+    }
 }
 
 /**
@@ -126,6 +148,10 @@ dateUtils.diff = function(date1, date2){
 * @return {string}
 */
 dateUtils.format = function(date){
-    
+    if(!(date instanceof Date)){
+        throw new Error("Invalid argument, Date object expected");
+    }else{
+        return dateUtils.getDayName(date) + " " + dateUtils.getMonthName(date) + " " + date.getDate() + ", " + date.getFullYear();
+    }
 }
 
