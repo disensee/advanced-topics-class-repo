@@ -65,7 +65,9 @@ I think many JS libraries handle errors this way because it is not always necess
 </body>
 </html>
 <script>
-
+// var d = new Date("foo");
+// console.log(d);
+// alert(d instanceof Date && !isNaN(d));
 var testResults = [];
 
 try{
@@ -176,6 +178,21 @@ function testIsOldEnoughToVote(){
 		testResults.push("- FAIL - the Date passed in WAS altered by isOldEnoughToVote()");
 	}
 
+	//TEST 7
+	//We shouldn't be able to pass in invalid Date objects
+	var invalidDate = new Date("foo");
+	actualErrorMessage = null;
+	try{
+		dateUtils.isOldEnoughToVote(invalidDate);
+	}catch(e){
+		actualErrorMessage = e.message;
+	}
+
+	if(expectedErrorMessage == actualErrorMessage){
+		testResults.push("- PASS - throws the proper error for invalid param");
+	}else{
+		testResults.push("- FAIL - does not throw the proper error for invalid param");
+	}
 }
 
 function testGetDayName(){
@@ -198,6 +215,22 @@ function testGetDayName(){
 	
 	try{
 		dateUtils.getDayName(false);
+	}catch(e){
+		actualErrorMessage = e.message;
+	}
+
+	if(expectedErrorMessage == actualErrorMessage){
+		testResults.push("- PASS - throws the proper error for invalid param");
+	}else{
+		testResults.push("- FAIL - does not throw the proper error for invalid param");
+	}
+
+	//TEST 3
+	//We shouldn't be able to pass in invalid Date objects
+	var invalidDate = new Date("foo");
+	actualErrorMessage = null;
+	try{
+		dateUtils.getDayName(invalidDate);
 	}catch(e){
 		actualErrorMessage = e.message;
 	}

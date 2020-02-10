@@ -26,6 +26,10 @@ dateUtils.isOldEnoughToVote = function(birthDate){
         throw Error("Invalid argument, Date object expected");
     }
 
+    if(isNaN(birthDate)){
+        throw Error("Invalid argument, Date object expected");
+    }
+
     var currentYear = new Date().getFullYear();
     var exactly18yearsAgo = new Date();
     exactly18yearsAgo.setFullYear(currentYear - 18);
@@ -47,6 +51,8 @@ dateUtils.isOldEnoughToVote = function(birthDate){
 */
 dateUtils.getDayName = function(date){
     if(!(date instanceof Date)){
+        throw new Error("Invalid argument, Date object expected");
+    }else if(isNaN(date)){
         throw new Error("Invalid argument, Date object expected");
     }else{
         var dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
