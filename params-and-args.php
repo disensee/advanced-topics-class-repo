@@ -31,10 +31,10 @@
         echo("Hello $firstName $lastName");
     }
 
-    sayHello(array(
+    sayHello([
         "firstName" => "Bob",
         "lastName" => "Smith"
-    ));
+    ]);
 
     ?>
 </body>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function Counter(){
+            //Instance variable(s)
+            var x = 10;
+
+            //Methods
+            function increment(){
+                x++;
+            }
+
+            function getX(){
+                return x;
+            }
+
+            //Return the public API
+            return {
+                increment: increment,
+                getX: getX,
+            };
+        }
+
+        var c = new Counter(); //new keyword is not necessary
+        c.increment();
+        alert(c.getX());
+        c.increment();
+        alert(c.getX());
+        //alert(c.x); <- this will not work
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

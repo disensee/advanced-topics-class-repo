@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Simple Module - Step 1</title>
+	<script src="js/simple-module.js"></script>
+	<script>
+		window.addEventListener('load', function(){
+			
+			var options = {
+				container: document.getElementById("container"),
+				firstName: "Bob"
+			};
+
+			acme.SimpleModule(options);
+
+		});
+	</script>
+	<style>
+	    body{ margin: 25px; }
+	    pre{
+	      background-color: #333;
+	      padding: 20px;
+	      margin-bottom: 6px;
+	      color:yellow;
+	      border-radius: 12px;
+	    }
+	</style>
+</head>
+<body>
+	<div id="container"></div>
+	<h1>Modules in JavaScript - Step 1</h1>
+<h3>Pre Reqs</h3>
+<ul>
+	<li>Review options-and-params demo</li>
+</ul>
+<h3>Introduction</h3>
+<p>
+	In this project we are going to continue our exploration of modular code.
+	You could actually think of a function as a module, it's a group of code that is meant to be used together.
+	Remember that we created a 'module' for the image gallery by moving all the code into a function.
+  We also added parameters to the function that allow the image gallery to be 
+  displayed inside of any tag/element on a page,
+	and to allow the image gallery to display any set of pictures.
+</p>
+<p>
+	Take a look at the .js file that this page links to. When you first look at the code, you'll see something that might look strange to you (unless you are quite familiar with JavaScript).
+	In JavaScript, you can nest functions within functions. Many other languages don't allow this.
+	But it's actually a very powerful feature. It allows us to organize the code within our module into functions.
+	And, as you'll see when you look at the code, we can invoke these nested functions from within the body of the main (outer) function.
+</p>
+<p>
+	As you might already know, there are lots of things that you can do with functions in JavaScript that you can't do in other languages.
+</p>
+
+<h3>Assignment</h3>
+<p>
+	Review the JavaScript code in this page and in simple-module.js and then answer the following questions.
+</p>
+
+ <h3>
+    Questions
+ </h3>
+ <ol>
+    <li>
+      Can you access any of the variables in the module from JavaScript code in this page?
+      <pre>
+The variables in the module cannot be accessed from this page because they are encapsulated in
+a function.
+      </pre>
+    </li>
+    <li>
+      Can you invoke the the initialize() or update() methods from JavaScript code in this page? Why not?
+      <pre>
+No. In order to invoke either of those methods they would have to be returned in an object.
+      </pre>
+    </li>
+    <li>
+      What is the scope of a local variable in JavaScript?
+      <pre>
+A local variable in JavaScript can only be accessed from within the function it is declared in (function scoping).
+      </pre>
+    </li>
+    <li>
+      How does the scope of a local variable in Java differ from the scope of a local variable in JavaScript (it might seem like a subtle difference)? 
+      <pre>
+Local variables in Java can only be accessed in the block of code they are declared in (block scoping).
+      </pre>
+    </li>
+    <li>
+      Would you say that the variables and methods inside the module are 'public' or 'private'?
+      <pre>
+Private. The variables can only be accessed from within the function they are declared in.
+      </pre>
+    </li>
+    <li>
+      What happens to a local variable if you fail to use the 'var' keyword when you declare it?
+      <pre>
+If the 'var' keyword is not used the variable is declared as a global variable. 
+      </pre>
+    </li>
+  </ol>
+
+<h3>Something to think about...</h3>
+<p>
+How can we make our module interactive with the JavaScript code in this page?
+In other words, how could we allow access to the variables and methods that are currently locked up inside the module.
+</p>
+
+</body>
+</html>
