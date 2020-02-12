@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Simple Module</title>
+	<script src="js/simple-module.js"></script>
+	<script src="js/SimpleModule.js"></script>
+	<script>
+		window.addEventListener('load', function(){
+			
+			var options = {
+				container: document.getElementById("container"),
+				firstName: "Bob"
+			};
+
+			// Note that since the SimpleModule() function now returns an object,
+			// we can assign the object to a variable (in this case the variable is called 'simpleMod')
+			var simpleMod = acme.SimpleModule(options);
+
+			document.getElementById("btnChangeName").addEventListener("click", function(){
+				// When btnChangeName is clicked, it will run code that
+				// interacts with our module object
+				simpleMod.setFirstName("Sally");
+				simpleMod.update();
+			});
+
+			// Using the SimpleModule class
+			var simpleModClass = new SimpleModule({
+				container: document.getElementById("sample-container-2"),
+				firstName: "Ted"
+			});
+		});
+	</script>
+	<style>
+	    body{ margin: 25px; }
+	    pre{
+	      background-color: #333;
+	      padding: 20px;
+	      margin-bottom: 6px;
+	      color:yellow;
+	      border-radius: 12px;
+	    }
+	</style>
+</head>
+<body>
+	<div id="container"></div>
+	<br>
+	<input type="button" id="btnChangeName" value="Change the name to Sally">
+
+	<h1>Simple Module - Step 2</h1>
+
+	<h3>Pre Reqs</h3>
+	<ul>
+		<li>Understanding of closures in JavaScript</li>
+	</ul>
+
+	<h3>Encapsulating Code in JavaScript Modules</h3>
+	<p>
+	There are lots of different design patterns for creating modules in JavaScript.
+	The latest version of JavaScript (ES6) allows you to create classes, which is a great way to organize your code into modules.
+	In this lesson we'll look a how we used to simulate classes in our JavaScript code.</p>
+
+	<p>
+	Spend a few minutes looking at the code in the .js file for this step, and notice that a new object has been returned by our SimpleModule function.
+	This object will contain the public API for our module, which allows client code to interact with the objects (and libraries) that we create.
+	</p>
+
+	<p>
+	Just above the return statement, notice that a <b>setter</b> method has been created.
+	</p>
+	<pre>
+function setFirstName(newFirstName){
+	firstName = newFirstName;
+}
+	</pre>
+	<p>
+		Also note that the setFirstName function is included in the object that the SimpleModule function returns:
+	</p>
+	<pre>
+return {
+  update:update,
+  setFirstName:<b>setFirstName</b>
+};
+	</pre>
+
+<p>
+Now our <b>client code</b> has a way to interact with the module.
+The object that get's returned is the <b>public API</b> for our module.
+It looks a little strange, but we are basically building an object that has properties
+that reference each method that we want to make available to the client code.
+</p>
+
+<p>
+As mentioned earlier, there are lots of approaches to creating modules in JavaScript.
+The approach that we've used here is called the <b>revealing module pattern</b>.
+The idea is to reveal the public API of your module in an object that gets returned.
+For more information, check out <a href="http://jargon.js.org/_glossary/REVEALING_MODULE_PATTERN.md" target="_blank">this</a> link.
+</p>
+
+<p>
+Now look at the JavaScript code that is at the top of this .html page (this is the 'client code' because it is using the module - the module is providing a service to the client!).
+Note that we are storing the returned object in a variable called <b>simpleMod</b>
+This object has two methods that we can call on it (setFirstName and update)
+</p>
+
+<p>
+Just below that line of code, we set up and event handler function that invokes the two methods.
+</p>
+
+<p>
+Now that you have studied the code, go ahead and press the buttons at the top of this page to test out the SimpleModule!
+</p>
+</p>
+
+<h3>Assignment - Part 1</h3>
+<p>
+	Use the SimpleModule function to create another instance of the module.
+	When you invoke the function, pass in an object that has a 'container' property and a 'firstName' property.
+	The value for the 'container' property should be a reference to the div element on this page that has it's id attribute set to 'sample-container'.
+	The value for the 'firstName' propert should be set to the string 'Buster'.
+</p>
+<p>
+	Make sure you are passing in the proper arguments, and that they are the the proper data type. 
+	To help you with this, look at the doc comments in the .js file.
+</p>
+<h3>Assignment - Part 2</h3>
+<p>
+	Convert the code in simple-module.js into a class using the (relatively) new class syntax in JavaScript.
+	In the js folder you'll find a file called SimpleModule.js.
+	Your job is to implement the code in the class so that it works just like the code in simple-module.js.
+	If you look in the script element at the top of this page you'll see that the client code is already in place.
+	An instance of the SimpleModule class is 
+	created and an 'options' argument is passed into the constructor.
+	In order to implement the code in the class, you'll probably have to do some research on 'class syntax in ES6'.
+</p>
+
+<h3>Assignment - Part 3</h3>
+<p>
+Review the JavaScript code in this page and in simple-module.js and then answer the following questions.
+</p>
+
+<h3>Questions</h3>
+<ol>
+	<li>
+		What is an <b>API</b>?
+		<pre>
+Put your answer here
+      </pre>
+	</li>
+	<li>
+		What is <b>client code</b> (note that this one can be hard to find on the net for some reason)?
+		<pre>
+Put your answer here
+      </pre>
+	</li>
+	<li>
+		Although the acme.SimpleModule function is not technically a constructor function, in what ways is it similar to one?
+		<pre>
+Put your answer here
+      </pre>
+	</li>
+	<li>
+		Explain how the acme.SimpleModule module is sort of like a 'class'?
+		<pre>
+Put your answer here
+      </pre>
+	</li>
+	<li>
+		What is a <b>closure</b>?
+		<pre>
+Put your answer here
+      </pre>
+	</li>
+	<li>
+		Explain how using closures can allow you to simulate encapsulation?
+		<pre>
+Put your answer here
+      </pre>
+	</li>
+	<li>
+			Why do you think that the only methods to have document comments above them inside the module are the  update() method and the setFirstName() method?
+			<pre>
+	Put your answer here
+				</pre>
+		</li>
+</ol>
+<div id="sample-container"></div>
+<div id="sample-container-2"></div>
+</body>
+</html>
