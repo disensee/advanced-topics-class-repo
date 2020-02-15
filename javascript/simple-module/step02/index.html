@@ -12,9 +12,15 @@
 				firstName: "Bob"
 			};
 
+			var options2 = {
+				container: document.getElementById("sample-container"),
+				firstName: "Jerry"
+			};
+
 			// Note that since the SimpleModule() function now returns an object,
 			// we can assign the object to a variable (in this case the variable is called 'simpleMod')
 			var simpleMod = acme.SimpleModule(options);
+			var simpleMod2 = acme.SimpleModule(options2);
 
 			document.getElementById("btnChangeName").addEventListener("click", function(){
 				// When btnChangeName is clicked, it will run code that
