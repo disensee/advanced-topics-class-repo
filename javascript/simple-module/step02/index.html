@@ -149,43 +149,49 @@ Review the JavaScript code in this page and in simple-module.js and then answer 
 	<li>
 		What is an <b>API</b>?
 		<pre>
-Put your answer here
+An API (application programming interface) is the set of public methods and properties that an object uses to interact with other objects in an application. 
       </pre>
 	</li>
 	<li>
 		What is <b>client code</b> (note that this one can be hard to find on the net for some reason)?
 		<pre>
-Put your answer here
+Client code is the client of the API. In this case, this page (index.html) is the client code as it is the code that is using both of the simple-module files. 
       </pre>
 	</li>
 	<li>
 		Although the acme.SimpleModule function is not technically a constructor function, in what ways is it similar to one?
 		<pre>
-Put your answer here
+The acme.SimpleModule function is similar to a constructor function in the sense that it returns an object with a public API so the 
+object can be interacted with. 
       </pre>
 	</li>
 	<li>
 		Explain how the acme.SimpleModule module is sort of like a 'class'?
 		<pre>
-Put your answer here
+the acme.SimpleModule module simulates a class by taking advantage of function scoping in JavaScript. The way the variables are scoped allows
+us to define variables that simulate private instance variables (these variables are only accessible within the acme.SimpleModule function), and 
+the ability to define functions inside of a function (closures) allows us create "methods" for the object that will be returned. We can then return an object 
+and set its properties to the pieces of code we want to be accessible in the client code. 
       </pre>
 	</li>
 	<li>
 		What is a <b>closure</b>?
 		<pre>
-Put your answer here
+A closure is a function that is inside of another function. 
       </pre>
 	</li>
 	<li>
 		Explain how using closures can allow you to simulate encapsulation?
 		<pre>
-Put your answer here
+Closures allow us to simulate encapsulation because local variables in JavaScript are only accessible within the function they are declared in. This means that 
+the "instance variables" for the object that is returned will only be accessible if we return the object with a setter/getter function.  
       </pre>
 	</li>
 	<li>
 			Why do you think that the only methods to have document comments above them inside the module are the  update() method and the setFirstName() method?
 			<pre>
-	Put your answer here
+The update() and setFirstName() methods are the only methods that have document comments as they are the only two methods returned in the public API, so they
+are the only methods that can be used in the client code. 
 				</pre>
 		</li>
 </ol>
