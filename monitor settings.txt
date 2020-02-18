@@ -1,0 +1,47 @@
+Asus MG278Q:
+Color:
+- Brightness: 75 (your preference, 80 was looking a bit harsh after a while in my dim room.)
+- Contrast: 80
+- Saturation: 46
+- Skin Tone: Natural
+- Color temp: user. [R: 100] [G: 96] [B: 96]
+
+Image:
+- Sharpness: 50
+- TraceFree: 80
+- VividPixel: 0
+- ASCR: off
+
+
+Dell:
+Nvidia Control Panel Use Nvidia Settings
+• All channels
+Brightness + 45%
+Contrast + 55%
+Gamma + 0.96
+Digital vibrance + 45%
+
+• Red channel
+Brightness + 40%
+Contrast + 70%
+Gamma + 1.00
+
+•Green channel
+Brightness + 50%
+Contrast + 50%
+Gamma + 0.89
+
+• Blue channel
+Brightness + 50%
+Contrast + 50%
+Gamma + 1.00
+
+Monitor settings
+Brightness 75%
+Contrast 77%
+
+• Color
+Custom Color
+R 97%
+G 99%
+B 96%
