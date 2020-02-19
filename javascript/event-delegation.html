@@ -11,10 +11,55 @@
             {"id":2,"title":"Harry Potter","author":"JK Rowlings"},
             {"id":3,"title":"The Great Gatsby","author":"Fitzgerald"}
             ];
+        
+
+            var container = document.getElementById("book-list-container");
+
+            var list = document.createElement("ol");
+            container.appendChild(list);
+            
+            for(var x = 0; x < bookData.length; x++){
+                var li = document.createElement("li");
+                li.setAttribute("bookId", bookData[x].id);
+                /*
+                li.addEventListener("click", function(evt){
+                    console.log(evt.target);
+
+                    var id = evt.target.getAttribute("bookId");
+
+                    if(id){
+                        alert(id);
+                    }
+                });
+                */
+                var h2 = document.createElement("h2");
+                h2.innerHTML = bookData[x].title;
+
+                var h3 = document.createElement("h3");
+                h3.innerHTML = bookData[x].author;
+                
+                list.appendChild(li);
+                li.appendChild(h2);
+                li.appendChild(h3);
+            }
+
+            list.addEventListener("click", function(evt){
+                var li = evt.target.closest("li");
+                if(li){
+                    var bookId = li.getAttribute("bookId");
+                    if(bookId){
+                        alert(bookId);
+                    }
+                }
+            });
+            
         });
     </script>
 </head>
 <body>
     <h1>Event Delegation</h1>
+    <div id="book-list-container">
+
+    </div>
 </body>
 </html>
