@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Contact Manager</title>
+	<link rel="stylesheet" type="text/css" href="js/contact-manager/contact-manager.css">
+	<script src="js/contact-manager/ContactForm.js"></script>
+	<script>
+	window.addEventListener("load", function(){
+
+		var form = new contactmanager.ContactForm({
+			container: document.getElementById("contact-form-container")
+		});
+
+	});
+
+	</script>
+</head>
+<body>
+	<div id="contact-form-container"></div>
+	<div id="contact-list-container"></div>
+</body>
+</html>
