@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Bind array of strings to select box</title>
+	<style type="text/css">
+		#selectedColor{
+			width:100px;
+			height:100px;
+		}
+	</style>
+	<script>
+	window.addEventListener("load", function(){
+		
+		// PROBLEM:
+		// Bind the data from the colors array to the
+		// select element in the HTML.
+		// There should be an option for each element in the array
+		var colors = ["red","blue","green","yellow"];
+		var selectBox = document.getElementById("selColors");
+		var colorConatainer = document.getElementById("selectedColor");
+		colorConatainer.style.backgroundColor=colors[0];
+
+		
+		for(var x = 0; x < colors.length; x++){
+			var option = document.createElement("option");
+			option.setAttribute("value", colors[x]);
+			option.innerHTML = colors[x];
+			selectBox.appendChild(option);
+		}
+		// BONUS PROBLEM:
+		// Write code so that when the selected option changes to a new color,
+		// the background of div below is set to the new color
+		selectBox.addEventListener("change", function(){
+			colorConatainer.style.backgroundColor = selectBox.value;
+		});
+	});
+
+
+	</script>
+</head>
+<body>
+Color choices:
+<select id="selColors"></select>
+<div id="selectedColor"></div>
+</body>
+</html>
