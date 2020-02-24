@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>JavaScript Event Objects</title>
+    <meta name="description" content="Event Objects in JavaScript">
+    <meta name="viewport" content="width=device-width">
+    <meta name="robots" content="noindex, nofollow" />
+    <link REL=StyleSheet HREF="../styles/style.css" TYPE="text/css">
+    <style type="text/css">
+        .box{width:100px; height:100px; }
+        .blue{ background-color:blue; }
+        .green{ background-color:green; }
+
+        pre{
+            background-color: #333;
+            padding: 20px;
+            margin-bottom: 6px;
+            color:yellow;
+            border-radius: 12px;
+        }
+    </style>
+    <script src="../js/main.js"></script>
+    <script>
+    // wait for the page 'load' event
+    window.addEventListener('load', function(){
+
+        // ALL of your JS code should go inside this function!
+
+        var ol = document.getElementById("someList");
+
+        ol.addEventListener("click", function(evt){
+            //console.log("TARGET..." , evt.target);
+            //console.log("CURRENT TARGET: ", evt.currentTarget);
+            var closestLi = evt.target.closest("li");
+            console.log(closestLi);
+        });
+
+        /////////////////////
+        // CODING PROBLEMS
+        /////////////////////
+
+        //PROBLEM 1
+        // Add an event handler function for the click event on 'div1'
+        // The event handler function should have a parameter named 'eventObj' (although we could name it anything we wanted) 
+        // In the body of the function, log the eventObj parameter.
+
+
+
+
+        //PROBLEM 2
+        // Add an event handler function for the 'mouseover' event on 'div2'
+        // The body of the function should change the background color of 'div2' to red.
+        // Then add another event handler function for the 'mouseout' event of 'div2'.
+        // This function should change the background color of 'div2' back to green.
+        // (Hint: there is an example of setting the background color of a DOM element in javascript-arrays-and-lists.html)
+
+
+        
+
+        //PROBLEM 3 - Display the current mouse position in two text inputs
+        // Hook up an event handler function to the 'document' object.
+        // The event handler should be triggered/invoked when the 'mousemove' event occurs.
+        // Make sure to add a parameter to the event handler function because we'll need to make use of the event object.
+        // (Note that in this page we have been calling this parameter 'eventObj', but you could call it something different if you want)
+        // Inside the body of the event handler function, get the 'pageX' and 'pageY' properties of the event object
+        // and display them in the appropriate text inputs.
+        // Here are the two text inputs that should display the mouse position:
+        var txtPageX = document.getElementById("txtPageX");
+        var txtPageY = document.getElementById("txtPageY");
+
+
+       
+
+
+    });// this is the end of the window.addEventListener() method call
+
+
+    </script>
+  </head>
+  <body>
+
+    <h1>JavaScript Event Objects</h1>
+    <p>
+        When the browser invokes an event handler function, it passes an object as a parameter.
+        The object contains information about the event.
+    </p>
+    <input type="button" id="btn1" value="Button 1">
+    <pre>
+var btn1 = document.getElementById("btn1");
+
+btn1.addEventListener('click', function(eventObj){
+    console.log(eventObj);
+});
+    </pre>
+    <p>
+        If you want to make use of this object, you must specify a parameter in the event handler function.
+        If you don't want to use the event object, you can just not specify a parameter in the event handler function.
+    </p>
+    <p>
+        Note that the properties and methods of the event object will vary depending on the type of event.
+        For example, the objected created by a 'click' event will be different than the object created by the page 'load' event.
+        Here is a reference on the various <a href="https://developer.mozilla.org/en-US/docs/Web/API/Event" target="_blank">types of event objects</a>.
+    </p>
+    <h3>The 'target' property of an event object</h3>
+    <p>
+        One very useful property of an event object is the 'target', which refers to the element that triggered the event.
+    </p>
+    <input type="button" id="btn2" value="Button 2">
+    <input type="button" id="btn3" value="Button 3">
+    <pre>
+function handleButtonClick(eventObj){
+    console.log(eventObj.target);
+    alert("You clicked on " + eventObj.target.id);
+}
+
+var btn2 = document.getElementById("btn2");
+var btn3 = document.getElementById("btn3");
+
+btn2.addEventListener('click', handleButtonClick);
+btn3.addEventListener('click', handleButtonClick);
+    </pre>
+    <h3>Mouse Event Objects</h3>
+    <p>
+        We have already seen a few common mouse events, such as 'click', 'mouseover', and 'mouseout'.
+        Another interesting mouse event is 'mousemove'. 
+        This event occurs every time the mouse moves!
+        Mouse event objects have properties that give the position of the mouse on the page at the time of the event.
+        The properties are 'pageX' and 'pageY'.
+        Here's an example that demonstrates how you can track the movement of the mouse by adding an event handler
+        to the mousemove event to the window object.
+    </p>
+    <pre>
+window.addEventListener('mousemove', function(eventObj){
+    var x = eventObj.pageX;
+    var y = eventObj.pageY;
+    console.log("Mouse position: " + x + ", " + y);
+});
+    </pre>
+
+    <h3>Keyboard Events</h3>
+    <p>Let's hook up an event listener for when the user enters a character into this input tag: </p>
+    <input type="text" id="txt1">
+    <pre>
+var txt1 = document.getElementById("txt1");
+
+txt1.addEventListener('keypress', function(){
+    alert(txt1.value);
+});
+
+// Note - change 'keypress' to 'keyup' and notice a difference in the behavior.
+// It seems that keypress is triggered before the value of txt1 changes
+    </pre>
+    <p>
+        In the next example, we'll make use of the event object that gets passed into the event handler function:
+    </p>
+    <pre>
+var txt1 = document.getElementById("txt1");
+
+txt1.addEventListener('keypress', function(eventObj){
+    alert(eventObj.key)
+});
+    </pre>
+    <p>
+        Here is a link that shows all of the properties of a <a href="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent" target="_blank">KeyboardEvent object</a>.
+    </p>
+    <h3>Form Events</h3>
+    <p>
+        A common task for a programmer is to work with forms that gather user input.
+        You can hook up an event handler for when the form is submitted.
+        First pull the form tag out of the DOM, then add an event handler to the 'submit' event of the form.
+    </p>
+    <p>
+        The submit event is important because we need to 'validate' the user's input before sending it to the database on a server.
+    </p>
+    <form id="surveyForm" method="POST" action="http://wtc-web.com/form-handler.php">
+        <table border="1">
+            <tr>
+                <td align="right">
+                    Enter your first name:
+                </td>
+                <td>
+                    <input type="text" id="txtFirstName" name="firstName" />
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    Enter your age:
+                </td>
+                <td>
+                    <input type="text" id="txtAge" name="age" />
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    &nbsp;
+                </td>
+                <td>
+                    <input type="submit" id="btnSubmit" value="submit" />
+                </td>
+            </tr>
+        </table>
+    </form>
+    <pre>
+var surveyForm = document.getElementById("surveyForm");
+var txtFirstName = document.getElementById("txtFirstName");
+var txtAge = document.getElementById("txtAge");
+
+surveyForm.addEventListener('submit', function(eventObj){
+    
+    // make sure the user input is valid before sending the data
+    if(validateUserInput() == false){
+        eventObj.preventDefault();// this prevents the form from sending the data.
+    }
+
+});
+
+function validateUserInput(){
+    
+    if(txtFirstName.value == ""){
+        alert("Please enter your first name");
+        return false;
+    }
+
+    if(txtAge.value == ""){
+        alert("Please enter your age");
+        return false;
+    }else if(txtAge.value > 0 == false){
+        alert("Your age must be a number greater than 0");
+        return false;
+    }
+
+    return true;
+}
+    </pre>
+    <p><b>It would be a great idea to step through above code with the debugger!!!</b></p>
+    <p>
+        Another event that may come in handy when working with forms and user input is the 'change' event.
+        This event occur when a user changes a form input.
+    </p>
+    Select a color:
+    <select id="selColor">
+        <option value="">Choose One...</option>
+        <option value="red">RED</option>
+        <option value="blue">BLUE</option>
+        <option value="green">GREEN</option>
+    </select>
+    <pre>
+var selColor = document.getElementById("selColor");
+
+selColor.addEventListener("change", function(){
+    alert("The selected value changed to: "  + selColor.value);
+});
+    </pre>
+
+    <h3>target vs currentTarget</h3>
+    <p>
+        You'll often add an event listener to an element that has children inside of it.
+        If a child element is clicked, the target of the event will be that child element.
+        But the currentTarget of the event will be the element that has the listener attached to it. 
+    </p>
+    <ol id="someList" style="border:3px solid grey">
+        <li itemId="5">List <b>Item 1</b></li>
+        <li itemid="6">List Item 2</li>
+    </ol>
+    <pre>
+var ol = document.getElementById("someList");
+
+ol.addEventListener("click", function(evt){
+    console.log("TARGET..." , evt.target);
+    console.log("CURRENT TARGET: ", evt.currentTarget);
+});
+    </pre>
+
+    <h1>Coding Problems</h1>
+    <h3>Coding Problems - See the 'script' tag below this h3 tag. You will have to write some JavaScript code in it.</h3>
+    <p>
+        <b>Always test your work! Check the console log to make sure there are no errors.</b>
+    </p>
+    
+    <!--THE SCRIPT TAG FOR THE CODING PROBLEMS IS INSIDE THE HEAD TAG AT THE TOP OF THE PAGE-->
+    <br/><br/>
+    <div id="div1" class="box blue"></div>
+    <br/><br/>
+    <div id="div2" class="box green"></div>
+    <br/><br/>
+    Mouse Position X:<input type="text" size="3" id="txtPageX" />
+    <br/>
+    Mouse Position Y:<input type="text" size="3" id="txtPageY" />
+    <footer>
+        &copy; 2020 Niall Kader
+    </footer>
+  </body>
+</html>
+
+
