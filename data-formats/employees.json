@@ -1,0 +1,30 @@
+[
+	{
+		"id": 1,
+		"firstName": "Bob",
+		"lastName": "Smith",
+		"gender": "male",
+		"departments": ["Sales", "IT"]
+	},
+	{
+		"id": 2,
+		"firstName": "Jenny",
+		"lastName": "Johnson",
+		"gender": "female",
+		"departments": ["Marketing", "Service"]
+	},
+	{
+		"id": 3,
+		"firstName": "Tom",
+		"lastName": "Anderson",
+		"gender": "male",
+		"departments": ["Finance", "Service"]
+	},
+	{
+		"id": 4,
+		"firstName": "Julie",
+		"lastName": "Smith",
+		"gender": "female",
+		"departments": ["Sales", "Marketing"]
+	}
+]

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Parsing JSON</title>
+	<style type="text/css">
+		label{ display: block; }
+		#app-container{
+			overflow: auto;
+		}
+		.panel{
+			width:25%;
+			margin-right: 4px;
+			float: left;
+			border: 1px solid midnightblue;
+			padding: 20px;
+		}
+	</style>
+	<script src="../js/file-loader.js"></script>
+	<script>
+	window.addEventListener('load', function(){
+		
+		// Lets make use of this module to help us load a text document
+		// from the user's file system into our page.
+		// You don't have to understand the code inside the FileLoader module,
+		// you just have to know how to use it (understand it's API).
+		acme.FileLoader({
+			container: document.getElementById("file-loader-container"),
+			callback: setUpPage,
+			allowedFileTypes: ".json"
+		});
+
+		// we'll load up this array with data from a .json file!
+		var employees = []; 
+		var list = null;
+		var listContainer = null
+
+		function setUpPage(jsonString){
+			//alert(jsonString);
+			// STEP 1
+			// convert the JSON String to an array of objects
+			employees = JSON.parse(jsonString);
+			//console.log(employees);
+			// STEP 2
+			// create a list to display the employees
+			list = createEmployeeList(employees);
+			listContainer = document.getElementById("employee-list-container");
+			listContainer.appendChild(list);
+			// STEP 3
+			// bind the data for the first employee to the form
+			populateEmployeeForm(employees[0]);			
+
+			// STEP 4
+			// Set up an event handler so that when an EDIT button in the list is clicked
+			// the employee's data will be bound to the form
+			// Add an empId attribute to each LI that was created
+			// Put the event handler on the list (use event delegation)
+			// You'll have to implement the code for getEmployeeById()
+			list.addEventListener("click", function(evt){
+				var target = evt.target;
+				//console.log(target);
+				if(target.classList.contains("btnEdit")){
+					var selectedId = target.closest("li").getAttribute("empId");
+					var selectedEmployee = getEmployeeById(selectedId);
+					populateEmployeeForm(selectedEmployee);
+				}
+			});
+		}
+		
+
+		/**
+		* Creates and returns an ordered list that displays employee data
+		* @param {array}			An array of objects that each represent an employee
+		* @return {HTML Element}	An ordered list, populated with list item for each employee.
+		* 							Each element in the list displays the employess first name, last name
+		* 							and a button that says EDIT on it.
+		*/
+		function createEmployeeList(employees){
+			var html = "";
+			for(var x = 0; x < employees.length; x++){
+				html += `<li empId="${employees[x].id}">
+							${employees[x].firstName} ${employees[x].lastName}
+							<br>
+							<input type="button" class="btnEdit" value="EDIT">
+						</li>`
+			}
+			var ol = document.createElement("ol");
+			ol.innerHTML = html;
+
+			return ol;
+		}
+
+
+		/**
+		* Takes the data from an employee object (the param) and binds it to the form
+		* @param {object}	An object that represents an employee
+		*/
+		function populateEmployeeForm(employee){
+			clearForm();
+			document.querySelector("#firstName").value = employee.firstName;
+			document.querySelector("#lastName").value = employee.lastName;
+			document.querySelector("#gender").value = employee.gender;
+
+			for(var i = 0; i < employee.departments.length; i++){
+				var dept = employee.departments[i].toLowerCase();
+				document.getElementById(dept).checked = true;
+			}
+
+		}
+
+
+		/**
+		* Finds an employee from the employees array by it's ID
+		* @param {number} 	The id of the employee to search for
+		* @return {object}	The employee object that matches the id param
+		* 					or null if the employee object is not found
+		*/
+		function getEmployeeById(id){
+			for(var x = 0; x < employees.length; x++){
+				if(id == employees[x].id){
+					return employees[x];
+				}
+			}
+			return null;
+		}
+
+		function clearForm(){
+			document.querySelector("#firstName").value = "";
+			document.querySelector("#lastName").value = "";
+			document.querySelector("#gender").value = "";
+
+			var checkboxes = document.querySelectorAll("[type=checkbox]");
+			for(var x = 0; x < checkboxes.length; x++){
+				checkboxes[x].checked=false;
+			}
+		}
+
+
+		
+
+	});
+
+	</script>
+</head>
+<body>
+	Select the <b>employees.json</b> file: 
+	<div id="app-container">
+		<div class="panel">
+			<h3>File Loader (loads data from a .json file)</h3>
+			<div id="file-loader-container"></div>
+		</div>
+		<div class="panel">
+			<h3>Employee List</h3>
+			<div id="employee-list-container"></div>
+		</div>
+		<div class="panel">
+			<h3>Employee Form/Details</h3>
+			<div id="employee-form-container">
+				<form id="employee-form">
+					<label>First Name</label>
+					<input type="text" id="firstName" />
+					<label>Last Name</label>
+					<input type="text" id="lastName" />
+					<label>Gender</label>
+					<select id="gender">
+						<option value="">Choose one...</option>
+						<option value="female">FEMALE</option>
+						<option value="male">MALE</option>
+					</select>
+					<label>Departments</label>
+					<input type="checkbox" id="sales" value="Sales">&nbsp;Sales<br>
+					<input type="checkbox" id="marketing" value="Marketing">&nbsp;Marketing<br>
+					<input type="checkbox" id="finance" value="Finance">&nbsp;Finance<br>
+					<input type="checkbox" id="it" value="IT">&nbsp;IT<br>
+					<input type="checkbox" id="service" value="Service">&nbsp;Service<br>
+					<input type="button" value="SAVE">
+				</form>
+			</div>
+		</div>
+	</div>
+	<h3>Pre-Reqs</h3>
+	<ul>
+		<li>Understanding of how to encode data in the JSON format.</li>
+	</ul>
+	<h3>Assignment</h3>
+	<p>
+		Use the FileLoader module to get the contents of the employees.json file.
+		Implement the code in the parseJSON() function to do the following:
+	</p>
+	<ol>
+		<li>Convert the JSON data (string) into a JavaScript array.</li>
+		<li>Display the employess in a list (put the list in the div with the id of 'employee-list-container').</li>
+		<li>In the list you can just display the first name, last name and id of each employee.</li>
+		<li>
+			Implement the code for the populateEmployeeForm() function.
+			Note that it it takes an 'employee' object as a parameter and then populates the Employee Details Form with the data for the given employee.
+		</li>
+	</ol>
+	<h3>Questions</h3>
+	<ol>
+		<li>
+			What are the rules of encoding data in the JSON format?
+			<pre>
+	Put your answer here
+	      </pre>
+		</li>
+
+		<li>
+			What does the parse() method of the JSON API do (JSON.parse())?
+			<pre>
+	Put your answer here
+	      </pre>
+		</li>
+
+		<li>
+			What method of the JSON API would you use to convert an object into a JSON string?
+			<pre>
+	Put your answer here
+	      </pre>
+		</li>
+		<li>
+			What is <b>data binding</b>?
+			<pre>
+	Put your answer here
+	      </pre>
+		</li>
+	</ol>
+</body>
+</html>
+

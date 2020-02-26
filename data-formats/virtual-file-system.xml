@@ -1,0 +1,27 @@
+<folder id="1" name="root">
+	<folder id="2" name="music">
+		<folder id="3" name="country">
+			<file id="5" name="hank-williams.mp3" />
+			<file id="4" name="willie-nelson.mp3" />
+		</folder>
+		<folder id="4" name="rap">
+			<file id="6" name="doctor-dre.mp3" />
+			<file id="7" name="tribe-called-quest.mp3" />
+			<file id="8" name="public-enemy.mp3" />
+		</folder>
+	</folder>
+	<folder id="5" name="pictures">
+		<folder id="6" name="2016">
+			<file id="9" name="my-dog.jpeg" />
+			<file id="10" name="graduation.jpg" />
+		</folder>
+		<folder id="7" name="2017">
+			<file id="11" name="wedding.jpg" />
+			<file id="12" name="graduation.jpg" />
+			<file id="13" name="celebration.jpg" />
+		</folder>
+		<file id="14" name="some-other-pic.jpg" />
+	</folder>
+	<file id="2" name="todo-list.txt" />
+	<file id="1" name="letter-to-mom.docx" />
+</folder>

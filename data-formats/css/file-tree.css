@@ -1,0 +1,18 @@
+.file-tree li{
+   list-style: none;
+}
+
+.file-tree li:before{
+   content: '';
+   display: inline-block;
+   height: 16px;
+   width: 16px;
+}
+
+.file-tree li.file:before{
+	background-image: url(images/file.png);
+}
+
+.file-tree li.folder:before{
+	background-image: url(images/directory.png);	
+}
