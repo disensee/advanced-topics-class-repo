@@ -56,7 +56,7 @@
 			// Add an empId attribute to each LI that was created
 			// Put the event handler on the list (use event delegation)
 			// You'll have to implement the code for getEmployeeById()
-			list.addEventListener("click", function(evt){
+			listContainer.addEventListener("click", function(evt){
 				var target = evt.target;
 				//console.log(target);
 				if(target.classList.contains("btnEdit")){
@@ -97,6 +97,7 @@
 		*/
 		function populateEmployeeForm(employee){
 			clearForm();
+			document.querySelector("#txtId").value = employee.id;
 			document.querySelector("#firstName").value = employee.firstName;
 			document.querySelector("#lastName").value = employee.lastName;
 			document.querySelector("#gender").value = employee.gender;
@@ -135,7 +136,23 @@
 			}
 		}
 
+		var btnSave = document.querySelector("#btnSave");
+		btnSave.addEventListener("click", (evt)=>{
+			//TODO: VALIDATE USER INPUT
+			var id = document.querySelector("#txtId").value;
+			var e = getEmployeeById(id);
 
+			e.firstName = document.querySelector("#firstName").value;
+			e.lastName = document.querySelector("#lastName").value;
+			e.gender = document.querySelector("#gender").value;
+			//console.log(e);
+			list = createEmployeeList(employees);
+			listContainer = document.getElementById("employee-list-container");
+			listContainer.innerHTML="";
+			listContainer.appendChild(list);
+		});
+
+		
 		
 
 	});
@@ -157,6 +174,7 @@
 			<h3>Employee Form/Details</h3>
 			<div id="employee-form-container">
 				<form id="employee-form">
+					<input type="text" id="txtId" readonly="true">
 					<label>First Name</label>
 					<input type="text" id="firstName" />
 					<label>Last Name</label>
@@ -173,7 +191,7 @@
 					<input type="checkbox" id="finance" value="Finance">&nbsp;Finance<br>
 					<input type="checkbox" id="it" value="IT">&nbsp;IT<br>
 					<input type="checkbox" id="service" value="Service">&nbsp;Service<br>
-					<input type="button" value="SAVE">
+					<input type="button" value="SAVE" id="btnSave">
 				</form>
 			</div>
 		</div>
