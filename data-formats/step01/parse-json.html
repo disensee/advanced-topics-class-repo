@@ -126,6 +126,7 @@
 		}
 
 		function clearForm(){
+			document.querySelector("#txtId").value = "";
 			document.querySelector("#firstName").value = "";
 			document.querySelector("#lastName").value = "";
 			document.querySelector("#gender").value = "";
@@ -140,19 +141,45 @@
 		btnSave.addEventListener("click", (evt)=>{
 			//TODO: VALIDATE USER INPUT
 			var id = document.querySelector("#txtId").value;
-			var e = getEmployeeById(id);
-
+			var e;
+			if(id > 0){
+				e = getEmployeeById(id);
+			}else{
+				e = {};
+				e.id = new Date().getTime();
+				employees.push(e);
+			}
 			e.firstName = document.querySelector("#firstName").value;
 			e.lastName = document.querySelector("#lastName").value;
 			e.gender = document.querySelector("#gender").value;
+
+			var checkBoxes = document.querySelectorAll("[type=checkbox]");
+			var ar = [];
+			checkBoxes.forEach((cb)=>{
+				if(cb.checked){
+					//console.log(cb.value);
+					ar.push(cb.value);
+				}
+			});
+			//console.log(ar);
+			e.departments = ar;
+
 			//console.log(e);
 			list = createEmployeeList(employees);
 			listContainer = document.getElementById("employee-list-container");
 			listContainer.innerHTML="";
 			listContainer.appendChild(list);
+
+			clearForm();
 		});
 
+		document.getElementById("btnClear").addEventListener("click", ()=>{
+			clearForm();
+		});
 		
+		document.getElementById("btnDelete").addEventListener("click", ()=>{
+			alert("TODO: Add delete functionality");
+		});
 		
 
 	});
@@ -192,6 +219,8 @@
 					<input type="checkbox" id="it" value="IT">&nbsp;IT<br>
 					<input type="checkbox" id="service" value="Service">&nbsp;Service<br>
 					<input type="button" value="SAVE" id="btnSave">
+					<input type="button" value="CLEAR" id="btnClear">
+					<input type="button" value="DELETE" id="btnDelete">
 				</form>
 			</div>
 		</div>

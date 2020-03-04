@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Event Targets</title>
+<style type="text/css">
+	.current-target{
+		background-color: orange;
+	}
+
+	.target{
+		background-color: red;
+	}
+</style>
+<script type="text/javascript">
+	
+window.addEventListener("load", function(){
+
+function eventHandler(evt){
+	console.log(evt.target);
+	console.log(evt.currentTarget);
+
+	var previousTarget = document.querySelector(".target");
+	if(previousTarget){
+		previousTarget.classList.remove("target");
+	}
+
+	evt.target.classList.add("target");
+	evt.currentTarget.classList.add("current-target");
+}	
+
+document.querySelector(".some-list").addEventListener("click", eventHandler);
+//window.addEventListener("click", eventHandler);
+document.querySelector("body").addEventListener("click", eventHandler);
+
+});
+
+</script>
+</head>
+<body>
+
+	<ul class="some-list">
+		<li>
+			<p>The is a paragraph.</p>
+			<p>The is a paragraph with a <b>b element</b> in it.</p>
+			<input type="button" value="Some Button">
+		</li>
+		<li>
+			<p>The is a paragraph.</p>
+			<p>The is a paragraph with a <b>b element</b> in it.</p>
+			<input type="button" value="Some Button">
+		</li>
+	</ul>
+
+</body>
+</html>

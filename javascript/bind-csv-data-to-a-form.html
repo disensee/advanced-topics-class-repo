@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Bind CSV Data to a Form</title>
+	<style type="text/css">
+		label{
+			display: inline-block;
+			width:100px;
+			text-align: right;
+			padding-right: 10px;
+		}
+	</style>
+<script type="text/javascript">
+
+window.addEventListener("load", ()=>{
+
+	// PROBLEM - Bind this CSV data to the form
+	var csv = "Betty,Jones,lunch,pie";
+
+	// SOLUTION...
+	var ar = csv.split(",");
+	//console.log(ar);
+	var firstName = ar[0];
+	var lastName = ar[1];
+	var meal = ar[2];
+	var desert = ar[3];
+
+	var form = document.getElementById("mealForm");
+	form.querySelector(".fName").value = firstName;
+	form.querySelector(".lName").value = lastName;
+	
+	var meatRadios = form.querySelectorAll(".meal option");
+	//console.log(meatRadios);
+	meatRadios.forEach((o)=>{
+		//console.log(o);
+		//console.log(o.value);
+		if(o.value == meal){
+			o.selected = true;
+		}
+	});
+
+	var desertRadios = form.querySelectorAll("[name=desert]");
+	desertRadios.forEach((r)=>{
+		if(r.value == desert){
+			r.checked = true;
+		}
+	});
+});
+
+</script>
+</head>
+<body>
+	<h1>Bind CSV Data to a Form</h1>
+	<form id="mealForm">
+		<label>First Name</label>
+		<input type="text" class="fName">
+		<br>
+		<label>Last Name</label>
+		<input type="text" class="lName">
+		<br>
+		<label>Favorite Meal</label>
+		<select class="meal">
+			<option>Choose One...</option>
+			<option value="breakfast">Breakfast</option>
+			<option value="lunch">Lunch</option>
+			<option value="dinner">Dinner</option>
+		</select>
+		<br>
+		<label>Favorite Desert</label>
+		<input type="radio" name="desert" value="ice cream">Ice Cream&nbsp;&nbsp;
+		<input type="radio" name="desert" value="cake">Cake&nbsp;&nbsp;
+		<input type="radio" name="desert" value="pie">Pie
+	</form>
+</body>
+</html>
