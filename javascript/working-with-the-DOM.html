@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Working with the DOM</title>
+	<style type="text/css">
+		.selected{ background-color: lightgray; }
+		.rounded{border: 1px solid darkgray; border-radius: 8px; }
+		.big{font-size: 150%; font-weight: bold;}
+	</style>
+	<script type="text/javascript">
+	window.addEventListener("load", ()=>{
+
+
+		// PROBLEM 1
+		// Use the querySelectorAll method to get a handle on all of the LI elements in
+		// the marketing team list. Store the return value in an variable named marketingListItems.
+		// Then console log the marketingLIs variable
+
+		var marketingListItems = document.querySelectorAll(".marketing-team li");
+		console.log(marketingListItems);
+
+
+		// PROBLEM 2
+		// Use the querySelector method to get a handle on the LI element in the sales team list
+		// that displays Clyde Benson.
+		// Then console log the LI
+
+		console.log(document.querySelector("[employeeId='22']"));
+
+		// PROBLEM 3
+		// Get a handle on the LI element that displays Chocolate Chip.
+		// Console log the classList property of the LI element
+		// Note the data type of the classList property
+
+		var chocolateChip = document.querySelector(".selected.rounded.big");
+		console.log(chocolateChip.classList);
+
+		// PROBLEM 4
+		// Remove the 'rounded' class from the LI element in the previous problem
+		
+		chocolateChip.classList.remove("rounded");
+
+		// PROBLEM 5
+		// Explain some properties and methods of a DOMTokenList
+		/*
+			DOMTokenList is an object that contains a set of space seperated tokens. Element.classList returns this type of set. The set is indexed beginning with zero. DOMTokenList is always case-sensitive. 
+
+			DOMTokenList has two properties which are length and value. 
+			DOMTokenList.length is a nunber representing the number of objects stored in the object. 
+			DOMTokenList.value is a stringifier property that returns the value of the list as a string. 
+
+			A few methods of the DOMTokenList object are: 
+				contains(token): 
+				Returns true if the list contains the "token" parameter, or false otherwise.
+
+				replace(oldToken, newToken):
+				Replaces oldToken with newToken.
+				
+				add(token1[, token2[, ...tokenN]):
+				Adds the given token(s) to the list.
+			
+		*/
+		
+		// PROBLEM 6
+		// Bind this data to the form on the page
+		var person = {
+			name: "Bob Smith",
+			gender: "male",
+			placesVisited: ["Canada", "Spain"]
+		}
+
+		var form = document.querySelector("#personForm");
+
+		form.querySelector(".full-name").value = person.name;
+
+		form.querySelectorAll("[name=gender]").forEach((r)=>{
+			if(r.value == person.gender){
+				r.checked = true;
+			}
+		});
+
+		person.placesVisited.forEach((p)=>{
+			form.querySelectorAll(".visited").forEach((c)=>{
+				if(p == c.value){
+					c.checked = true;
+				}
+			});
+		});
+
+		
+	});
+	</script>
+	
+</head>
+<body>
+
+<h3>Sales Team List</h3>
+<ul class="sales-team">
+	<li employeeId="107">Joe Smith</li>
+	<li employeeId="33">Betty Jones</li>
+	<li employeeId="22">Clyde Benson</li>
+</ul>
+
+<h3>Marketing Team List</h3>
+<ul class="marketing-team">
+	<li employeeId="17">Dana Flower</li>
+	<li employeeId="42">Jeff Coble</li>
+	<li employeeId="22">Clyde Benson</li>
+</ul>
+
+
+<h3>Cookie List</h3>
+<ul>
+	<li>Oatmeal</li>
+	<li class="selected rounded big">Chocolate Chip</li>
+	<li>Peanut Butter</li>
+</ul>
+
+<h3>Person Form</h3>
+<form id="personForm">
+	<label>Full Name</label>
+	<input type="text" class="full-name">
+	<br>
+	<label>Gender</label>
+	<input type="radio" name="gender" value="male">&nbsp;Male&nbsp;
+	<input type="radio" name="gender" value="female">&nbsp;Female;
+	<br>
+	<label>Places Visited</label>
+	<input type="checkbox" class="visited" value="Canada">&nbsp;Canada&nbsp;
+	<input type="checkbox" class="visited" value="Mexico">&nbsp;Mexico&nbsp;
+	<input type="checkbox" class="visited" value="Spain">&nbsp;Spain&nbsp;
+</form>
+
+
+</body>
+</html>
