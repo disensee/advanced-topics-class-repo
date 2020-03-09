@@ -13,7 +13,7 @@ window.addEventListener('load', ()=>{
 	// Make sure to console log the employees array when you are done populating it. 
 
 	var csv = `FIRST NAME, LAST NAME, SALARY, START DATE\nBob, Smith, $89000, 2/13/99\nSally, Jones, $77000, 4/9/05\nRussell, Clark, $90000, 3/16/19`;
-
+	
 	var employees = [];
 
 	function Employee(firstName, lastName, salary, startDate){
@@ -25,13 +25,28 @@ window.addEventListener('load', ()=>{
 
 	// SOLUTION...
 	// Hint: split csv into rows, loop through each row, then split on the commas
+	var rows = csv.trim().split("\n");
+	for(let x=1;x < rows.length; x++){
+		let row = rows[x];
 
+		let cells = row.split(",");
+		let fname = cells[0].trim();
+		let lname = cells[1].trim();
+		let salary = cells[2].trim();
+		let startDate = cells[3].trim();
 
-
-
+		let e = new Employee(fname, lname, salary, startDate);
+		employees.push(e);
+	}
+	
+	console.log(employees);
 
 	// PROBLEM 2 - Bind the data in the employees array to an HTML table and then display the table on the page. 
 	// Append the table to the div element in the body of the html below.
+	var div = document.querySelector("#employee-table-container");
+	var table = document.createElement("table");
+
+	div.appendChild(table);
 	
 
 	console.log("Display this csv data in an html table...\n" + csv);
