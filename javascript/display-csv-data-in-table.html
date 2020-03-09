@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Bind CSV Data to an HTML Table</title>
+
+<script type="text/javascript">
+	
+window.addEventListener('load', ()=>{
+
+	// PROBLEM 1 - Convert the csv data into an array of Employee objects.
+	// Populate the employees array below each with of the employees from the csv data.
+	// Use the Employee constructor function below to create each object.
+	// Make sure to console log the employees array when you are done populating it. 
+
+	var csv = `FIRST NAME, LAST NAME, SALARY, START DATE\nBob, Smith, $89000, 2/13/99\nSally, Jones, $77000, 4/9/05\nRussell, Clark, $90000, 3/16/19`;
+
+	var employees = [];
+
+	function Employee(firstName, lastName, salary, startDate){
+		this.firstName =  firstName;
+		this.lastName = lastName;
+		this.salary = salary;
+		this.startDate = startDate;
+	}
+
+	// SOLUTION...
+	// Hint: split csv into rows, loop through each row, then split on the commas
+
+
+
+
+
+	// PROBLEM 2 - Bind the data in the employees array to an HTML table and then display the table on the page. 
+	// Append the table to the div element in the body of the html below.
+	
+
+	console.log("Display this csv data in an html table...\n" + csv);
+
+	// SOLUTION...
+	
+
+});
+
+</script>
+</head>
+<body>
+	<div id="employee-table-container"></div>
+</body>
+</html>
