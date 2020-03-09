@@ -41,11 +41,13 @@
 			// convert the JSON String to an array of objects
 			employees = JSON.parse(jsonString);
 			//console.log(employees);
+
+
 			// STEP 2
 			// create a list to display the employees
 			list = createEmployeeList(employees);
-			listContainer = document.getElementById("employee-list-container");
-			listContainer.appendChild(list);
+
+
 			// STEP 3
 			// bind the data for the first employee to the form
 			populateEmployeeForm(employees[0]);			
@@ -76,6 +78,11 @@
 		* 							and a button that says EDIT on it.
 		*/
 		function createEmployeeList(employees){
+
+			listContainer = document.getElementById("employee-list-container");
+			listContainer.innerHTML = "";
+			
+
 			var html = "";
 			for(var x = 0; x < employees.length; x++){
 				html += `<li empId="${employees[x].id}">
@@ -86,7 +93,7 @@
 			}
 			var ol = document.createElement("ol");
 			ol.innerHTML = html;
-
+			listContainer.appendChild(ol);
 			return ol;
 		}
 
@@ -166,9 +173,6 @@
 
 			//console.log(e);
 			list = createEmployeeList(employees);
-			listContainer = document.getElementById("employee-list-container");
-			listContainer.innerHTML="";
-			listContainer.appendChild(list);
 
 			clearForm();
 		});
@@ -178,7 +182,19 @@
 		});
 		
 		document.getElementById("btnDelete").addEventListener("click", ()=>{
-			alert("TODO: Add delete functionality");
+			if(confirm("Are you sure you want to delete this employee?")){
+
+				var id = txtId.value;
+				var employeeToDelete = getEmployeeById(id);
+
+				var indexOfEmployeeToDelete = employees.indexOf(employeeToDelete);
+				
+				employees.splice(indexOfEmployeeToDelete, 1);
+				
+				list = createEmployeeList(employees);
+				
+				clearForm();
+			}
 		});
 		
 
