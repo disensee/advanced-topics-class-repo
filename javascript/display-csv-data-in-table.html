@@ -26,7 +26,7 @@ window.addEventListener('load', ()=>{
 	// SOLUTION...
 	// Hint: split csv into rows, loop through each row, then split on the commas
 	var rows = csv.trim().split("\n");
-	for(let x=1;x < rows.length; x++){
+	for(let x=0;x < rows.length; x++){
 		let row = rows[x];
 
 		let cells = row.split(",");
@@ -39,14 +39,44 @@ window.addEventListener('load', ()=>{
 		employees.push(e);
 	}
 	
-	console.log(employees);
-
 	// PROBLEM 2 - Bind the data in the employees array to an HTML table and then display the table on the page. 
 	// Append the table to the div element in the body of the html below.
 	var div = document.querySelector("#employee-table-container");
 	var table = document.createElement("table");
+	
+	// var metaDataRow = document.createElement("tr");
+
+	// var lblFirstName = document.createElement("td");
+	// var lblLastName = document.createElement("td");
+	// var lblSalary = document.createElement("td");
+	// var lblStartDate = document.createElement("td");
+
+	// lblFirstName.innerHTML = "FIRST NAME";
+	// lblLastName.innerHTML = "LAST NAME";
+	// lblSalary.innerHTML = "SALARY";
+	// lblStartDate.innerHTML = "START DATE";
+
+	// metaDataRow.append(lblFirstName, lblLastName, lblSalary, lblStartDate);
+
+	// table.append(metaDataRow);
+	
 
 	div.appendChild(table);
+	employees.forEach((e)=>{
+		var row = document.createElement("tr");
+		var firstNameCell = document.createElement("td");
+		var lastNameCell = document.createElement("td");
+		var salaryCell = document.createElement("td");
+		var startDateCell = document.createElement("td");
+
+		firstNameCell.innerHTML = e.firstName;
+		lastNameCell.innerHTML = e.lastName;
+		salaryCell.innerHTML = e.salary;
+		startDateCell.innerHTML = e.startDate;
+
+		row.append(firstNameCell, lastNameCell, salaryCell, startDateCell);
+		table.appendChild(row);
+	});
 	
 
 	console.log("Display this csv data in an html table...\n" + csv);
