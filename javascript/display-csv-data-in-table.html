@@ -26,7 +26,7 @@ window.addEventListener('load', ()=>{
 	// SOLUTION...
 	// Hint: split csv into rows, loop through each row, then split on the commas
 	var rows = csv.trim().split("\n");
-	for(let x=0;x < rows.length; x++){
+	for(let x=1;x < rows.length; x++){
 		let row = rows[x];
 
 		let cells = row.split(",");
@@ -38,30 +38,24 @@ window.addEventListener('load', ()=>{
 		let e = new Employee(fname, lname, salary, startDate);
 		employees.push(e);
 	}
-	
 	// PROBLEM 2 - Bind the data in the employees array to an HTML table and then display the table on the page. 
 	// Append the table to the div element in the body of the html below.
 	var div = document.querySelector("#employee-table-container");
 	var table = document.createElement("table");
 	
-	// var metaDataRow = document.createElement("tr");
+	var metaData = csv.split('\n');
+	metaData = metaData[0].split(",");
 
-	// var lblFirstName = document.createElement("td");
-	// var lblLastName = document.createElement("td");
-	// var lblSalary = document.createElement("td");
-	// var lblStartDate = document.createElement("td");
+	var metaDataRow = document.createElement("tr");
+	table.appendChild(metaDataRow);
 
-	// lblFirstName.innerHTML = "FIRST NAME";
-	// lblLastName.innerHTML = "LAST NAME";
-	// lblSalary.innerHTML = "SALARY";
-	// lblStartDate.innerHTML = "START DATE";
-
-	// metaDataRow.append(lblFirstName, lblLastName, lblSalary, lblStartDate);
-
-	// table.append(metaDataRow);
+	for(let i = 0; i < metaData.length; i++){
+		var metaCell = document.createElement("td");
+		metaCell.innerHTML = metaData[i].trim();
+		
+		metaDataRow.appendChild(metaCell);
+	}
 	
-
-	div.appendChild(table);
 	employees.forEach((e)=>{
 		var row = document.createElement("tr");
 		var firstNameCell = document.createElement("td");
@@ -77,8 +71,9 @@ window.addEventListener('load', ()=>{
 		row.append(firstNameCell, lastNameCell, salaryCell, startDateCell);
 		table.appendChild(row);
 	});
-	
+	div.appendChild(table);
 
+	console.log(employees);
 	console.log("Display this csv data in an html table...\n" + csv);
 
 	// SOLUTION...
