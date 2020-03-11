@@ -1,0 +1,76 @@
+# You could use CURL to make HTTP requests
+# You could also install the POSTMAN plugin for Chrome: https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop
+# After you install POSTMAN, go to this url:  chrome://apps/
+# Finally, you could install the desktop version of POSTMAN: https://www.postman.com/downloads/
+
+# show the options
+curl --help
+
+# fetch a url
+curl www.yahoo.com
+
+# show only the response headers of a request
+curl -I www.yahoo.com
+
+# show verbose (this will include the request headers, among other things)
+curl -v www.yahoo.com
+
+#output the contents of the url to a text file
+curl -o yahoo.txt www.yahoo.com
+
+#the -I option will only show the headers that are sent back
+curl -v -I -o www.yahoo.com
+
+# make a GET request
+curl --request GET www.yahoo.com
+
+# or
+curl --request GET 'www.yahoo.com'
+
+# make a post request
+curl --request POST 'www.yahoo.com'
+
+
+# IMPORTANT NOTE: you may have to adjust the url in the next examples
+
+####################################################
+# REQUESTS TO THE web-services/ default page
+####################################################
+
+# Make a GET request
+curl --request GET http://localhost/adv-topics/web-services/
+
+# Make a post request and send data (submitting form data)
+curl --request POST http://localhost/adv-topics/web-services/ --data 'firstName=Bob&lastName=Smith&email=bob@smith.com&phone=555-555-5555' -H 'Content-Type: application/x-www-form-urlencoded'
+
+# Make a post request and send data (submitting json data)
+# Note that this request set the Accept header to json
+curl --request POST http://localhost/adv-topics/web-services/ --data '{"firstName":"Bob","lastName":"Smith",email":"bob@smith","phone":"555-555-5555"}' -H 'Content-Type: application/json' -H 'Accept: application/json'
+
+# send a request header
+curl http://localhost/adv-topics/web-services/ --header 'someheader:somevalue'
+
+# send multiple request headers
+curl http://localhost/adv-topics/web-services/ -H "Cookie: user=Bob; password=test" -H "Content-Type:text/xml"
+
+# same as previous request, just showing the response headers (notice the phpsessid cookie)
+curl -v -I http://localhost/adv-topics/web-services/ -H "Cookie: user=Bob; password=test" -H "Content-Type:text/xml"
+
+####################################################
+# REQUESTS TO THE web-services/contacts/ folder
+####################################################
+
+# get all contacts
+curl --request GET http://localhost/adv-topics/web-services/contacts/
+
+# get a contact by its id
+curl --request GET http://localhost/adv-topics/web-services/contacts/1
+
+# post (insert) a new contact (sending json data)
+curl --request POST http://localhost/adv-topics/web-services/ --data '{"firstName":"Bob","lastName":"Smith",email":"bob@smith","phone":"555-555-5555"}' -H 'Content-Type: application/json' -H 'Accept: application/json'
+
+# put (update) a new contact (sending json data)
+curl --request PUT http://localhost/adv-topics/web-services/ --data '{"id":1, firstName":"Bob","lastName":"Smith",email":"bob@smith","phone":"555-555-5555"}' -H 'Content-Type: application/json' -H 'Accept: application/json'
+
+# delete a contact
+curl --request DELETE http://localhost/adv-topics/web-services/contacts/1
