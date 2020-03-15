@@ -143,8 +143,6 @@ function testIsValid(){
 	}else{
 		$testResults[] = "FAIL - DID NOT validate properly";
 	}
-
-
 }
 
 
