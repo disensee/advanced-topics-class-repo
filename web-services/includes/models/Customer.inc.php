@@ -70,3 +70,4 @@ class Customer extends Model{
     }
 
 }
+?>
