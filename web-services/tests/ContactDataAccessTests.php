@@ -145,6 +145,8 @@ function testGetById(){
 
 	// We need an instance of a ContactDataAccess object so that we can call the method we want to test
 	$da = new ContactDataAccess(get_link());
+	$contact = $da->getById(1);
+	//var_dump($contact);
 }
 
 function testGetAll(){
@@ -153,6 +155,8 @@ function testGetAll(){
 
 	// We need an instance of a ContactDataAccess object so that we can call the method we want to test
 	$da = new ContactDataAccess(get_link());
+	$contacts = $da->getAll();
+	//var_dump($contacts);
 }
 
 function testInsert(){
@@ -161,6 +165,16 @@ function testInsert(){
 
 	// We need an instance of a ContactDataAccess object so that we can call the method we want to test
 	$da = new ContactDataAccess(get_link());
+	$contact = new Contact([
+		"firstName" => "Billy",
+		"lastName" => "West",
+		"email" => "bw@bw.com",
+		"phone" => "555-555-5555"
+	]);
+
+	//$newContact = $da->insert($contact);
+
+	//var_dump($newContact);
 }
 
 function testUpdate(){
@@ -169,6 +183,13 @@ function testUpdate(){
 
 	// We need an instance of a ContactDataAccess object so that we can call the method we want to test
 	$da = new ContactDataAccess(get_link());
+	
+	$contactToUpdate = $da->getById(1);
+	$contactToUpdate->firstName = "Jerry";
+	$contactToUpdate = $da->update($contactToUpdate);
+
+	//var_dump($contactToUpdate);
+
 }
 
 function testDelete(){
@@ -177,6 +198,9 @@ function testDelete(){
 
 	// We need an instance of a ContactDataAccess object so that we can call the method we want to test
 	$da = new ContactDataAccess(get_link());
+	//$contactDeleted = $da->delete(6);
+
+	//var_dump($contactDeleted);
 }
 
 

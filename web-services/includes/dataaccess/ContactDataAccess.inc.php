@@ -19,13 +19,20 @@ class ContactDataAccess extends DataAccess{
 	* @return {Contact} A new instance of Contact object with clean data in it
 	*/
 	function cleanDataGoingIntoDB($contact){
-		$cleanContact = new Contact();
-		$cleanContact->id = mysqli_real_escape_string($this->link, $contact->id);
-		$cleanContact->id = mysqli_real_escape_string($this->link, $contact->id);
-		$cleanContact->id = mysqli_real_escape_string($this->link, $contact->id);
-		$cleanContact->id = mysqli_real_escape_string($this->link, $contact->id);
 
-		return $cleanContact;
+		if($contact instanceOf Contact){
+			$cleanContact = new Contact();
+			$cleanContact->id = mysqli_real_escape_string($this->link, $contact->id);
+			$cleanContact->firstName = mysqli_real_escape_string($this->link, $contact->firstName);
+			$cleanContact->lastName = mysqli_real_escape_string($this->link, $contact->lastName);
+			$cleanContact->email = mysqli_real_escape_string($this->link, $contact->email);
+			$cleanContact->phone = mysqli_real_escape_string($this->link, $contact->phone);
+
+			return $cleanContact;
+		}else{
+			$cleanParam = mysqli_real_escape_string($this->link, $contact);
+			return $cleanParam;
+		}
 	}
 	
 	/**
@@ -54,6 +61,23 @@ class ContactDataAccess extends DataAccess{
 	function getAll($args = []){
 		// TODO: implement the code for this method
 		// Make sure to clean the data coming from the database
+		$qStr = "SELECT id, firstName, lastName, email, phone FROM contacts";
+		//die($qStr);
+
+		//Many people run queries like this. Shows error messages to users. 
+		//$result = mysqli_query($this->link, $qStr) or die(mysqli_error($this->link));
+		$result = mysqli_query($this->link, $qStr) or $this->handleError(mysqli_error($this->link));
+
+		$allContacts = [];
+		if(mysqli_num_rows($result)){
+			while($row = mysqli_fetch_assoc($result)){
+				$cleanRow = $this->cleanDataComingFromDB($row);
+				$contact = new Contact($cleanRow);
+
+				$allContacts[] = $contact;
+			}
+		}
+		return $allContacts;
 	}
 
 
@@ -63,9 +87,18 @@ class ContactDataAccess extends DataAccess{
 	* @return {Contact}	 Returns an instance of a Contact model object
 	*/
 	function getById($id){
-		// TODO: implement the code for this method
-		// Make sure to clean the data coming from the database
-		// How should we handle cleaning the id from SQL injection, can't call cleanDataGoingIntoDB unless we have a contact obj?
+		$cleanId = $this->cleanDataGoingIntoDB($id);
+		$qStr = "SELECT id, firstName, lastName, phone, email FROM contacts WHERE id = $cleanId";
+
+		$result = mysqli_query($this->link, $qStr) or $this->handleError(mysqli_error($this->link));
+		if(mysqli_num_rows($result) == 1){
+			$row = mysqli_fetch_assoc($result);
+			$cleanRow = $this->cleanDataComingFromDB($row);
+			$contact = new Contact($cleanRow);
+			return $contact;
+		}
+
+		return false;
 	}
 
 	
@@ -75,8 +108,23 @@ class ContactDataAccess extends DataAccess{
 	* @return {Contact}	Returns the same Contact object, but with the id property set (the id is assigned by the database)
 	*/
 	function insert($contact){
-		// TODO: implement the code for this method
-		// Make sure to clean the data going into the database
+		$cleanContact = $this->cleanDataGoingIntoDB($contact);
+		$qStr = "INSERT INTO contacts (firstName, lastName, email, phone) VALUES (
+			'{$cleanContact->firstName}',
+			'{$cleanContact->lastName}',
+			'{$cleanContact->email}',
+			'{$cleanContact->phone}'
+		)";
+
+		$result = mysqli_query($this->link, $qStr) or $this->handleError(mysqli_error($this->link));
+
+		if($result){
+			$cleanContact->id = mysqli_insert_id($this->link);
+		}else{
+			$this->handleError("Unable to insert contact");
+		}
+
+		return $cleanContact;
 	}
 
 	/**
@@ -85,8 +133,17 @@ class ContactDataAccess extends DataAccess{
 	* @return {Contact}	Returns the same Contact model object that was passed in as the param
 	*/
 	function update($contact){
-		// TODO: implement the code for this method
-		// Make sure to clean the data going into the database
+		$cleanContact = $this->cleanDataGoingIntoDB($contact);
+		$qStr = "UPDATE contacts SET 
+				firstName = '{$cleanContact->firstName}',
+				lastName = '{$cleanContact->lastName}',
+				email = '{$cleanContact->email}',
+				phone = '{$cleanContact->phone}'
+				WHERE id = '{$cleanContact->id}'";
+
+		$result = mysqli_query($this->link, $qStr) or $this->handleError(mysqli_error($this->link));
+
+		return $cleanContact;
 	}
 
 
@@ -96,8 +153,16 @@ class ContactDataAccess extends DataAccess{
 	* @return {boolean}	Returns true if the row was sucessfully deleted, false otherwise
 	*/
 	function delete($id){
-		// TODO: implement the code for this method
-		// Make sure to clean the data going into the database????
+		$cleanId = $this->cleanDataGoingIntoDB($id);
+		$qStr = "DELETE FROM contacts WHERE id = $cleanId";
+		$result = mysqli_query($this->link, $qStr) or $this->handleError(mysqli_error($this->link));
+
+		if(mysqli_affected_rows($this->link) == 1){
+			return true;
+		}
+
+		return false;
+
 	}
 	
 
