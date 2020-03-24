@@ -59,7 +59,6 @@ function testConvertDateForMySQL(){
 	global $testResults;
 	$testResults[] = "<h3>TESTING convertDateForMySQL()...</h3>";
 
-	// We need an instance of a CustomerDataAccess object so that we can call the method we want to test
 	$da = new CustomerDataAccess(get_link());
 
 	// TEST 1 - Make sure it removes 'script' tags from the HTML string
@@ -82,7 +81,7 @@ function testCleanDataGoingIntoDB(){
 	$da = new CustomerDataAccess(get_link());
 
 	// TEST 1 - Make sure that id property is 'cleaned' properly
-	// We need a customer model object to pass in as a param
+	// We need a customer model object to pass in as a parameter
 	$customer = new Customer([
 		'customerId' => "1';DROP TABLE users;"
 	]);
@@ -125,13 +124,13 @@ function testCleanDataComingFromDB(){
 
 	$cleanRow = $da->cleanDataComingFromDB($row);
 	$expectedResult = "Bob&lt;script&gt;location.href='www.badsite.com'&lt;/script&gt;";
-	// notice that we expect the < and > characters to be replaced with &lt; and &gt'
+	// < and > characters should be replaced with &lt; and &gt'
 	$actualResult = $cleanRow['firstName'];
 	
 	if($expectedResult == $actualResult){
 		$testResults[] = "PASS - Properly removed script element from the firstName property";
 	}else{
-		$testResults[] = "FAIL - DID NOT properly removed script element from the firstName property";
+		$testResults[] = "FAIL - DID NOT properly remove script element from the firstName property";
 	}
 
 }
