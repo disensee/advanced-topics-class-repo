@@ -72,7 +72,7 @@ class CustomerDataAccess extends DataAccess{
 		//$result = mysqli_query($this->link, $qStr) or die(mysqli_error($this->link));
 		$result = mysqli_query($this->link, $qStr) or $this->handleError(mysqli_error($this->link));
 
-		$allCustomer = [];
+		$allCustomers = [];
 		if(mysqli_num_rows($result)){
 			while($row = mysqli_fetch_assoc($result)){
 				$cleanRow = $this->cleanDataComingFromDB($row);
@@ -124,7 +124,7 @@ class CustomerDataAccess extends DataAccess{
 		$result = mysqli_query($this->link, $qStr) or $this->handleError(mysqli_error($this->link));
 
 		if($result){
-			$cleanCustomer->id = mysqli_insert_id($this->link);
+			$cleanCustomer->customerId = mysqli_insert_id($this->link);
 		}else{
 			$this->handleError("Unable to insert customer");
 		}

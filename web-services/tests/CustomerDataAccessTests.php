@@ -141,7 +141,7 @@ function testGetById(){
 
 	$da = new CustomerDataAccess(get_link());
 	$customer = $da->getById(1);
-	//var_dump($customer);
+	var_dump($customer);
 }
 
 function testGetAll(){
@@ -151,7 +151,7 @@ function testGetAll(){
 	// We need an instance of a CustomerDataAccess object so that we can call the method we want to test
 	$da = new CustomerDataAccess(get_link());
 	$customers = $da->getAll();
-	//var_dump($customers);
+	var_dump($customers);
 }
 
 function testInsert(){
