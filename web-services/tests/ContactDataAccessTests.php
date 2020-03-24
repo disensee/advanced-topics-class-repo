@@ -198,9 +198,9 @@ function testDelete(){
 
 	// We need an instance of a ContactDataAccess object so that we can call the method we want to test
 	$da = new ContactDataAccess(get_link());
-	//$contactDeleted = $da->delete(6);
+	$contactDeleted = $da->delete(6);
 
-	//var_dump($contactDeleted);
+	var_dump($contactDeleted);
 }
 
 
