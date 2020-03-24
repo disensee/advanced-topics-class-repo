@@ -9,8 +9,8 @@ class CustomerDataAccess extends DataAccess{
 
 	function __construct($link){
 
-		parent::__construct($link);
-	
+        parent::__construct($link);
+        
 	}
 
 	/**
