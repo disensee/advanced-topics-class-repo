@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>AJAX</title>
+	<style type="text/css">
+		textarea {width:900px; height: 400px; }
+	</style>
+	<script>
+	window.addEventListener("load", function(){
+
+		var btnSendGetRequest = document.getElementById("btnSendGetRequest");
+		var btnSendPostRequest = document.getElementById("btnSendPostRequest");
+		var txtResponse = document.getElementById("txtResponse");
+		
+		btnSendGetRequest.addEventListener("click", doGetRequest);
+		btnSendPostRequest.addEventListener("click", doPostRequest);
+
+		function doGetRequest(){
+
+			alert("TODO: implement this function (we'll do it together in class)");
+
+			// create an XMLHttpRequest object 
+			
+
+			// set the url for the request
+		    
+
+		    //'Open' the request...
+		    // NOTE that you can pass FALSE as a 3rd pram to open()
+			// which will make the request block (won't be asynchronous)
+			// try it and uncomment the alert() after http.send();
+			
+
+			// listen for readystatechange events
+			// if the readyState of our http object is 4 AND if the status is 200, 
+			// then we know that the request completed and the server was able to send a response
+			// so we can look at the responseText property of the http object
+			// if we reach readyState of 4 and the status is not 200, we can check for errors
+		    
+
+		    // Set request headers...
+			
+		    // Send the request
+		    
+		    //alert("Request has been sent");
+		}
+
+		
+
+		function doPostRequest(){
+
+			alert("TODO: implement this function (we'll do it together in class)");
+		}
+
+	});
+
+	</script>
+</head>
+<body>
+<input type="button" id="btnSendGetRequest" value="GET REQUEST" />
+<input type="button" id="btnSendPostRequest" value="POST REQUEST" />
+<br>
+<textarea id="txtResponse"></textarea>
+<h1>AJAX (The XmlHttpRequest API)</h1>
+<h3>References</h3>
+<ol>
+	<li>Here is an <a href="https://www.w3schools.com/js/js_ajax_intro.asp" target="blank">overview of AJAX</a>, which makes use of the XmlHttpRequest API</li>
+	<li>Here is a <a href="https://www.w3schools.com/js/js_ajax_http.asp" target="_blank">brief reference on the XmlHttpRequest API</a></li>
+	<li>Here is a more <a href="https://www.w3schools.com/js/js_ajax_http.asp" target="_blank">in depth overview of the XmlHttpRequest API</a></li>
+</ol>
+
+<h3>A Little History (which may not be totally accurate)</h3>
+<p>
+	Legend has it that Microsoft invented the XMLHTTPRequest API while trying allow web based email clients to communicate with email servers......
+</p>
+
+<h3>Working with the XMLHttpRequest API</h3>
+<ol>
+	<li>Configure the request (set the url, headers, request type, etc)</li>
+	<li>
+		Add an event handler to listen for the <b>readystatechange</b> event.
+		When the 'readyState' reaches 4 the request has completed (but it doesn't mean that it completed successfully).
+		<br>If the server sends an HTTP status code of 200, then we know the request completed successfully and the server was able to send a resonse.
+	</li>
+	<li>Send the request (and wait...)</li>
+</ol>
+
+<h3>Demo - Part 1 - Get Requests</h3>
+<p>
+	We'll implement the code for the doGetRequest() function in this part of the demo.
+</p>
+<ol>
+	<li>Configure the request</li>
+	<li>Listen for readystatechange events and invoke the appropriate callback function (and pass in the appropriate params)</li>
+	<li>
+		Set up an ajax call to be <b>synchronous</b> and show how it blocks code execution until the request completes.
+		<br>Be sure to add an alert() right after calling the send() method.
+		<br>Also, be sure to put the request-handler.php to 'sleep' for a time.
+	</li>
+	<li>
+		We can't allow the UI to get locked up while we wait for the request to complete.
+		<br>Set the ajax call to <b>asynchronous</b>, but leave the alert() in place.
+		<br>Note that the alert() pops up immediately.
+		<br>If we dismiss the alert() we can interact with the UI while the request is still in progress.
+	</li>
+	<li>Comment out the alert() in the JS code, and the sleep() in the PHP code.</li>
+	<li>Add some query string parameters to the url of the request.</li>
+	<li>Add some headers to the request</li>
+</ol>
+<h3>Demo - Part 2 - Post Requests</h3>
+<p>
+	Now we'll implement the code in the doPost() function.
+</p>
+<ol>
+	<li>Create an XMLHttpRequest object</li>
+	<li>Configure it to do a POST reqeust</li>
+	<li>Listen for readystatechange events and invoke the appropriate callback function (and pass in the appropriate params)</li>
+	<li>Set the Content-Type header to be <b>application/x-www-form-urlencoded</b>, this is the data fomat that is used by default when submitting a form.</li>
+	<li>Add some 'form' data to the body of the request</li>
+	<li>Send the request</li>
+</ol>
+
+</body>
+</html>
+
+	
