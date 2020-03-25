@@ -80,7 +80,7 @@ function testCleanDataGoingIntoDB(){
 
 	$da = new CustomerDataAccess(get_link());
 
-	// TEST 1 - Make sure that id property is 'cleaned' properly
+	// TEST 1 - Make sure that customerId property is 'cleaned' properly
 	// We need a customer model object to pass in as a parameter
 	$customer = new Customer([
 		'customerId' => "1';DROP TABLE users;"

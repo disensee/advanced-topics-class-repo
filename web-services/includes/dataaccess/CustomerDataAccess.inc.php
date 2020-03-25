@@ -89,9 +89,9 @@ class CustomerDataAccess extends DataAccess{
 	* @param {number} 	 The id of the customer to get from a row in the database
 	* @return {Customer} Returns an instance of a Customer model object
 	*/
-	function getById($id){
-		$cleanId = $this->cleanDataGoingIntoDB($id);
-		$qStr = "SELECT customerId, firstName, lastName, address, city, state, zip, email FROM customers WHERE customerId = $cleanId";
+	function getById($customerId){
+		$cleanCustomerId = $this->cleanDataGoingIntoDB($customerId);
+		$qStr = "SELECT customerId, firstName, lastName, address, city, state, zip, email FROM customers WHERE customerId = $cleanCustomerId";
 
 		$result = mysqli_query($this->link, $qStr) or $this->handleError(mysqli_error($this->link));
 		if(mysqli_num_rows($result) == 1){
@@ -107,7 +107,7 @@ class CustomerDataAccess extends DataAccess{
     /**
 	* Inserts a customer into a table in the database
 	* @param {Customer}	The Customer object to be inserted
-	* @return {Customer}	Returns the same Customer object, but with the id property set (the id is assigned by the database)
+	* @return {Customer}	Returns the same Customer object, but with the customerId property set (the customerId is assigned by the database)
 	*/
 	function insert($customer){
 		$cleanCustomer = $this->cleanDataGoingIntoDB($customer);
@@ -160,8 +160,8 @@ class CustomerDataAccess extends DataAccess{
 	* @return {boolean}	Returns true if the row was sucessfully deleted, false otherwise
 	*/
 	function delete($customerId){
-		$cleanId = $this->cleanDataGoingIntoDB($customerId);
-		$qStr = "DELETE FROM customers WHERE customerId = $cleanId";
+		$cleanCustomerId = $this->cleanDataGoingIntoDB($customerId);
+		$qStr = "DELETE FROM customers WHERE customerId = $cleanCustomerId";
 		$result = mysqli_query($this->link, $qStr) or $this->handleError(mysqli_error($this->link));
 
 		if(mysqli_affected_rows($this->link) == 1){
