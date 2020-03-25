@@ -15,33 +15,48 @@
 		btnSendGetRequest.addEventListener("click", doGetRequest);
 		btnSendPostRequest.addEventListener("click", doPostRequest);
 
+		function successCallback(responseText){
+			txtResponse.value = responseText;
+		}
+
+		function errorCallback(statusCode, statusText){
+			txtResponse.value = statusCode + "\n" + statusText;
+		}
+
 		function doGetRequest(){
 
-			alert("TODO: implement this function (we'll do it together in class)");
+			//alert("TODO: implement this function (we'll do it together in class)");
 
 			// create an XMLHttpRequest object 
-			
+			var http = new XMLHttpRequest();
 
 			// set the url for the request
-		    
+		    var url = "request-handler.php?name=bob&age=15";
 
 		    //'Open' the request...
 		    // NOTE that you can pass FALSE as a 3rd pram to open()
 			// which will make the request block (won't be asynchronous)
 			// try it and uncomment the alert() after http.send();
-			
+			http.open("GET", url);
 
 			// listen for readystatechange events
 			// if the readyState of our http object is 4 AND if the status is 200, 
 			// then we know that the request completed and the server was able to send a response
 			// so we can look at the responseText property of the http object
 			// if we reach readyState of 4 and the status is not 200, we can check for errors
-		    
+		    http.addEventListener("readystatechange", ()=>{
+				if(http.readyState == 4 && http.status == 200){
+					successCallback(http.responseText);
+				}else if(http.readyState == 4){
+					errorCallback(http.status, http.statusText);
+				}
+			});
 
 		    // Set request headers...
-			
+			http.setRequestHeader("FOO", "BAR");
+
 		    // Send the request
-		    
+		    http.send();
 		    //alert("Request has been sent");
 		}
 
@@ -49,7 +64,19 @@
 
 		function doPostRequest(){
 
-			alert("TODO: implement this function (we'll do it together in class)");
+			var http = new XMLHttpRequest();
+			http.open("POST", "request-handler.php");
+
+			http.addEventListener("readystatechange", ()=>{
+				if(http.readyState == 4 && http.status == 200){
+					successCallback(http.responseText);
+				}else if(http.readyState == 4){
+					errorCallback(http.status, http.statusText);
+				}
+			});
+
+			var postData = "name=bob&age=15";
+			http.send(postData);
 		}
 
 	});
