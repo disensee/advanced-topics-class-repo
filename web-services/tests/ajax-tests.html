@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Testing a Contact Web Service</title>
+	<script type="text/javascript">
+
+window.addEventListener("load", ()=>{
+
+	var baseURL = "ajax-tests.php";
+
+	// this will be the default error handler function
+	function errorCallback(statusCode, statusText){
+		alert(statusCode + "\n" + statusText);
+	}
+
+		
+	document.getElementById("btnGetAll").addEventListener("click", ()=>{
+		var http = new XMLHttpRequest();
+		http.open("GET", baseURL);
+		http.addEventListener("readystatechange", ()=>{
+			if(http.readyState == 4 && http.status == 200){
+				//success
+				console.log(http.responseText);
+				var contacts = JSON.parse(http.responseText);
+				console.log(contacts);
+			}else if(http.readyState == 4){
+				//error
+				errorCallback(http.status, http.statusText);
+			}
+		});
+
+		http.send();
+	});
+
+
+	document.getElementById("btnGetById").addEventListener("click", ()=>{
+		var http = new XMLHttpRequest();
+		var id = prompt("Enter the ID of the contact you want");
+		var url = baseURL + "?contactId=" + id;
+		http.open("GET", url);
+		http.addEventListener("readystatechange", ()=>{
+			if(http.readyState == 4 && http.status == 200){
+				//success
+				
+			}else if(http.readyState == 4){
+				//error
+				errorCallback(http.status, http.statusText);
+			}
+		});
+
+		http.send();
+		
+	});
+
+
+	document.getElementById("btnPost").addEventListener("click", ()=>{
+		var http = new XMLHttpRequest();
+		http.open("POST", baseURL);
+		http.addEventListener("readystatechange", ()=>{
+			if(http.readyState == 4 && http.status == 200){
+				//success
+				console.log(http.responseText);
+			}else if(http.readyState == 4){
+				//error
+				errorCallback(http.status, http.statusText);
+			}
+		});
+		var obj = {
+			firstName: "Rick", 
+			lastName: "Green", 
+			email:"r@g.com", 
+			phone:"555-555-5555"
+		};
+
+		var json = JSON.stringify(obj);
+
+		http.setRequestHeader("Content-Type", "application/json")
+
+		http.send(json);
+	});
+
+	document.getElementById("btnPut").addEventListener("click", ()=>{
+		
+	});
+
+	document.getElementById("btnDelete").addEventListener("click", ()=>{
+		
+		
+	});
+
+});
+	</script>
+</head>
+<body>
+	<h1>Testing a Contact Web Service</h1>
+	<p>Make sure to have the Network tab open in developer tools so that you can watch the HTTP request.</p>
+	<input type="button" id="btnGetAll" value="Get All Contacts">
+	<br>
+	<input type="button" id="btnGetById" value="Get Contact By Id">
+	<br>
+	<input type="button" id="btnPost" value="Post Contact">
+	<br>
+	<input type="button" id="btnPut" value="Put/Update Contact">
+	<br>
+	<input type="button" id="btnDelete" value="Delete Contact">
+</body>
+</html>
