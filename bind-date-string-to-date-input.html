@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Bind a Date String to a Calendar Input</title>
+	<script type="text/javascript">
+
+	window.addEventListener("load", () => {
+
+		// PROBLEM 1 - Display this date in the input element on this page (below)
+		var dateStr = "4/2/2020";
+
+		
+		// SOLUTION...
+		var date = new Date(dateStr);
+		dateStr = date.toISOString().split("T")[0];
+		var dateForm = document.querySelector('.startDate');
+		dateForm.value = dateStr;
+	});		
+
+	</script>
+</head>
+<body>
+
+	<form id="form1">
+		<input type="date" class="startDate">
+	</form>
+
+</body>
+</html>
