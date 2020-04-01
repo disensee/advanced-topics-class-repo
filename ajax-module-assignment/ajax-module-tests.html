@@ -11,7 +11,9 @@ window.addEventListener("load", ()=>{
 	var baseURL = "request-handler.php";
 
 	document.getElementById("btnSend").addEventListener("click", ()=>{
-		namespace.ajax.send(/*options go here*/);
+		namespace.ajax.send({
+			headers: {"foo":"bar", "name":"jim"}
+		});
 	});
 
 	/*

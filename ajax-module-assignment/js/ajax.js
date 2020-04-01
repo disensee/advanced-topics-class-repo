@@ -34,8 +34,19 @@ namespace.ajax = (function(){
 	*											should console log the status code and message when the request fails
 	*/
 	function send(options){
-		
-		console.log("Assignment - use the options param to configure and send an HTTP request, make sure to provide a successCallback and an errorCallback");
+		var headers = options.headers || null;
+		//console.log("Assignment - use the options param to configure and send an HTTP request, make sure to provide a successCallback and an errorCallback");
+
+		var http = new XMLHttpRequest();
+		http.open(options.method, options.url);
+
+		if(headers){
+			for(key in headers){
+				//console.log(key, headers[key]);
+				http.setRequestHeader(key, headers[key]);
+			}
+		}
+
 	}
 
 	return{
