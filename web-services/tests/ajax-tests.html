@@ -80,12 +80,48 @@ window.addEventListener("load", ()=>{
 	});
 
 	document.getElementById("btnPut").addEventListener("click", ()=>{
+		var http = new XMLHttpRequest();
+		http.open("PUT", baseURL);
 		
+		http.addEventListener("readystatechange", ()=>{
+			if(http.readyState == 4 && http.status == 200){
+				console.log(http.responseText);
+				// convert the json string to objects
+				var contact = JSON.parse(http.responseText);
+				console.log(contact);	
+			}else if(http.readyState == 4){
+				errorCallback(http.status, http.statusText);
+			}
+		});
+		
+		// set contact to update in DB
+		var contact = {id:3, firstName: "Fred", lastName:"Berman", email:"fb@fb.com", phone:"555-555-5555"};
+		var json = JSON.stringify(contact);
+		// Set a header to let the server now that we are sending the data in json format
+		http.setRequestHeader("Content-Type","application/json");
+		http.send(json);
 	});
 
 	document.getElementById("btnDelete").addEventListener("click", ()=>{
 		
+		var id = prompt("Enter a contact id to delete");
+
+		var url = baseURL + "?contactId=" + id;
+
+		var http = new XMLHttpRequest();
+		http.open("DELETE", url);
 		
+		http.addEventListener("readystatechange", ()=>{
+			if(http.readyState == 4 && http.status == 200){
+				//console.log(http.responseText);
+			}else if(http.readyState == 4){
+				errorCallback(http.status, http.statusText);
+			}
+		});
+
+		http.setRequestHeader("Content-Type","application/json");
+		//http.setRequestHeader("Content-Type", "text/csv");
+		http.send();
 	});
 
 });

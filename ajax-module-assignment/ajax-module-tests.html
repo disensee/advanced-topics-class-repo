@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ajax Module Tests</title>
+<script src="js/ajax.js"></script>
+<script>
+window.addEventListener("load", ()=>{
+
+	// You can send all your test requests to this page
+	// (Its response should dump out all the details of the request)
+	var baseURL = "request-handler.php";
+
+	document.getElementById("btnSend").addEventListener("click", ()=>{
+		namespace.ajax.send(/*options go here*/);
+	});
+
+	/*
+	HOW SHOULD YOU TEST THE MODULE?
+	Make sure the request method is getting set properly
+	Make sure the URL is getting set properly
+	Make sure the callback function is getting invoked when a request completes successfully
+	Make sure the proper param is being passed into the callback when it is invoked
+	Make sure that when the 'headers' option is passed in, the proper request headers are getting set
+	Make sure that when the 'requestBody' option is passed in, it is getting sent in the body of the request
+	Make sure that when the 'errorCallback' option is passed in, it is getting invoked with the proper params when the request fails.
+		To return an error from the server you do it like this in your PHP code:
+		header($_SERVER["SERVER_PROTOCOL"] . ' 500 Internal Server Error', true, 500);
+	*/
+	
+});
+</script>
+</head>
+<body>
+	<h1>Ajax Module Tests</h1>
+	<p><b>Make sure you loaded this page through the web server (localhost)!</b></p>
+	<input type="button" id="btnSend" value="SEND">
+</body>
+</html>
