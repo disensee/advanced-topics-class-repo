@@ -34,18 +34,28 @@ namespace.ajax = (function(){
 	*											should console log the status code and message when the request fails
 	*/
 	function send(options){
-		var headers = options.headers || null;
-		//console.log("Assignment - use the options param to configure and send an HTTP request, make sure to provide a successCallback and an errorCallback");
-
 		var http = new XMLHttpRequest();
 		http.open(options.method, options.url);
 
-		if(headers){
-			for(key in headers){
-				//console.log(key, headers[key]);
-				http.setRequestHeader(key, headers[key]);
+		if(options.headers){
+			for(key in options.headers){
+				http.setRequestHeader(key, options.headers[key]);
 			}
 		}
+
+		http.addEventListener("readystatechange", ()=>{
+			if(http.readyState == 4 && http.status == 200){
+				options.callback(http.responseText);
+			}else if(http.readyState == 4){
+				if(options.errorCallback){
+					options.errorCallback(http.status, http.statusText);
+				}else{
+					console.log("ERROR: \n Error Status Code: " + http.status + "\nError Message: " + http.statusText);
+				}
+			}
+		});
+
+		http.send(options.requestBody || null);
 
 	}
 

@@ -12,7 +12,16 @@ window.addEventListener("load", ()=>{
 
 	document.getElementById("btnSend").addEventListener("click", ()=>{
 		namespace.ajax.send({
-			headers: {"foo":"bar", "name":"jim"}
+			callback: (response)=>{
+				alert(response);
+			},
+			url: baseURL,
+			method: "POST",
+			headers: {"Content-Type": "application/json", "Accept": "application/json"},
+			requestBody: '{"firstName": "Bob"}',
+			errorCallback: (status, msg)=>{
+				alert(status + "\n" + msg);
+			}
 		});
 	});
 
