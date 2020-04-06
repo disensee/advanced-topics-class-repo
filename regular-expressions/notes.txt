@@ -1,0 +1,39 @@
+This is a great quote:
+    
+    Some people, when confronted with a problem, think 
+    "I know, I'll use regular expressions." 
+    Now they have two problems.
+
+	The quote is from Jamie Zawinski
+
+
+We'll use regular expressions when we build restful-web-services.
+
+Main points:
+1. Regular expressions are used to find patterns in strings
+2. You define a pattern to search for, and then you apply that pattern to a string to see if there is a 'match'
+3. There are special characters (known as META CHARACTERS) that are used that have special meaining when creating patterns
+   for example: ^cat The carrot means that the pattern will only match if 'cat' occurs at the beginning of a new line in a string  
+   for another example cat$ The dollar sign means that cat must appear at the end of a line in a string
+4. If you want to use a meta character in your pattern (ex: you want to search for '^cat') you must escape it with a \, like this \^cat
+5. There are a couple of different standards for regular expressions (posix, pcre), which makes it very confusing! 
+
+
+When running regular expressions, you can 'capture' data from strings that match the pattern.
+
+$string = "products/7";               // The string to test
+$pattern = '/^products\/([0-9]*)$/';  // The pattern - the () encloses the part of the match that we want to capture
+$matches = null;                      // Used to capture data from the matching string
+
+preg_match($pattern, $string, $matches);
+
+// $mathes will be an array of all capture groups in the string
+
+
+
+Activity/Assignment
+Choose your language and create code samples that demonstrate the use of regular expressions
+1. Demonstrate how to validate a phone number
+2. An email address
+3. A date
+4. A password that has at least one number and one capital letter

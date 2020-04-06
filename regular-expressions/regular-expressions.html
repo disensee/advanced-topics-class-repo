@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Regular Expressions</title>
+		<meta charset="UTF-8" />
+		<style type="text/css">
+			body{margin:40px; font-family: verdana;}
+			pre{background-color: #333; color:#00FF00; margin: 15px; padding: 15px; border-radius: 8px;}
+		</style>
+	</head>
+	<body>
+	<h1>Regular Expressions</h1>
+	<p>
+		Regular expressions are an extremely powerful tool, and every major language supports them (in their own way).
+		You don't have to be a master of regular expressions to be a good programmer, but you do have to understand how to use them.
+		In other words, you don't usually have to know how to write complex regular expressions, but you should be able to find ones that have already been written and know how to plug them into your code.
+	</p>
+	<h3>Patterns and Matches</h3>
+	<p>
+		Regular expressions find patterns in strings. 
+		They are used to see if a string matches a pattern, or if a pattern exists inside a string.
+	</p>
+	<p>
+		You define a 'pattern' to search for, and then you apply that pattern to a string to see if there is a 'match'.
+	</p>
+	<h3>Meta Characters</h3>
+	<p>
+		There are special characters (known as <b>meta characters</b>) that are used that have special meaining when creating patterns.
+   		for example: <b>^cat</b> The carrot means that the pattern will only match if 'cat' occurs at the beginning of a new line in a string.  
+   		Here's another example: <b>cat$</b> The dollar sign means that cat must appear at the end of a line in a string.
+	</p>
+	<p>
+		If you want to use a meta character in your pattern (ex: you want to search for '^cat') you must escape it with a \, like this \^cat.
+	</p>
+	<p>
+		There are a couple of different standards for regular expressions (posix, pcre), and they have slight differences in how they work, can be very confusing! 
+	</p>
+<pre>
+<h3>Examples of Regular Expression Patterns</h3>
+
+/^hello/;              	hello must be at the start of a line
+
+/hello$/;              	hello must be at the end of a line
+
+/hel+o/;               	1 or more l’s
+
+/hel*o/;               	0 or more l’s
+
+/hel?o/;               	0 or 1 l
+
+/hello|goodbye/;       	hellor or goodbye
+
+/he..o/;               	. any character                 
+
+/\wello/;              	\w any alphanumeric char or an underscore
+
+/\bhello/;             	\b word boundary, must be a space or return before hello
+
+/[crbik]ope/;			character range
+
+
+^$    Anchors that mark the start and end of a string
+        in some formats, a reg exp is put between ^ ?
+        ex: ^ABC[0-9]?
+        ^b only matches the first b in bob (not sure I understand this)
+        ^b does NOT match abc because it is not the first character
+        c$ will match in abc, but a$ will not because a is not the last character
+        \d+ would a match ab4c but ^\d+$ would not
+
+
+
+<h3>Explanation of Meta Characters</h3>
+
+[]      a 'chunk' of charachters (usually put a 'class' of characters in the chunk)
+	to specify more than one range of characters:  [A-Za-z0-9]
+
+?        the preceding chunk can occur 0 or 1 time
+	ex: CAR?T  matches CAT and CART
+	ex: CA[A-Z]?T matches CAT and CANT and CART and...
+
+*        the preceding chunk can occur 0 or more times
+	ex: C[O]*N matches CN, CON, COON (you could write it as CO*N)
+
++        the preceding chunk must occur 1 or more times
+	ex: C[A-Z]+T matches CAT,CBT,CCT but not CT
+
+{2}    the preceding chunk must occur exactly 2 times
+
+{0,}    the preceding chunk can occur 0 or any number of times
+
+{1,4}    the precding chunk must occur at least 1 time but not more than 4 times
+
+^    negation
+
+\    to escape a character. ex \+ searches for a + in the string
+	YOU MUST ESCAPE ALL METACHARACTERS TO BE ABLE TO SEARCH FOR THEM
+
+\Q \E    can be used in most flavors to escape everything that is put
+	between \Q and \E
+
+()    to group expressions chunks, and classes of characters
+	([0-9]AB)?:([a-z]) any single number followed by AB can appear 0 or 1 time before a colon
+	and any lowercase letter
+
+	 
+
+
+short hand characters
+\d    number, same as [0-9]
+\s    whitespace characters (this also includes \t \r \n)
+\w    'word character' can be alphanumeric or underscore.  same as [A-Za-z0-9_]         
+
+
+
+NONPRINTABLE characters that you can search for \t \n \r
+NOTE: windows text files use \r\n to terminate lines unix uses \n
+</pre>
+<h3>JavaScript String Methods For Working With Regular Expressions</h3>
+<p>
+	Each language has it's own APIs for working with regular expressions.
+	In JavaScript there is a RegExp object that can be used to create your patterns.
+	The RegExp object also has <b>test()</b> and <b>exec()</b> methods that you can use.
+</p>
+<pre>
+var text = "He said he would be here on Monday, or Tuesday";
+var pattern = new RegExp("Monday");
+var result = pattern.test(text);
+</pre>
+<p>
+	There is an alternative syntax you can use for creating a RegExp object:
+</p>
+<pre>
+var text = "He said he would be here on Monday, or Tuesday";
+var pattern = /Monday/;
+var result = pattern.test(text);
+</pre>
+<p>
+You could make your pattern case-insensitive by using the <b>i modifier</b> like this:
+</p>
+<pre>
+var text = "He said he would be here on Monday, or Tuesday";
+var pattern = /monday/i;
+var result = pattern.test(text);
+</pre>
+<h3>String Methods For Working With Regular Expressions</h3>
+<p>
+	The String object also has methods that can be used with a RegExp object, such as <b>replace()</b>, <b>search(),</b> and <b>match()</b>
+</p>
+<pre>
+var pattern = /cats/g;
+var text = "It's raining cats and dogs, and more cats";
+var result = text.replace(pattern, "guinea pigs");
+</pre>
+<pre>
+var text = "He said he would be here on Monday, or Tuesday";
+var pattern = /mon|tues|wed|thurs|fri day/i; //see what happens when you add the 'g modifier'
+var matches = text.match(pattern);
+</pre>
+
+<h3>Capturing Various Matches</h3>
+<p>
+You can use the exec() method of a RegExp object to 'capture' various parts of a string that match the pattern.
+</p>
+<p>
+Here's a very powerful example of the exec() method of the RegExp object.
+We are searching for <b>/books/</b> followed by any number (repeated any number of times), followed by <b>/</b>.
+We can not only capture the the entire match in the text, we can use parenthesis to capture the number(s) that appear in the match.
+This is an extremely powerful feature of regular expressions, and we will be using it when begin to build a web service in this class (we'll by using PHP for that).
+</p>
+<pre>
+var text = "http://www.some-web-service-for-books.com/books/7/edit";               
+var pattern = /books\/([0-9]*)/;
+var matches = pattern.exec(text);
+</pre>
+<h3>Class Activity - Using Regular Expressions In Your Programs</h3>
+<p>You don’t need to know all the details of creating reg. expressions, just know how to use them.</p>
+<br>
+
+<input type="text" id="txtPhone" />
+<button id="btnPhone">Validate a phone number in xxx-xxx-xxxx format</button>
+<br>
+<br>
+<input type="text" id="txtDate" />
+<button id="btnDate">Validate a Date in mm/dd/yyy format</button>
+<br>
+<br>
+<input type="text" id="txtEmail" />
+<button id="btnEmail">Validate email address</button>
+<br>
+<br>
+<input type="text" id="txtPassword" />
+<button id="btnPassword">Validate that a password is strong</button>
+			
+	</body>
+</html>
+
+<script>
+
+var text = "http://www.some-web-service-for-books.com/books/7/edit";               
+var pattern = /books\/([0-9]*)/;
+var matches = pattern.exec(text);
+console.log(matches);
+
+document.getElementById("btnPhone").onclick = function(){
+	var pattern = /[0-9]{3}-[0-9]{3}-[0-9]{4}/;
+	var userInput = document.getElementById("txtPhone").value;
+	console.log(pattern.test(userInput));
+	
+};
+
+document.getElementById("btnDate").onclick = function(){
+	var pattern = /(0\d{1}|1[0-2])\/([0-2]\d{1}|3[0-1])\/(19|20)(\d{2})/;
+	var userInput = document.getElementById("txtDate").value;
+	console.log(pattern.test(userInput));
+};
+
+document.getElementById("btnEmail").onclick = function(){
+	var pattern = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+	var userInput = document.getElementById("txtEmail").value;
+	console.log(pattern.test(userInput));
+};
+
+document.getElementById("btnPassword").onclick = function(){
+	//Password must contain:
+	//one lower case letter
+	//one uppercase letter
+	//one numeric character
+	//one special character
+	//must be 8 characters or longer
+	var strongPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
+	var userInput = document.getElementById("txtPassword").value;
+	console.log(strongPattern.test(userInput));
+};
+
+
+</script>

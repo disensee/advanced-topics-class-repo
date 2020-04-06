@@ -1,0 +1,67 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+        <h1>Setting Up Debugging in PHP (w VS Code)</h1>
+        <p>
+            I used <a href="https://marketplace.visualstudio.com/items?itemName=felixfbecker.php-debug" target="_blank">this</a> page as my guide.
+        </p>
+        <h3>Setting Up XDebug</h3>
+        <ol>
+            <li>Open <a href="php-config.php">this</a> page in our browser</li>
+            <li>Copy the entire contents of the HTML in the page.</li>
+            <li>
+                Go to <a href="https://xdebug.org/wizard.php">this</a> page and paste the clipboard contents into the textarea.
+                Then press the 'analyze' button.
+            </li>
+            <li>
+                Follow the instructions output.
+                <br>Note that the instructions did not tell me to set add these settings to the php.ini as well:
+                <br><b>xdebug.remote_autostart = 1</b>
+                <br><b>xdebug.remote_enable = 1</b>
+            </li>
+        </ol>
+
+        <h3>Install the PHP Debug Plugin into VS Code</h3>
+        <ol>
+            <li>In VS Code, press the 'Extensions' button (it's the icon on the left side that has 4 little boxes, and one of them is slightly separated from the others).</li>
+            <li>The Extensions side bar will appear on the left.</li>
+            <li>In the search box, enter <b>PHP Debug</b>. Go ahead and install it (press the 'Install' button).</li>
+            <li>You may be prompted to restart VS code. If so, then do it.</li>
+            <li>When VS Code restarts, click on File &gt; Preferences &gt; Settings</li>
+            <li>
+                Then click on the little icon in the upper right that will show the code (JSON) for the VSCode settings
+                <br>
+                <img src="images/settings.png" alt="VSCode settings">
+            </li>
+            <li>
+                Add this entry (between the curly braces) to the user settings:
+                <pre>
+"php.validate.executablePath": "C:\\xampp\\php\\php.exe"                    
+                </pre>
+                You may, or may not, have other settings in the JSON code.
+                Note that each line within the curly braces should end with a comma, <b>except for the last one</b>.
+                <br>
+                <img src="images/settings-json.png" alt="VSCode settings in JSON">
+                <br>              
+                Note, I got a warning saying that the settings could not be validated! But I ignored it, and everything worked.
+            </li>
+        </ol>
+
+        <h3>Using the Debugger</h3>
+        <ul>
+            <li>Open the page you want to debug in the browser</li>
+            <li>Open the page in VS Code</li>
+            <li>Press the Debug icon on the left. This will open the Debug window on the left.</li>
+            <li>Set a break point by clicking to the left of a line number.</li>
+            <li>
+                Press the debug button (green arrow) on the top left
+                (you'll want to use the 'Listen for XDebug' run configuration, but that should be selected by default).
+
+            </li>
+            <li>Go back to the browser and refresh the page, it should stop executing at your break point</li>
+            <li>Go back to VS code and use the debugger to step through it.</li>
+        </ul>
+    </body>
+</html>
