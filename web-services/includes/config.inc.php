@@ -24,10 +24,10 @@ if($_SERVER['SERVER_NAME'] == "localhost"){
 	// you may want to set DEBUG_MODE to true when you 
 	// are first setting up your live site, but once you get
 	// everything working you'd want it off.
-	define("DB_HOST", "production db server goes here");
-	define("DB_USER", "production user name goes here");
-	define("DB_PASSWORD", "production password goes here");
-	define("DB_NAME", "production db name goes here");
+	define("DB_HOST", "localhost");
+	define("DB_USER", "dylanise_adv_user");
+	define("DB_PASSWORD", "3Vn7}GDCfIeM");
+	define("DB_NAME", "dylanise_adv_topics");
 	define("SITE_ADMIN_EMAIL", "PUT EMAIL ADDRESS HERE");
 	define("SITE_DOMAIN", $_SERVER['SERVER_NAME']);
 }
