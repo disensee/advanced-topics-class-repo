@@ -2,6 +2,34 @@
 include_once("../includes/config.inc.php");
 include_once("../includes/dataaccess/ContactDataAccess.inc.php");
 
+if(SITE_DOMAIN != "localhost"){
+  //look in the config file to see how the SITE_DOMAIN constant gets set
+  // require https on the live server 
+  if(empty($_SERVER['HTTPS']) || $_SERVER["HTTPS"] != "on"){
+    header('HTTP/1.1 400 Invalid Request HTTPS is required', true, 400);
+    die();
+  }
+}
+
+/*
+// OPTION 1 - EVERY REQUEST MUST INCLUDE A HEADER THAT HAS A PASSWORD OR ACCESS TOKEN 
+$headers = getallheaders(); // gets an assoc array of the request headers
+$passwordSent = $headers['Authentication'] ?? null;
+if($passwordSent != "test123"){
+  header('HTTP/1.0 401 You are not authorized to use this web service');
+  die();
+}
+*/ 
+
+// OPTION 2 - Check a session variable that got set when the user logged in
+// verify that the request is coming from a client that has logged in
+if(isset($_SESSION) && $_SESSION['authenticated'] == "yes"){
+  // ALL GOOD - but we may want to do some further permission checking here
+}else{
+  header('HTTP/1.0 401 You are not authorized to use this web servive');
+  die();
+}
+
 $da = new ContactDataAccess(get_link());
 
 $method = $_SERVER['REQUEST_METHOD'];
