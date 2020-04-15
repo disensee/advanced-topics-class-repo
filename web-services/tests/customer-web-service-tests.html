@@ -10,7 +10,11 @@ window.addEventListener("load", ()=>{
 
 	// DON'T FORGET TO UPDATE THE BASE URL FOR YOUR WEB SERVICE 
 	// (THE LIVE URL MAY BE DIFFERENT THAT THE URL ON DEV)
-	var baseURL = "http://dylanisensee.com/adv-topics/web-services/customers/";
+	var baseURL = "http://localhost/adv-topics/web-services/customers/";  
+
+	if(location.hostname != "localhost"){ 
+        baseURL = "https://dylanisensee.com/adv-topics/web-services/customers/"; 
+	}
 
 	// this will be the default error handler function
 	function errorCallback(statusCode, statusText){
