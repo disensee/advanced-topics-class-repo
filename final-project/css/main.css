@@ -1,11 +1,16 @@
 #form-container{
-    width: 50%;
+    width: 400px;
     float: left;
+    
 }
 
 #list-container{
-    width: 50%;;
-    float:right;
+    width: 400px;
+    float: right;
+}
+
+#list-container li{
+    list-style: none;
 }
 
 label{
