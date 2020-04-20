@@ -69,36 +69,52 @@ namespace.TestModule = function(options){
 		`;
 
 		editContainer.innerHTML = `
-			<div id="form-container">
+			<div id="form-container" class=container-fluid>
+			<h4>Add/Edit Customer</h4>
 				<form id="customer-form">
-					<input type="text" id="txtCustomerId" readonly="true"><br>
-					<label>First Name</label>
-					<input type="text" id="txtFirstName" />
-					<span class = "validation vFirstName"></span>
-					<label>Last Name</label>
-					<input type="text" id="txtLastName"/>
-					<span class = "validation vLastName"></span>
-					<label>Address</label>
-					<input type="text" id="txtAddress"/>
-					<span class = "validation vAddress"></span>
-					<label>City</label>
-					<input type="text" id="txtCity"/>
-					<span class = "validation vCity"></span>
-					<label>State</label>
-					<input type="text" id="txtState"/>
-					<span class = "validation vState"></span>
-					<label>Zip Code</label>
-					<input type="text" id="txtZip"/>
-					<span class = "validation vZip"></span>
-					<label>Email Address</label>
-					<input type="text" id="txtEmail"/>
-					<span class = "validation vEmail"></span>
-					<br>
-					<input type="button" value="Save" id="btnSave">
-					<input type="button" value="Clear" id="btnClear">
-					<input type="button" value="DELETE" id="btnDelete">
-					<br>
-					<input type="button" value = "Get All Customers" id="btnGetAll" />
+						<input type="text" id="txtCustomerId" readonly="true"><br>
+					<div class="form-group">
+						<label for="txtFirstName">First Name</label>
+						<input type="text" class="form-control" id="txtFirstName" placeholder="Enter first name" />
+						<span class = "validation vFirstName"></span>
+					</div>
+					<div class="form-group">
+						<label for="txtLastName">Last Name</label>
+						<input type="text" class="form-control" id="txtLastName" placeholder="Enter last name" />
+						<span class = "validation vLastName"></span>
+					</div>
+					<div class="form-group">
+						<label for="txtAddress">Address</label>
+						<input type="text" class="form-control" id="txtAddress" placeholder="Enter address"/>
+						<span class = "validation vAddress"></span>
+					</div>
+					<div class="form-group">
+						<label for="txtCity">City</label>
+						<input type="text" class="form-control" id="txtCity" placeholder="Enter city"/>
+						<span class = "validation vCity"></span>
+					</div>
+					<div class="form-group">
+						<label for="txtState">State</label>
+						<input type="text" class="form-control" id="txtState" placeholder="Enter state"/>
+						<span class = "validation vState"></span>
+					</div>
+					<div class="form-group">
+						<label for="txtZip">Zip Code</label>
+						<input type="text" class="form-control" id="txtZip" placeholder="Enter zip code"/>
+						<span class = "validation vZip"></span>
+					</div>
+					<div class="form-group">
+						<labe for="txtEmail">Email Address</label>
+						<input type="text" class="form-control" id="txtEmail" placeholder="Enter email address"/>
+						<span class = "validation vEmail"></span>
+					</div>
+					<div class="text-center">
+						<input type="button" class="btn btn-outline-success" value="Save" id="btnSave">
+						<input type="button" class="btn btn-outline-info" value="Clear" id="btnClear">
+						<input type="button" class="btn btn-outline-danger" value="DELETE" id="btnDelete">
+					</div>
+						<br>
+						<!--<input type="button" class="btn btn-outline-primary" value="Get All Customers" id="btnGetAll" />-->
 				</form>
 			</div>
 		`;
@@ -138,10 +154,12 @@ namespace.TestModule = function(options){
 		btnDelete = editContainer.querySelector("#btnDelete");
 		btnDelete.addEventListener("click", deleteCustomer);
 
-		btnGetAll = editContainer.querySelector("#btnGetAll");
-		btnGetAll.addEventListener("click", getAllCustomers);
+		//btnGetAll = editContainer.querySelector("#btnGetAll");
+		//btnGetAll.addEventListener("click", getAllCustomers);
 
 		listContainer.addEventListener("click", getById);
+
+		getAllCustomers();
 	}
 
 	function loginButtonClickHandler(){
@@ -181,7 +199,7 @@ namespace.TestModule = function(options){
 
 		var target = evt.target;
 		if(target.classList.contains("btnEdit")){
-			var selectedId = target.closest("li").getAttribute("customerId");
+			var selectedId = target.closest("tr").getAttribute("customerId");
 		}
 		
 		namespace.ajax.send({
@@ -230,7 +248,12 @@ namespace.TestModule = function(options){
 	}
 
 	function deleteCustomer(){
-		var customer = createCustomerFromForm();
+		if(validateInput()){
+			var customer = createCustomerFromForm();
+		}else{
+			alert("Please select a customer from the list");
+			clearValidationMessages();
+		}
 		if(customer != null){
 			var result = confirm(`Are you sure you want to delete ${customer.firstName} ${customer.lastName}?`);
 			if(result){
@@ -252,18 +275,22 @@ namespace.TestModule = function(options){
 		listContainer.innerHTML = "";
 		
 
-		var html = "";
+		var html = `<h4>All Customers</h4>`;
 		for(var x = 0; x < customers.length; x++){
-			html += `<li customerId="${customers[x].customerId}">
-						${customers[x].firstName} ${customers[x].lastName}
-						<br>
-						<input type="button" class="btnEdit" value="EDIT">
-					</li>`
+			html += `<tr customerId="${customers[x].customerId}">
+						<td>
+							${customers[x].firstName} ${customers[x].lastName}
+						</td>
+						<td>
+							<input type="button" class="btnEdit btn btn-outline-info pull-right" value="EDIT">
+						</td>
+					</tr>`
 		}
-		var ul = document.createElement("ul");
-		ul.innerHTML = html;
-		listContainer.appendChild(ul);
-		return ul;
+		var table = document.createElement("table");
+		table.classList.add("table");
+		table.innerHTML = html;
+		listContainer.appendChild(table);
+		return table;
 	}
 
 	function populateCustomerForm(customer){
@@ -287,6 +314,8 @@ namespace.TestModule = function(options){
 		txtState.value = "";
 		txtZip.value = "";
 		txtEmail.value = "";
+
+		clearValidationMessages();
 	}
 
 	function clearValidationMessages(){
