@@ -11,3 +11,7 @@
 label{
     display: block;
 }
+
+.validation{
+    color: red;
+}

@@ -12,7 +12,8 @@ namespace.TestModule = function(options){
 	var successfulLoginCallback = options.successfulLoginCallback || null;
 	var unsuccessfulLoginCallback = options.unsuccessfulLoginCallback || defaultErrorCallback;
 	
-	var customers;
+	//var customers;
+	
 	var txtPassword;
 	var txtFirstName;
 	var txtLastName;
@@ -21,6 +22,15 @@ namespace.TestModule = function(options){
 	var txtState;
 	var txtZip;
 	var txtEmail;
+	
+	var vFirstName;
+	var vLastName;
+	var vAddress;
+	var vCity;
+	var vState;
+	var vZip;
+	var vEmail;
+
 	var btnLogin;
 	var btnTestWebService;
 	var btnSave;
@@ -64,18 +74,25 @@ namespace.TestModule = function(options){
 					<input type="text" id="txtCustomerId" readonly="true"><br>
 					<label>First Name</label>
 					<input type="text" id="txtFirstName" />
+					<span class = "validation vFirstName"></span>
 					<label>Last Name</label>
 					<input type="text" id="txtLastName"/>
+					<span class = "validation vLastName"></span>
 					<label>Address</label>
 					<input type="text" id="txtAddress"/>
+					<span class = "validation vAddress"></span>
 					<label>City</label>
 					<input type="text" id="txtCity"/>
+					<span class = "validation vCity"></span>
 					<label>State</label>
 					<input type="text" id="txtState"/>
+					<span class = "validation vState"></span>
 					<label>Zip Code</label>
 					<input type="text" id="txtZip"/>
+					<span class = "validation vZip"></span>
 					<label>Email Address</label>
 					<input type="text" id="txtEmail"/>
+					<span class = "validation vEmail"></span>
 					<br>
 					<input type="button" value="Save" id="btnSave">
 					<input type="button" value="Clear" id="btnClear">
@@ -98,6 +115,13 @@ namespace.TestModule = function(options){
 		txtZip = editContainer.querySelector("#txtZip");
 		txtEmail = editContainer.querySelector("#txtEmail");
 
+		vFirstName = editContainer.querySelector(".vFirstName");
+		vLastName = editContainer.querySelector(".vLastName");
+		vAddress = editContainer.querySelector(".vAddress");
+		vCity = editContainer.querySelector(".vCity");
+		vState = editContainer.querySelector(".vState");
+		vZip = editContainer.querySelector(".vZip");
+		vEmail = editContainer.querySelector(".vEmail");
 
 		btnLogin = loginContainer.querySelector(".btnLogin");
 		btnLogin.addEventListener("click", loginButtonClickHandler);
@@ -172,7 +196,11 @@ namespace.TestModule = function(options){
 	}
 
 	function saveCustomer(){
-		var customerToSave = createCustomerFromForm();
+		if(validateInput()){
+			var customerToSave = createCustomerFromForm();
+		}else{
+			return false;
+		}
 		if (customerToSave.customerId == 0){
 			namespace.ajax.send({
 				url: webServiceURL,
@@ -204,7 +232,7 @@ namespace.TestModule = function(options){
 	function deleteCustomer(){
 		var customer = createCustomerFromForm();
 		if(customer != null){
-			var result = confirm(`Are you sure we want to delete ${customer.firstName} ${customer.lastName}?`);
+			var result = confirm(`Are you sure you want to delete ${customer.firstName} ${customer.lastName}?`);
 			if(result){
 				namespace.ajax.send({
 					url: webServiceURL + customer.customerId,
@@ -261,6 +289,16 @@ namespace.TestModule = function(options){
 		txtEmail.value = "";
 	}
 
+	function clearValidationMessages(){
+		vFirstName.innerHTML = "";
+		vLastName.innerHTML = "";
+		vAddress.innerHTML = "";
+		vCity.innerHTML = "";
+		vState.innerHTML = "";
+		vZip.innerHTML = "";
+		vEmail.innerHTML = "";
+	}
+
 	function createCustomerFromForm(){
 		if(txtCustomerId.value != 0){
 			var updateCustomer = {
@@ -287,7 +325,9 @@ namespace.TestModule = function(options){
 				email: txtEmail.value
 			};
 
+			clearValidationMessages();
 			return addCustomer;
+			
 		}
 	}
 
@@ -296,20 +336,74 @@ namespace.TestModule = function(options){
 		console.log(status, msg);
 	}
 
+	function validateZip(zip){
+		var regExp = /^\d{5}$/;
+		return regExp.test(zip);
+	}
+
+	function validateEmail(email){
+        var regExp = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        return regExp.test(email);
+	}
+
 	function validateInput(){
 		var isValid = true;
+
+		if(!validateEmail(txtEmail.value)){
+			isValid = false;
+			txtEmail.focus();
+			vEmail.innerHTML = "Please enter a valid email address.";
+		}
 
 		if(txtEmail.value == ""){
 			isValid = false;
 			txtEmail.focus();
+			vEmail.innerHTML = "Please enter an email address.";
 		}
 
-		if(txtZip.value == "" || txtEmail.value.length < 5){
+		if(!validateZip(txtZip.value)){
 			isValid = false;
 			txtZip.focus();
+			vZip.innerHTML = "Please enter a valid zip code.";
 		}
 
-		//TODO: Finish client side validation
+		if(txtZip.value == ""){
+			isValid = false;
+			txtZip.focus();
+			vZip.innerHTML = "Please enter a zip code.";
+		}
+
+		if(txtState.value == ""){
+			isValid = false;
+			txtState.focus();
+			vState.innerHTML = "Please enter a state name."
+		}
+
+		if(txtCity.value == ""){
+			isValid = false;
+			txtCity.focus();
+			vCity.innerHTML = "Please enter a city."
+		}
+
+		if(txtAddress.value == ""){
+			isValid = false;
+			txtAddress.focus();
+			vAddress.innerHTML = "Please enter an address.";
+		}
+
+		if(txtLastName.value == ""){
+			isValid = false;
+			txtLastName.focus();
+			vLastName.innerHTML = "Please enter a last name."
+		}
+
+		if(txtFirstName.value == ""){
+			isValid = false;
+			txtFirstName.focus();
+			vFirstName.innerHTML = "Please enter a first name.";
+		}
+
+		return isValid;
 	}
 
 	////////////////////////////////////

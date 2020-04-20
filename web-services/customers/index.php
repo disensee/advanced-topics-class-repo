@@ -54,10 +54,11 @@ switch($method){
     if(empty($url_path)){
       $requestBody = file_get_contents("php://input");
       $assoc = json_decode($requestBody, TRUE);
-      $customer = new customer($assoc);
+      $customer = new Customer($assoc);
       
       if($customer->isValid() == false){
         header('HTTP/1.1 400 - INVALID REQUEST - INVALID customer DATA', true, 400);
+        die();
       }
       
       $customer = $da->insert($customer);
@@ -83,6 +84,7 @@ switch($method){
       
       if($customer->isValid() == false){
         header('HTTP/1.1 400 - INVALID REQUEST - INVALID customer DATA', true, 400);
+        die();
       }
 
       $customer = $da->update($customer);
