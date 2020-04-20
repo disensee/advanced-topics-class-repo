@@ -1,8 +1,10 @@
 window.addEventListener("load", function(){
 	
 	var tm = namespace.TestModule({
-		//webServiceURL: "the url to your contacts web service",
-		container: document.getElementById("test-container"),
+		webServiceURL: "//localhost/adv-topics/web-services/customers/",
+		loginContainer: document.getElementById("test-container"),
+		listContainer: document.getElementById("list-container"),
+		editContainer: document.getElementById("edit-container"),
 		successfulLoginCallback: function(param){
 			alert(param);
 			tm.setButtonLabel("YOU HAVE LOGGED IN");
