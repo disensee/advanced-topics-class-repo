@@ -308,19 +308,19 @@ namespace.CustomerModule = function(options){
 	}
 
 	function createCustomerFromForm(){
-			var updateCustomer = {
-				customerId: txtCustomerId.value || 0,
-				firstName: txtFirstName.value,
-				lastName: txtLastName.value,
-				address: txtAddress.value,
-				city: txtCity.value,
-				state: txtState.value,
-				zip: txtZip.value,
-				email: txtEmail.value
-			};
+		var updateCustomer = {
+			customerId: txtCustomerId.value || 0,
+			firstName: txtFirstName.value,
+			lastName: txtLastName.value,
+			address: txtAddress.value,
+			city: txtCity.value,
+			state: txtState.value,
+			zip: txtZip.value,
+			email: txtEmail.value
+		};
 
-			clearValidationMessages();
-			return updateCustomer;
+		clearValidationMessages();
+		return updateCustomer;
 	}
 
 	function defaultErrorCallback(status, msg){

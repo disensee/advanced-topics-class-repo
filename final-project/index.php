@@ -1,6 +1,6 @@
 <?php
 
-$secretPassword = "test123";
+$secretPassword = "advTopicsFinal321";
 $request_method = $_SERVER['REQUEST_METHOD'];
 
 if($request_method == "POST"){
