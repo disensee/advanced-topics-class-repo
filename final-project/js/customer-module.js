@@ -232,6 +232,7 @@ namespace.CustomerModule = function(options){
 		}else{
 			alert("Please select a customer from the list");
 			clearValidationMessages();
+			return false;
 		}
 		if(customer.customerId != null){
 			var result = confirm(`Are you sure you want to delete ${customer.firstName} ${customer.lastName}?`);
