@@ -23,3 +23,19 @@ label{
 .card{
     border: none;
 }
+
+#header{
+    height: 75px;
+    padding: 10px;
+    display: inline-block;
+}
+
+#footer{
+    height: 35px;
+}
+
+.loginContainer{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
