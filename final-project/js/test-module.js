@@ -68,7 +68,8 @@ namespace.TestModule = function(options){
 			<br>To logout, visit the <a href="login.php">login page</a> and then return to this page without logging in. 
 		`;
 
-		editContainer.innerHTML = `
+		
+		var editContainerTemplate = `
 			<div id="form-container" class=container-fluid>
 			<h4>Add/Edit Customer</h4>
 				<form id="customer-form">
@@ -118,9 +119,9 @@ namespace.TestModule = function(options){
 				</form>
 			</div>
 		`;
-			
 		
-
+		editContainer.innerHTML = editContainerTemplate;
+		
 		txtPassword = loginContainer.querySelector(".txtPassword");
 		txtCustomerId = editContainer.querySelector("#txtCustomerId");
 		txtFirstName = editContainer.querySelector("#txtFirstName");
@@ -329,7 +330,7 @@ namespace.TestModule = function(options){
 	}
 
 	function createCustomerFromForm(){
-		if(txtCustomerId.value != 0){
+		if(txtCustomerId.value > 0){
 			var updateCustomer = {
 				customerId: txtCustomerId.value,
 				firstName: txtFirstName.value,
@@ -355,8 +356,7 @@ namespace.TestModule = function(options){
 			};
 
 			clearValidationMessages();
-			return addCustomer;
-			
+			return addCustomer;	
 		}
 	}
 
