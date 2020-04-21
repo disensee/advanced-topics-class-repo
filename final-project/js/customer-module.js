@@ -78,7 +78,7 @@ namespace.CustomerModule = function(options){
 				<div id="form-container" class=container-fluid>
 				<h4>Add/Edit Customer</h4>
 					<form id="customer-form">
-							<input type="text" id="txtCustomerId" readonly="true"><br>
+							<input type="hidden" id="txtCustomerId" readonly="true"><br>
 						<div class="form-group">
 							<label for="txtFirstName">First Name</label>
 							<input type="text" class="form-control" id="txtFirstName" placeholder="Enter first name" />
@@ -339,6 +339,7 @@ namespace.CustomerModule = function(options){
 	}
 
 	function validateInput(){
+		clearValidationMessages();
 		var isValid = true;
 
 		if(!validateEmail(txtEmail.value)){
