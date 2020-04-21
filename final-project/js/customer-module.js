@@ -338,6 +338,11 @@ namespace.CustomerModule = function(options){
         return regExp.test(email);
 	}
 
+	function validateState(state){
+		var regExp=/^[a-zA-Z]+$/;
+		return regExp.test(state);
+	}
+
 	function validateInput(){
 		clearValidationMessages();
 		var isValid = true;
@@ -364,6 +369,12 @@ namespace.CustomerModule = function(options){
 			isValid = false;
 			txtZip.focus();
 			vZip.innerHTML = "Please enter a zip code.";
+		}
+
+		if(!validateState(txtState.value)){
+			isValid = false;
+			txtState.focus();
+			vState.innerHTML="Please enter a valid state name.";
 		}
 
 		if(txtState.value == ""){
