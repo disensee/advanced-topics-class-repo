@@ -110,7 +110,7 @@ namespace.CustomerModule = function(options){
 							<span class = "validation vZip"></span>
 						</div>
 						<div class="form-group">
-							<labe for="txtEmail">Email Address</label>
+							<label for="txtEmail">Email Address</label>
 							<input type="text" class="form-control" id="txtEmail" placeholder="Enter email address"/>
 							<span class = "validation vEmail"></span>
 						</div>

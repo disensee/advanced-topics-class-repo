@@ -10,14 +10,10 @@
     height: 75px;
     padding: 10px;
     display: inline-block;
+    border-radius: 5px;
 }
 
 #footer{
     height: 35px;
-}
-
-.loginContainer{
-    display:flex;
-    justify-content: center;
-    align-items: center;
+    border-radius: 5px;
 }
